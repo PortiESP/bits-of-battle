@@ -8,6 +8,7 @@ const CONST = {
     TEAM_2_COLOR: "#AAD1D980",
     CANVAS_WINDOW_RATIO: 0.9,
     CANVAS_ASPECT_RATIO: 0.4,
+    FLAG_ZONE_COLOR: "#fff2",
 }
 
 export default CONST

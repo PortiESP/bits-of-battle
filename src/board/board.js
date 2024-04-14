@@ -1,4 +1,5 @@
-import CONST from "./constants.js"
+import CONST from "../data/constants.js"
+import drawFlagZones from "./flag-zone.js"
 
 // Get the canvas and context from the window object
 const $canvas = window.$canvas
@@ -44,4 +45,10 @@ export function drawBoard() {
     // Draw team 2 Base
     ctx.strokeStyle = team2Base.color
     ctx.strokeRect(team2Base.x, team2Base.y, team2Base.width, team2Base.height)
+
+    // Reset line dash
+    ctx.setLineDash([])
+
+    // Draw the flag zones
+    drawFlagZones()
 }

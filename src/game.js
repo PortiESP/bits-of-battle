@@ -1,5 +1,5 @@
-import { drawBoard } from "./board.js"
-import CONST from "./constants.js"
+import { drawBoard } from "./board/board.js"
+import CONST from "./data/constants.js"
 
 class Game {
     constructor($canvas) {

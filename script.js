@@ -1,5 +1,5 @@
 import Game from "./src/game.js"
-import setupEvents from "./src/events.js"
+import setupEvents from "./src/utils/events.js"
 
 // ==========[ Create the game ]====================================================>
 const game = new Game(window.$canvas)
