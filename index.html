@@ -3,11 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BOB</title>
+    <title>BOB - Bits Of Battle</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Bits Of Battle</h1>
-    <canvas id="board"></canvas>
+    <header>
+        <h1>Bits Of Battle</h1>
+    </header>
+    <main>
+        <aside id="p1-control" class="player-control">
+            <h2>Player 1</h2>
+        </aside>
+        <section id="game">
+            <canvas id="screen"></canvas>
+            <div id="controls">
+                <button id="start">Start</button>
+                <button id="pause">Pause</button>
+                <button id="reset">Reset</button>
+            </div>
+        </section>
+        <aside id="p2-control" class="player-control">
+            <h2>Player 2</h2>
+        </aside>
+    </main>
+    <footer>
+        <p>Created for LaHackathonDelDev</p>
+    </footer>
     <script src="script.js" type="module"></script>
 </body>
 </html>
