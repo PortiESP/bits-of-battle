@@ -113,8 +113,8 @@ export default class Player {
         if (this.detection_range_players.length > 0) {
             const closest_player = this.detection_range_players.reduce((prev, curr) => (Math.hypot(this.x - prev.x, this.y - prev.y) < Math.hypot(this.x - curr.x, this.y - curr.y) ? prev : curr))
             const angle = Math.atan2(closest_player.y - this.y, closest_player.x - this.x)
-            this.dx += Math.cos(angle) * 0.05
-            this.dy += Math.sin(angle) * 0.05
+            this.dx += Math.cos(angle) * CONST.PLAYER_DRAG_FORCE
+            this.dy += Math.sin(angle) * CONST.PLAYER_DRAG_FORCE
         }
     }
 
@@ -125,9 +125,10 @@ export default class Player {
             const s1 = this.size
             const s2 = player.size
 
-            const damageTaken = Math.floor(Math.max(0, s2) * (0.1 * Math.random()))
+            const randomDamageMultiplier = () => CONST.PLAYER_DAMAGE_FORCE * Math.floor(CONST.PLAYER_DAMAGE_CHANCE + Math.random())
+            const damageTaken = Math.max(0, s2) * randomDamageMultiplier()
             this.size -= damageTaken
-            const damage = Math.floor(Math.max(0, this.size) * (0.1 * Math.random()))
+            const damage = Math.max(0, s1) * randomDamageMultiplier()
             player.size -= damage
         }
     }

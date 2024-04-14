@@ -18,6 +18,9 @@ const CONST = {
     // Player
     BASE_PLAYER_SIZE: 20,
     BASE_SPEED_PLAYER: 2,
+    PLAYER_DRAG_FORCE: 0.05,
+    PLAYER_DAMAGE_FORCE: 0.05,
+    PLAYER_DAMAGE_CHANCE: 0.1
 }
 
 export default CONST
