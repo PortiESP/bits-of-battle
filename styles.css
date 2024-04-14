@@ -1,8 +1,8 @@
 :root {
-    --main-color: #9CB8CC;
-    --main-bg-color: #FAF7F5;
-    --red: #FD665C;
-    --blue: #AAD1D9;
+    --main-color: #9cb8cc;
+    --main-bg-color: #faf7f5;
+    --red: #fd665c;
+    --blue: #aad1d9;
     --secondary-color: #111;
     --white: #eee;
 }
@@ -47,6 +47,7 @@ main {
 
     section#game {
         display: flex;
+        flex-grow: 1;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
