@@ -9,14 +9,15 @@ export default class Player {
         this.size = sizei
         this.team = colori
 
-        this.dx = 1
-        this.dy = 1
+        this.dx = CONST.BASE_SPEED_PLAYER
+        this.dy = CONST.BASE_SPEED_PLAYER
 
         this.attack_range = CONST.BASE_RADIUS_ATTACK
         this.damage_range = CONST.BASE_RADIUS_DAMAGE
         this.detection_range = CONST.BASE_RADIUS_DETECTION
 
-        this.players_detected = []
+        this.detection_range_players = []
+        this.attack_range_players = []
     }
 
     draw() {
@@ -26,7 +27,7 @@ export default class Player {
             ctx.strokeStyle = "#00000080"
 
             // Draw the detection range
-            ctx.fillStyle = this.players_detected.length > 0 ? "#DADF3180" : "#DADF3110"
+            ctx.fillStyle = this.detection_range_players.length > 0 ? "#DADF3180" : "#DADF3110"
             ctx.beginPath()
             ctx.arc(this.x, this.y, this.detection_range, 0, Math.PI * 2)
             ctx.stroke()
@@ -55,6 +56,18 @@ export default class Player {
     }
 
     update() {
+        // Check if player is dead
+        if (this.isDead()) this.kill()
+
+        // Detect other players
+        this.checkRanges()
+
+        // Take damage
+        this.fight()
+
+        // Move the player towards the closest player
+        this.moveTowardsClosestPlayer()
+
         // Check if the player is inside the canvas
         const [isX, isY] = this.isInsideCanvas()
         if (!isX) this.dx *= -1
@@ -63,9 +76,6 @@ export default class Player {
         // Move the player
         this.x += this.dx
         this.y += this.dy
-
-        // Detect other players
-        this.players_detected = window.players.filter((player) => player !== this && player.isInsideDetectionRange(this.x, this.y, this.size))
     }
 
     // Check if the player is inside the canvas
@@ -77,5 +87,58 @@ export default class Player {
     // Check if the player is inside the detection range
     isInsideDetectionRange(x, y, size) {
         return Math.hypot(this.x - x, this.y - y) < this.detection_range + size
+    }
+
+    // Check players within any range
+    checkRanges() {
+        const auxDetectionRange = []
+        const auxAttackRange = []
+
+        for (const player of window.players) {
+            if (player === this) continue
+            const distance = Math.hypot(this.x - player.x, this.y - player.y)
+
+            if (distance < this.attack_range + player.size) {
+                auxAttackRange.push(player)
+                auxDetectionRange.push(player)
+            } else if (distance < this.detection_range + player.size) auxDetectionRange.push(player)
+        }
+
+        this.detection_range_players = auxDetectionRange
+        this.attack_range_players = auxAttackRange
+    }
+
+    // Moves the player to the closest player
+    moveTowardsClosestPlayer() {
+        if (this.detection_range_players.length > 0) {
+            const closest_player = this.detection_range_players.reduce((prev, curr) => (Math.hypot(this.x - prev.x, this.y - prev.y) < Math.hypot(this.x - curr.x, this.y - curr.y) ? prev : curr))
+            const angle = Math.atan2(closest_player.y - this.y, closest_player.x - this.x)
+            this.dx += Math.cos(angle) * 0.05
+            this.dy += Math.sin(angle) * 0.05
+        }
+    }
+
+    // Take damage
+    fight() {
+        for (const player of this.attack_range_players) {
+            // Calculate the damage
+            const s1 = this.size
+            const s2 = player.size
+
+            const damageTaken = Math.floor(Math.max(0, s2) * (0.1 * Math.random()))
+            this.size -= damageTaken
+            const damage = Math.floor(Math.max(0, this.size) * (0.1 * Math.random()))
+            player.size -= damage
+        }
+    }
+
+    // Check if the player is dead
+    isDead() {
+        return this.size <= 1
+    }
+
+    // Remove the player from the game
+    kill() {
+        window.players = window.players.filter((player) => player !== this)
     }
 }
