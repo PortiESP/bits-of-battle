@@ -7,9 +7,16 @@
  *
  */
 
+// ====================[ Constants ]====================>
+window.DEBUG = true
+
 // ====================[ Global variables ]====================>
 window.$canvas = document.getElementById("screen")
 window.ctx = $canvas.getContext("2d")
+window.mouse = { x: 0, y: 0 }
+window.players = []
+const { x, y } = $canvas.getBoundingClientRect() // Get the offset of the canvas
+window.canvasOffset = { x, y }
 
 // ====================[ Functions ]====================>
 // Get the dimensions of the canvas

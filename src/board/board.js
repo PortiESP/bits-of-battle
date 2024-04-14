@@ -19,7 +19,7 @@ export function drawBoard() {
     const baseCenterY = $canvas.height / 2 - baseHeight / 2
 
     const team1Base = {
-        color: CONST.TEAM_1_COLOR,
+        color: CONST.TEAM_1_COLOR + "88", // 88 is the alpha value
         x: -3,
         y: baseCenterY,
         width: baseWidth,
@@ -27,7 +27,7 @@ export function drawBoard() {
     }
 
     const team2Base = {
-        color: CONST.TEAM_2_COLOR,
+        color: CONST.TEAM_2_COLOR + "88",
         x: $canvas.width - baseWidth + 3,
         y: baseCenterY,
         width: baseWidth,
