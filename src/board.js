@@ -1,31 +1,47 @@
 import CONST from "./constants.js"
-import { ctx, $canvas } from "./data.js"
 
+// Get the canvas and context from the window object
+const $canvas = window.$canvas
+const ctx = window.ctx
+
+/**
+ * Draws the base graphics of the game
+ */
 export function drawBoard() {
+    // Draw background
     ctx.fillStyle = CONST.BOARD_COLOR
     ctx.fillRect(0, 0, $canvas.width, $canvas.height)
 
+    // Setup base dimensions
+    const baseWidth = $canvas.width / 12
+    const baseHeight = ($canvas.height * 2) / 3
+    const baseCenterY = $canvas.height / 2 - baseHeight / 2
+
     const team1Base = {
         color: CONST.TEAM_1_COLOR,
-        x: 0,
-        y: ($canvas.height * 1) / 6,
-        width: ($canvas.width * 2) / 12,
-        height: ($canvas.height * 4) / 6,
+        x: -3,
+        y: baseCenterY,
+        width: baseWidth,
+        height: baseHeight,
     }
 
     const team2Base = {
         color: CONST.TEAM_2_COLOR,
-        x: ($canvas.width * 10) / 12,
-        y: ($canvas.height * 1) / 6,
-        width: ($canvas.width * 2) / 12,
-        height: ($canvas.height * 4) / 6,
+        x: $canvas.width - baseWidth + 3,
+        y: baseCenterY,
+        width: baseWidth,
+        height: baseHeight,
     }
 
+    // Setup dashed line
+    ctx.setLineDash([10, 10])
+    ctx.lineWidth = 5
+
     // Draw team 1 Base
-    ctx.fillStyle = team1Base.color
-    ctx.fillRect(team1Base.x, team1Base.y, team1Base.width, team1Base.height)
+    ctx.strokeStyle = team1Base.color
+    ctx.strokeRect(team1Base.x, team1Base.y, team1Base.width, team1Base.height)
 
     // Draw team 2 Base
-    ctx.fillStyle = team2Base.color
-    ctx.fillRect(team2Base.x, team2Base.y, team2Base.width, team2Base.height)
+    ctx.strokeStyle = team2Base.color
+    ctx.strokeRect(team2Base.x, team2Base.y, team2Base.width, team2Base.height)
 }

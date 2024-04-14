@@ -1,4 +1,5 @@
 import { drawBoard } from "./board.js"
+import CONST from "./constants.js"
 
 class Game {
     constructor($canvas) {
@@ -11,24 +12,11 @@ class Game {
         drawBoard()
     }
 
-    start() {
-        // TODO: Implement this method
-        console.log("Game Started")
-    }
-
-    pause() {
-        // TODO: Implement this method
-        console.log("Game Paused")
-    }
-
-    reset() {
-        // TODO: Implement this method
-        console.log("Game Reset")
-    }
-
     resizeCanvas() {
-        this.$canvas.width = window.innerWidth * 0.75
-        this.$canvas.heigth = window.innerHeight * 0.75
+        this.$canvas.width = window.innerWidth * CONST.CANVAS_WINDOW_RATIO
+        this.$canvas.height = window.innerWidth * CONST.CANVAS_WINDOW_RATIO * CONST.CANVAS_ASPECT_RATIO
+
+        drawBoard()
     }
 }
 

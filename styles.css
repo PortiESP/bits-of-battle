@@ -1,98 +1,18 @@
-:root {
-    --main-color: #9cb8cc;
-    --main-bg-color: #faf7f5;
-    --red: #fd665c;
-    --blue: #aad1d9;
-    --secondary-color: #111;
-    --white: #eee;
-}
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    scrollbar-width: none;
 }
 
-body {
-    font-family: "Courier New", Courier, monospace;
-    background-color: #ededed;
-}
-
-header {
-    padding: 10px 0;
-    min-height: 64px;
-    background-color: var(--main-color);
-    color: var(--white);
-    text-align: center;
-}
-
-main {
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    height: 90vh;
-    gap: 15px;
-
-    aside {
-        padding-top: 10px;
-        width: 200px;
-        height: 100%;
-        background-color: var(--secondary-color);
-        color: var(--white);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    section#game {
-        display: flex;
-        flex-grow: 1;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 10px;
-        background-color: #111;
-        border: 1px solid black;
-        padding: 10px;
-        position: relative;
-
-        div#controls {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 18px;
-
-            button {
-                width: 100px;
-                height: 50px;
-                background-color: var(--main-color);
-                color: var(--white);
-                border: none;
-                border-radius: 25px;
-                font-size: 1.5rem;
-                cursor: pointer;
-                transition: background-color 0.3s;
-
-                &:hover {
-                    background-color: var(--red);
-                }
-            }
-        }
-    }
-}
-
-footer {
-    margin-top: 50px;
-    width: 100%;
-    height: 50px;
-    padding: 10px 0;
+#wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--main-color);
-    color: var(--white);
-    text-align: center;
+    min-width: 100vw;
+    min-height: 100vh;
+    background-color: #888;
+}
+
+canvas {
+    box-shadow: 0 0 100px 10px rgba(0, 0, 0, 0.5);
 }
