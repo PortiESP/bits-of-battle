@@ -4,13 +4,36 @@
     box-sizing: border-box;
 }
 
-#wrapper {
+#root {
     display: flex;
     justify-content: center;
     align-items: center;
     min-width: 100vw;
     min-height: 100vh;
     background-color: #888;
+}
+
+.app {
+    display: grid;
+    grid-template-rows: auto auto auto; /* Define three rows */
+    grid-template-columns: auto auto auto auto auto; /* Define five columns */
+    gap: 5px; /* Add some gap between grid items */
+}
+
+.header {
+    grid-column: 1 / span 5; /* Span across all five columns */
+    color: #FFF;
+    font-family: 'Courier New', Courier, monospace;
+    margin: auto;
+}
+
+.game {
+    grid-column: 2 / span 3; /* Span across three columns starting from the second column */
+}
+
+.aside {
+    padding: 0 2em;
+    background-color: #FFF;
 }
 
 canvas {
