@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>BOB - Bits Of Battle</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+
+    <body>
+        <div id="root"></div>
+        <script>
+            window.addEventListener("DOMContentLoaded", (event) => {
+                {
+                    let script = document.createElement("script");
+                    script.src = "js/data/data.js";
+                    script.type = "module";
+                    document.body.appendChild(script);
+                }
+
+                {
+                    let script = document.createElement("script");
+                    script.src = "js/script.js";
+                    script.type = "module";
+                    document.body.appendChild(script);
+                }
+            });
+        </script>
+    </body>
+</html>

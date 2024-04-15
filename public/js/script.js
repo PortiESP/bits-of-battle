@@ -1,8 +1,8 @@
-import Game from "./src/game.js"
-import setupEvents from "./src/utils/events.js"
+import Game from "./game.js"
+import setupEvents from "./utils/events.js"
 
 // ==========[ Create the game ]====================================================>
 window.game = new Game(window.$canvas)
 
 // ==========[ Event Listeners ]================================================>
-setupEvents(game)
+setupEvents(window.game)

@@ -12,7 +12,10 @@ window.DEBUG = true
 
 // ====================[ Global variables ]====================>
 window.$canvas = document.getElementById("screen")
+const $canvas = window.$canvas;
+
 window.ctx = $canvas.getContext("2d")
+
 window.mouse = { x: 0, y: 0 }
 window.players = []
 const { x, y } = $canvas.getBoundingClientRect() // Get the offset of the canvas
