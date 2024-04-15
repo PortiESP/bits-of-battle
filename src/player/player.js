@@ -13,7 +13,6 @@ export default class Player {
         this.dy = CONST.BASE_SPEED_PLAYER
 
         this.attack_range = CONST.BASE_RADIUS_ATTACK
-        this.damage_range = CONST.BASE_RADIUS_DAMAGE
         this.detection_range = CONST.BASE_RADIUS_DETECTION
 
         this.detection_range_players = []
@@ -31,19 +30,12 @@ export default class Player {
             ctx.beginPath()
             ctx.arc(this.x, this.y, this.detection_range, 0, Math.PI * 2)
             ctx.stroke()
-
-            // Draw the attack and damage range
             ctx.fill()
+
+            // Draw the attack  range
             ctx.fillStyle = "#C731DF33"
             ctx.beginPath()
             ctx.arc(this.x, this.y, this.attack_range, 0, Math.PI * 2)
-            ctx.stroke()
-            ctx.fill()
-
-            // Draw the damage range
-            ctx.fillStyle = "#DF313380"
-            ctx.beginPath()
-            ctx.arc(this.x, this.y, this.damage_range, 0, Math.PI * 2)
             ctx.stroke()
             ctx.fill()
         }
@@ -125,7 +117,7 @@ export default class Player {
             const s1 = this.size
             const s2 = player.size
 
-            const randomDamageMultiplier = () => CONST.PLAYER_DAMAGE_FORCE * Math.floor(CONST.PLAYER_DAMAGE_CHANCE + Math.random())
+            const randomDamageMultiplier = () => CONST.PLAYER_ATTACK_MULTIPLIER * Math.floor(CONST.PLAYER_ATTACK_CHANCE + Math.random())
             const damageTaken = Math.max(0, s2) * randomDamageMultiplier()
             this.size -= damageTaken
             const damage = Math.max(0, s1) * randomDamageMultiplier()
