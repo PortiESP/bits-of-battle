@@ -20,13 +20,14 @@ export default class Player {
         this.attack_range_players = []
 
         this.particles = []
+        this.divider = this.size > 10 ? 2 : 1
         const randomData = {
             minX: this.x - this.attack_range,
             minY: this.y - this.attack_range,
             maxX: this.x + this.attack_range,
             maxY: this.y + this.attack_range
         }
-        for (let i = 0; i < this.size / 2; i++) {
+        for (let i = 0; i < this.size / this.divider; i++) {
             this.particles.push({
                 x: Math.floor(Math.random() * (randomData.maxX - randomData.minX) + randomData.minX),
                 y: Math.floor(Math.random() * (randomData.maxY - randomData.minY) + randomData.minY)
@@ -55,11 +56,11 @@ export default class Player {
             ctx.fill()
         }
 
+        // Draw the player's particles
         for (const particle of this.particles) {
             ctx.fillStyle = this.team
-            ctx.strokeStyle = "black"
             ctx.beginPath()
-            ctx.arc(particle.x, particle.y, this.size / 2, 0, Math.PI * 2)
+            ctx.arc(particle.x, particle.y, this.size / this.divider, 0, Math.PI * 2)
             ctx.fill()
         }
     }
@@ -146,12 +147,17 @@ export default class Player {
     }
 
     updateParticles() {
+        this.divider = this.size > 10 ? 2 : 1
+
         const centerX = this.x
         const centerY = this.y
 
-        const particleNumber = this.size / 2
+        const particleNumber = this.size / this.divider
+
         for (let i = 0; i < particleNumber; i++) {
             const currentParticle = this.particles[i]
+
+            if (!currentParticle) continue
 
             // Calculate the angle and distance from the center
             let angle = Math.atan2(currentParticle.y - centerY, currentParticle.x - centerX)
