@@ -9,14 +9,29 @@ export default class Player {
         this.size = sizei
         this.team = colori
 
+        
         this.dx = CONST.BASE_SPEED_PLAYER
         this.dy = CONST.BASE_SPEED_PLAYER
-
+        
         this.attack_range = CONST.BASE_RADIUS_ATTACK
         this.detection_range = CONST.BASE_RADIUS_DETECTION
-
+        
         this.detection_range_players = []
         this.attack_range_players = []
+
+        this.particles = []
+        const randomData = {
+            minX: this.x - this.attack_range,
+            minY: this.y - this.attack_range,
+            maxX: this.x + this.attack_range,
+            maxY: this.y + this.attack_range
+        }
+        for (let i = 0; i < this.size / 2; i++) {
+            this.particles.push({
+                x: Math.floor(Math.random() * (randomData.maxX - randomData.minX) + randomData.minX),
+                y: Math.floor(Math.random() * (randomData.maxY - randomData.minY) + randomData.minY)
+            })
+        }
     }
 
     draw() {
@@ -40,11 +55,13 @@ export default class Player {
             ctx.fill()
         }
 
-        ctx.fillStyle = this.team
-        ctx.strokeStyle = "black"
-        ctx.beginPath()
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
-        ctx.fill()
+        for (const particle of this.particles) {
+            ctx.fillStyle = this.team
+            ctx.strokeStyle = "black"
+            ctx.beginPath()
+            ctx.arc(particle.x, particle.y, this.size / 2, 0, Math.PI * 2)
+            ctx.fill()
+        }
     }
 
     update() {
@@ -68,6 +85,9 @@ export default class Player {
         // Move the player
         this.x += this.dx
         this.y += this.dy
+
+        // Update the particles
+        this.updateParticles()
     }
 
     // Check if the player is inside the canvas
@@ -123,6 +143,37 @@ export default class Player {
             const damage = Math.max(0, s1) * randomDamageMultiplier()
             player.size -= damage
         }
+    }
+
+    updateParticles() {
+        const centerX = this.x
+        const centerY = this.y
+
+        const particleNumber = this.size / 2
+        for (let i = 0; i < particleNumber; i++) {
+            const currentParticle = this.particles[i]
+
+            // Calculate the angle and distance from the center
+            let angle = Math.atan2(currentParticle.y - centerY, currentParticle.x - centerX)
+            const distance = Math.hypot(currentParticle.x - centerX, currentParticle.y - centerY)
+
+            // Increase the angle to move the particle along the orbit
+            if (window.RANDOM_PATTERN) angle += Math.floor(Math.random() * 2)
+            else angle += CONST.PLAYER_ORBIT_SPEED
+
+            // Calculate the new position
+            currentParticle.x = centerX + distance * Math.cos(angle)
+            currentParticle.y = centerY + distance * Math.sin(angle)
+
+            // Check if the particle is inside the canvas
+            if (currentParticle.x < 0 || currentParticle.x > window.canvasDims().width)
+                currentParticle.x = Math.min(Math.max(currentParticle.x, 0), window.canvasDims().width)
+
+            if (currentParticle.y < 0 || currentParticle.y > window.canvasDims().height)
+                currentParticle.y = Math.min(Math.max(currentParticle.y, 0), window.canvasDims().height)
+        }
+
+        this.particles.splice(particleNumber, this.particles.length - particleNumber)
     }
 
     // Check if the player is dead

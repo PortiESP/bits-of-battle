@@ -8,7 +8,8 @@
  */
 
 // ====================[ Constants ]====================>
-window.DEBUG = true
+window.DEBUG = false
+window.RANDOM_PATTERN = false
 
 // ====================[ Global variables ]====================>
 window.$canvas = document.getElementById("screen")
