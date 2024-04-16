@@ -11,6 +11,9 @@ class Game {
         this.resizeCanvas()
         this.mainloop()
 
+        // Set Game attributes
+        this.finished = false
+
         // DEBUG
         const { width, center } = window.canvasDims()
         window.players = [new Player(140, center.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_1_COLOR), new Player(width - 140, center.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_2_COLOR)]
@@ -20,6 +23,7 @@ class Game {
         requestAnimationFrame(() => this.mainloop())
         ctx.clearRect(0, 0, $canvas.width, $canvas.height)
         this.draw()
+        this.update()
     }
 
     draw() {
@@ -30,6 +34,12 @@ class Game {
         })
 
         if (window.DEBUG) this.printDebugInfo()
+    }
+
+    update() {
+        // Update the game state
+        const teamAlive = window.players[0]
+        this.finished = window.players.every((player) => player.team === teamAlive.team)
     }
 
     resizeCanvas() {
