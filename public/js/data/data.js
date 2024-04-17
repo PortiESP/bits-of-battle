@@ -37,9 +37,9 @@ window.secondaryFlagsCoords = () => {
     const { x: cx, y: cy } = window.canvasDims().center // Get the center of the canvas
     const [cx_2, cy_2] = [cx / 2, cy / 2] // Half of the center
     return [
-        [cx - cx_2, cy - cy_2],
-        [cx - cx_2, cy + cy_2],
-        [cx + cx_2, cy + cy_2],
-        [cx + cx_2, cy - cy_2],
+        { x: cx - cx_2, y: cy - cy_2 },
+        { x: cx - cx_2, y: cy + cy_2 },
+        { x: cx + cx_2, y: cy + cy_2 },
+        { x: cx + cx_2, y: cy - cy_2 },
     ]
 }

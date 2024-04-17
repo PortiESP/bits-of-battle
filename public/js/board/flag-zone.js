@@ -12,7 +12,7 @@ export default function drawFlagZones() {
     // Draw the flag zones
     ctx.strokeStyle = CONST.FLAG_ZONE_COLOR
     // Draw the secondary flag zones
-    flagZoneCoords.forEach(([x, y]) => {
+    flagZoneCoords.forEach(({x, y}) => {
         ctx.beginPath()
         ctx.arc(x, y, checkpointSize, 0, PI2)
         ctx.stroke()
