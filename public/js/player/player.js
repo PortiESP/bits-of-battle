@@ -9,15 +9,23 @@ export default class Player {
         this.size = sizei
         this.team = colori
 
-        this.dx = CONST.BASE_SPEED_PLAYER
-        this.dy = CONST.BASE_SPEED_PLAYER
+        // Speed
+        this.dx = 0 // The player's speed in the x-axis
+        this.dy = 0 // The player's speed in the y-axis
 
-        this.attack_range = CONST.BASE_RADIUS_ATTACK
-        this.detection_range = CONST.BASE_RADIUS_DETECTION
+        // Ranges
+        this.attack_range = CONST.BASE_RADIUS_ATTACK // The player will attack players within this range
+        this.detection_range = CONST.BASE_RADIUS_DETECTION // The player will detect players within this range
 
-        this.detection_range_players = []
-        this.attack_range_players = []
+        // Players in range
+        this.detection_range_players = [] // Players in the detection range
+        this.attack_range_players = [] // Players in the attack range
 
+        // Path
+        this.objective = { x: undefined, y: undefined } // The player will move towards this point
+        this.objDistance = 0 // The distance to the objective
+
+        // Create the particles
         this.particles = []
         this.divider = this.size > 10 ? 2 : 1
         const randomData = {
@@ -34,6 +42,9 @@ export default class Player {
         }
     }
 
+    /**
+     * Draw the player (does not update the player's position)
+     */
     draw() {
         if (window.DEBUG) {
             // Print the attack, damage and detection range
@@ -70,23 +81,24 @@ export default class Player {
         }
     }
 
+    /**
+     * Update the player's position and status
+     */
     update() {
         // Check if player is dead
         if (this.isDead()) this.kill()
 
         // Detect other players
-        this.checkRanges()
+        this.calculateBestObjective()
 
         // Take damage
         this.fight()
 
         // Move the player towards the closest player
-        this.moveTowardsClosestPlayer()
+        this.moveToBestObjective()
 
         // Check if the player is inside the canvas
-        const [isX, isY] = this.isInsideCanvas()
-        if (!isX) this.dx *= -1
-        if (!isY) this.dy *= -1
+        this.handleCanvasCollision()
 
         // Move the player
         this.x += this.dx
@@ -96,18 +108,42 @@ export default class Player {
         this.updateParticles()
     }
 
-    // Check if the player is inside the canvas
+    /**
+     * Move the player towards the best objective
+     */
+    moveToBestObjective() {
+        const angle = Math.atan2(this.objective.y - this.y, this.objective.x - this.x)
+        this.objDistance = Math.hypot(this.objective.x - this.x, this.objective.y - this.y)
+
+        if (this.objDistance < CONST.DEBOUNCER_DISTANCE) {
+            this.dx = 0
+            this.dy = 0
+            return
+        }
+        this.dx = Math.cos(angle) * CONST.BASE_SPEED_PLAYER
+        this.dy = Math.sin(angle) * CONST.BASE_SPEED_PLAYER
+    }
+
+    /**
+     * Calculate best objective
+     */
+    calculateBestObjective() {
+        this.checkRanges()
+
+        this.objective = { x: window.mouse.x, y: window.mouse.y }
+    }
+
+    /*
+     * Check if the player is inside the canvas
+     */
     isInsideCanvas() {
         const { width, height } = window.canvasDims()
         return [this.x - this.size > 0 && this.x + this.size < width, this.y - this.size > 0 && this.y + this.size < height]
     }
 
-    // Check if the player is inside the detection range
-    isInsideDetectionRange(x, y, size) {
-        return Math.hypot(this.x - x, this.y - y) < this.detection_range + size
-    }
-
-    // Check players within any range
+    /**
+     * Check the players within the detection and attack ranges
+     */
     checkRanges() {
         const auxDetectionRange = []
         const auxAttackRange = []
@@ -126,17 +162,32 @@ export default class Player {
         this.attack_range_players = auxAttackRange
     }
 
-    // Moves the player to the closest player
-    moveTowardsClosestPlayer() {
-        if (this.detection_range_players.length > 0) {
-            const closest_player = this.detection_range_players.reduce((prev, curr) => (Math.hypot(this.x - prev.x, this.y - prev.y) < Math.hypot(this.x - curr.x, this.y - curr.y) ? prev : curr))
-            const angle = Math.atan2(closest_player.y - this.y, closest_player.x - this.x)
-            this.dx += Math.cos(angle) * CONST.PLAYER_DRAG_FORCE
-            this.dy += Math.sin(angle) * CONST.PLAYER_DRAG_FORCE
+    /**
+     * Handle the player's collision with the canvas. Prevents the player from going outside the canvas and getting stuck on the edges
+     */
+    handleCanvasCollision() {
+        const threshold = 0.1 // To avoid the player getting stuck on the edge of the canvas
+        const { width, height } = window.canvasDims()
+        const [isX, isY] = this.isInsideCanvas()
+
+        // Check if the player is inside the canvas
+        if (!isX) {
+            this.dx = 0 // Stop the player
+            // Bring the player back inside the canvas
+            if (this.x - this.size < 0) this.x = this.size + threshold
+            else this.x = width - this.size - threshold
+        }
+        if (!isY) {
+            this.dy = 0 // Stop the player
+            // Bring the player back inside the canvas
+            if (this.y - this.size < 0) this.y = this.size + threshold
+            else this.y = height - this.size - threshold
         }
     }
 
-    // Take damage
+    /**
+     * Reduce the player's size when fighting
+     */
     fight() {
         for (const player of this.attack_range_players) {
             // Calculate the damage
@@ -151,6 +202,9 @@ export default class Player {
         }
     }
 
+    /**
+     * Update the player's particles
+     */
     updateParticles() {
         this.divider = this.size > 10 ? 2 : 1
 
@@ -184,12 +238,17 @@ export default class Player {
         this.particles.splice(particleNumber, this.particles.length - particleNumber)
     }
 
-    // Check if the player is dead
+    /**
+     * Check if the player is dead
+     * @returns {boolean} True if the player is dead
+     */
     isDead() {
         return this.size <= 1
     }
 
-    // Remove the player from the game
+    /**
+     * Remove the player from the game
+     */
     kill() {
         window.players = window.players.filter((player) => player !== this)
     }

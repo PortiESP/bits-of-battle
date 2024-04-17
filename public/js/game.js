@@ -15,8 +15,8 @@ class Game {
         this.finished = false
 
         // DEBUG
-        const { width, center } = window.canvasDims()
-        window.players = [new Player(140, center.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_1_COLOR), new Player(width - 140, center.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_2_COLOR)]
+        const { center } = window.canvasDims()
+        window.players = [new Player(center.x, center.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_1_COLOR)]
     }
 
     mainloop() {
@@ -59,7 +59,19 @@ class Game {
 
         // Add players size at the player position
         window.players.forEach((player) => {
-            ctx.fillText(`Size: ${player.size}`, player.x - player.size, player.y - player.size - 10)
+            ctx.fillText(`Size: ${player.size.toFixed(2)}`, player.x - player.size, player.y - player.size - 10)
+            ctx.fillText(`Speed: ${Math.hypot(player.dx, player.dy).toFixed(2)}`, player.x - player.size, player.y - player.size - 20)
+
+            // Draw line to objective
+            ctx.beginPath()
+            ctx.moveTo(player.x, player.y)
+            ctx.lineTo(player.objective.x, player.objective.y)
+            ctx.strokeStyle = "#ffffff40"
+            ctx.stroke()
+            // Draw distance to objective
+            ctx.fillStyle = "#ffffff"
+            ctx.font = "12px Arial"
+            ctx.fillText(`${Math.floor(player.objDistance)}`, player.objective.x, player.objective.y)
         })
     }
 }
