@@ -4,15 +4,11 @@
     box-sizing: border-box;
 }
 
-#wrapper {
+#root {
     display: flex;
     justify-content: center;
     align-items: center;
     min-width: 100vw;
     min-height: 100vh;
     background-color: #888;
-}
-
-canvas {
-    box-shadow: 0 0 100px 10px rgba(0, 0, 0, 0.5);
 }
