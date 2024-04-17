@@ -9,13 +9,12 @@ export default class Player {
         this.size = sizei
         this.team = colori
 
-        
         this.dx = CONST.BASE_SPEED_PLAYER
         this.dy = CONST.BASE_SPEED_PLAYER
-        
+
         this.attack_range = CONST.BASE_RADIUS_ATTACK
         this.detection_range = CONST.BASE_RADIUS_DETECTION
-        
+
         this.detection_range_players = []
         this.attack_range_players = []
 
@@ -25,12 +24,12 @@ export default class Player {
             minX: this.x - this.attack_range,
             minY: this.y - this.attack_range,
             maxX: this.x + this.attack_range,
-            maxY: this.y + this.attack_range
+            maxY: this.y + this.attack_range,
         }
         for (let i = 0; i < this.size / this.divider; i++) {
             this.particles.push({
                 x: Math.floor(Math.random() * (randomData.maxX - randomData.minX) + randomData.minX),
-                y: Math.floor(Math.random() * (randomData.maxY - randomData.minY) + randomData.minY)
+                y: Math.floor(Math.random() * (randomData.maxY - randomData.minY) + randomData.minY),
             })
         }
     }
@@ -53,6 +52,12 @@ export default class Player {
             ctx.beginPath()
             ctx.arc(this.x, this.y, this.attack_range, 0, Math.PI * 2)
             ctx.stroke()
+            ctx.fill()
+
+            ctx.fillStyle = this.team
+            ctx.strokeStyle = "black"
+            ctx.beginPath()
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
             ctx.fill()
         }
 
@@ -164,19 +169,16 @@ export default class Player {
             const distance = Math.hypot(currentParticle.x - centerX, currentParticle.y - centerY)
 
             // Increase the angle to move the particle along the orbit
-            if (window.RANDOM_PATTERN) angle += Math.floor(Math.random() * 2)
-            else angle += CONST.PLAYER_ORBIT_SPEED
+            angle += (CONST.PLAYER_ORBIT_SPEED * Math.PI) / 180 // Rad to degrees
 
             // Calculate the new position
-            currentParticle.x = centerX + distance * Math.cos(angle)
-            currentParticle.y = centerY + distance * Math.sin(angle)
+            currentParticle.x = centerX + distance * Math.cos(angle) + this.dx
+            currentParticle.y = centerY + distance * Math.sin(angle) + this.dy
 
             // Check if the particle is inside the canvas
-            if (currentParticle.x < 0 || currentParticle.x > window.canvasDims().width)
-                currentParticle.x = Math.min(Math.max(currentParticle.x, 0), window.canvasDims().width)
+            if (currentParticle.x < 0 || currentParticle.x > window.canvasDims().width) currentParticle.x = Math.min(Math.max(currentParticle.x, 0), window.canvasDims().width)
 
-            if (currentParticle.y < 0 || currentParticle.y > window.canvasDims().height)
-                currentParticle.y = Math.min(Math.max(currentParticle.y, 0), window.canvasDims().height)
+            if (currentParticle.y < 0 || currentParticle.y > window.canvasDims().height) currentParticle.y = Math.min(Math.max(currentParticle.y, 0), window.canvasDims().height)
         }
 
         this.particles.splice(particleNumber, this.particles.length - particleNumber)

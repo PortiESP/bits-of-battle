@@ -8,12 +8,11 @@
  */
 
 // ====================[ Constants ]====================>
-window.DEBUG = false
-window.RANDOM_PATTERN = false
+window.DEBUG = true
 
 // ====================[ Global variables ]====================>
 window.$canvas = document.getElementById("screen")
-const $canvas = window.$canvas;
+const $canvas = window.$canvas
 
 window.ctx = $canvas.getContext("2d")
 
