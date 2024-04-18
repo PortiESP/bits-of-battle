@@ -43,9 +43,10 @@ class Game {
 
     resizeCanvas() {
         const { x, y } = $canvas.getBoundingClientRect()
+        const { width, height } = document.querySelector(".game").getBoundingClientRect()
 
-        $canvas.width = window.innerWidth * CONST.CANVAS_WINDOW_RATIO
-        $canvas.height = window.innerWidth * CONST.CANVAS_WINDOW_RATIO * CONST.CANVAS_ASPECT_RATIO
+        $canvas.width = width
+        $canvas.height = height
         window.canvasOffset = { x, y }
 
         // Objectives (update the coordinates of the objectives)
@@ -89,6 +90,10 @@ class Game {
                 }
             }
         }
+    }
+
+    handlePowerUpEvent(player, powerUp) {
+        console.log("PowerUp event", player, powerUp)
     }
 
     printDebugInfo() {
@@ -137,10 +142,6 @@ class Game {
             ctx.moveTo(player.x, player.y)
             ctx.lineTo(player.x + player.dx * 10, player.y + player.dy * 10)
             ctx.stroke()
-
-            // Draw the distance to the closest objective
-            const distance = Math.hypot(player.x - window.objectives[0].x, player.y - window.objectives[0].y) - player.size - window.objectives[0].size
-            ctx.fillText(`Dist: ${distance.toFixed(2)}`, player.x - player.size, player.y + player.size + 10)
         })
 
         // Draw objectives progress
