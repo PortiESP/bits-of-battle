@@ -7,19 +7,12 @@
  *
  */
 
-// ====================[ Constants ]====================>
-window.DEBUG = true
-
 // ====================[ Global variables ]====================>
+window.DEBUG = true
+// Canvas
 window.$canvas = document.getElementById("screen")
 const $canvas = window.$canvas
-
 window.ctx = $canvas.getContext("2d")
-
-window.mouse = { x: 0, y: 0 }
-window.players = []
-const { x, y } = $canvas.getBoundingClientRect() // Get the offset of the canvas
-window.canvasOffset = { x, y }
 
 // ====================[ Functions ]====================>
 // Get the dimensions of the canvas
@@ -33,13 +26,23 @@ window.canvasDims = () => ({
 })
 
 // Secondary flag zone coordinates
-window.secondaryFlagsCoords = () => {
+window.calculateObjectivesCoords = () => {
     const { x: cx, y: cy } = window.canvasDims().center // Get the center of the canvas
     const [cx_2, cy_2] = [cx / 2, cy / 2] // Half of the center
     return [
+        // Central flag zone
+        { x: cx, y: cy },
+        // Secondary flag zones
         { x: cx - cx_2, y: cy - cy_2 },
         { x: cx - cx_2, y: cy + cy_2 },
         { x: cx + cx_2, y: cy + cy_2 },
         { x: cx + cx_2, y: cy - cy_2 },
     ]
 }
+
+// ====================[ Global variables ]====================>
+window.mouse = { x: 0, y: 0 }
+
+// ====================[ Game variables ]====================>
+window.players = [] // Players in the game
+window.objectives = window.calculateObjectivesCoords().map((coords) => ({ ...coords, team: null, progress: 0 })) // Objectives in the game

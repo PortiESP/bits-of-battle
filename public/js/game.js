@@ -22,31 +22,61 @@ class Game {
     mainloop() {
         requestAnimationFrame(() => this.mainloop())
         ctx.clearRect(0, 0, $canvas.width, $canvas.height)
-        this.draw()
         this.update()
+        this.draw()
     }
 
     draw() {
         drawBoard()
-        window.players.forEach((player) => {
-            player.update()
-            player.draw()
-        })
+        window.players.forEach((player) => player.draw())
 
         if (window.DEBUG) this.printDebugInfo()
     }
 
     update() {
         // Update the game state
-        const teamAlive = window.players[0]
-        this.finished = window.players.every((player) => player.team === teamAlive.team)
+        window.players.forEach((player) => {
+            player.update()
+            this.checkObjectives(player)
+        })
     }
 
     resizeCanvas() {
+        const { x, y } = $canvas.getBoundingClientRect()
+
         $canvas.width = window.innerWidth * CONST.CANVAS_WINDOW_RATIO
         $canvas.height = window.innerWidth * CONST.CANVAS_WINDOW_RATIO * CONST.CANVAS_ASPECT_RATIO
-        const { x, y } = $canvas.getBoundingClientRect()
         window.canvasOffset = { x, y }
+
+        // Objectives (update the coordinates of the objectives)
+        const newObjectives = [window.calculateObjectivesCoords(), window.canvasDims().center].flat()
+        window.objectives.map((coords, i) => {
+            coords.x = newObjectives[i].x
+            coords.y = newObjectives[i].y
+        })
+    }
+
+    checkObjectives(player) {
+        // Check if the player is near an objective
+        const objective = player.objective
+        const distance = Math.hypot(player.x - objective.x, player.y - objective.y)
+
+        // Check if the player is near the objective
+        if (distance < player.size + CONST.OBJECTIVE_SIZE) {
+            // Check if the objective is already taken
+            if (objective.team === player.team && objective.progress >= 100) return
+
+            // If the objective is not taken, take it, if it is taken, attack it
+            if (objective.team === player.team) {
+                objective.progress += CONST.OBJECTIVE_PROGRESS_STEP
+            } else {
+                objective.progress -= CONST.OBJECTIVE_PROGRESS_STEP
+                if (objective.progress <= 0 || objective.team === null) {
+                    objective.team = player.team
+                    objective.progress = -objective.progress
+                }
+            }
+        }
     }
 
     printDebugInfo() {
@@ -71,7 +101,7 @@ class Game {
             // Draw distance to objective
             ctx.fillStyle = "#ffffff"
             ctx.font = "12px Arial"
-            ctx.fillText(`${Math.floor(player.objDistance)}`, player.objective.x, player.objective.y)
+            ctx.fillText(`${Math.floor(player.objective.distance)}`, player.objective.x, player.objective.y)
         })
     }
 }

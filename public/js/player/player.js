@@ -22,8 +22,7 @@ export default class Player {
         this.attack_range_players = [] // Players in the attack range
 
         // Path
-        this.objective = { x: undefined, y: undefined } // The player will move towards this point
-        this.objDistance = 0 // The distance to the objective
+        this.objective = { x: undefined, y: undefined, distance: Infinity } // The player will move towards this point
 
         // Create the particles
         this.particles = []
@@ -112,10 +111,16 @@ export default class Player {
      * Move the player towards the best objective
      */
     moveToBestObjective() {
-        const angle = Math.atan2(this.objective.y - this.y, this.objective.x - this.x)
-        this.objDistance = Math.hypot(this.objective.x - this.x, this.objective.y - this.y)
+        let target = this.objective
 
-        if (this.objDistance < CONST.DEBOUNCER_DISTANCE) {
+        // DEBUG
+        target = window.mouse
+        // -----
+
+        const angle = Math.atan2(target.y - this.y, target.x - this.x)
+        this.objective.distance = Math.hypot(target.x - this.x, target.y - this.y)
+
+        if (target.distance < CONST.DEBOUNCER_DISTANCE) {
             this.dx = 0
             this.dy = 0
             return
@@ -128,9 +133,24 @@ export default class Player {
      * Calculate best objective
      */
     calculateBestObjective() {
-        this.checkRanges()
+        let bestObjective = { x: 0, y: 0, distance: Infinity }
+        // Move to every objective
+        for (const objective of window.objectives) {
+            // Check if the objective is already taken
+            if (this.objective.team === this.team) continue
 
-        this.objective = { x: window.mouse.x, y: window.mouse.y }
+            // Check if the objective is closer than the current best objective
+            const distance = Math.hypot(this.x - objective.x, this.y - objective.y)
+            if (distance < bestObjective.distance) {
+                bestObjective = { ...objective, distance }
+            }
+        }
+
+        // Set the best objective
+        this.objective = bestObjective
+
+        // DEBUG
+        this.objective = window.objectives[1]
     }
 
     /*
