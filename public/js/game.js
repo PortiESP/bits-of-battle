@@ -16,7 +16,7 @@ class Game {
 
         // DEBUG
         const { center } = window.canvasDims()
-        window.players = [new Player(CONST.BASE_PLAYER_SIZE + 10, center.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_1_COLOR)]
+        window.players = [new Player(CONST.BASE_PLAYER_SIZE + 10, center.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_1_COLOR), new Player($canvas.width - CONST.BASE_PLAYER_SIZE - 10, center.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_2_COLOR)]
     }
 
     mainloop() {

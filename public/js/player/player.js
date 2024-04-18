@@ -63,6 +63,9 @@ export default class Player {
         if (this.isDead()) this.kill()
 
         // Detect other players
+        this.checkRanges()
+
+        // Make a decision about where to go
         this.calculateBestObjective()
 
         // Take damage
