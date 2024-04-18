@@ -49,6 +49,7 @@ window.calculateObjectivesCoords = () => {
 
 // ====================[ Global variables ]====================>
 window.mouse = { x: 0, y: 0 } // Mouse position, updated on mousemove
+window.keys = { w1: false, a1: false, s1: false, d1: false, w2: false, a2: false, s2: false, d2: false } // Keys pressed, updated on keydown and keyup
 
 // ====================[ Game variables ]====================>
 // Players in the game
