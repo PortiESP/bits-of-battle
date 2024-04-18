@@ -18,8 +18,7 @@ export default function drawObjectiveZones() {
     const PI2 = Math.PI * 2
 
     // Draw the objective zones
-    window.objectives.forEach(({ x, y, team, progress }, i) => {
-        const size = i === 0 ? CONST.MAIN_OBJECTIVE_SIZE : CONST.OBJECTIVE_SIZE
+    window.objectives.forEach(({ x, y, team, progress, size }, i) => {
         ctx.beginPath()
         ctx.strokeStyle = team ? team : CONST.FLAG_ZONE_COLOR
         ctx.arc(x, y, size, 0, progressToRadians(progress))

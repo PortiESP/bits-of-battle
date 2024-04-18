@@ -1,5 +1,5 @@
 import CONST from "../data/constants.js"
-import drawObjectiveZones from "./flag-zone.js"
+import drawObjectiveZones from "./objective-zone.js"
 
 // Get the canvas and context from the window object
 const $canvas = window.$canvas
@@ -44,6 +44,6 @@ export function drawBoard() {
     // Reset line dash
     ctx.setLineDash([])
 
-    // Draw the flag zones
+    // Draw the objective zones
     drawObjectiveZones()
 }

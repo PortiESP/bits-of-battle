@@ -7,6 +7,8 @@
  *
  */
 
+import CONST from "../data/constants.js"
+
 // ====================[ Global variables ]====================>
 // Debug mode
 window.DEBUG = true
@@ -37,19 +39,19 @@ window.calculateObjectivesCoords = () => {
     const { x: cx, y: cy } = window.canvasDims().center // Get the center of the canvas
     const [cx_2, cy_2] = [cx / 2, cy / 2] // Half of the center
     return [
-        // Central flag zone
-        { x: cx, y: cy },
-        // Secondary flag zones
-        { x: cx - cx_2, y: cy - cy_2 },
-        { x: cx - cx_2, y: cy + cy_2 },
-        { x: cx + cx_2, y: cy + cy_2 },
-        { x: cx + cx_2, y: cy - cy_2 },
+        // Central objective zone
+        { x: cx, y: cy, size: CONST.MAIN_OBJECTIVE_SIZE },
+        // Secondary objective zones
+        { x: cx - cx_2, y: cy - cy_2, size: CONST.OBJECTIVE_SIZE },
+        { x: cx - cx_2, y: cy + cy_2, size: CONST.OBJECTIVE_SIZE },
+        { x: cx + cx_2, y: cy + cy_2, size: CONST.OBJECTIVE_SIZE },
+        { x: cx + cx_2, y: cy - cy_2, size: CONST.OBJECTIVE_SIZE },
     ]
 }
 
 // ====================[ Global variables ]====================>
 window.mouse = { x: 0, y: 0 } // Mouse position, updated on mousemove
-window.keys = { w1: false, a1: false, s1: false, d1: false, w2: false, a2: false, s2: false, d2: false } // Keys pressed, updated on keydown and keyup
+window.keys = {} //
 
 // ====================[ Game variables ]====================>
 // Players in the game

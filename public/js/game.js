@@ -57,21 +57,24 @@ class Game {
     }
 
     checkObjectives(player) {
-        // Check if the player is near an objective
+        // Find the closest objective
         let bestDistance = Infinity
         const objective = window.objectives.reduce((best, curr) => {
+            // Calculate the distance between the player and the objective (from perimeter to perimeter)
             const distance = Math.hypot(player.x - curr.x, player.y - curr.y) - player.size - curr.size
+            // Check if the current objective is closer than the best objective from previous iterations
             if (distance < bestDistance) {
                 bestDistance = distance
                 return curr
-            } else return best
-
-            return acc
+            }
+            // If the current objective is not closer, keep the best objective from previous iterations
+            else return best
         }, window.objectives[0])
-        const distance = Math.hypot(player.x - objective.x, player.y - objective.y)
 
-        // Check if the player is near the objective
-        if (distance < player.size + CONST.OBJECTIVE_SIZE) {
+        const distance = bestDistance
+
+        // Check if the player is inside the objective
+        if (distance < 0) {
             // Check if the objective is already taken
             if (objective.team === player.team && objective.progress >= 100) return
 
@@ -135,9 +138,9 @@ class Game {
             ctx.lineTo(player.x + player.dx * 10, player.y + player.dy * 10)
             ctx.stroke()
 
-            // Draw distance to objective
-            ctx.font = "12px Arial"
-            ctx.fillText(`Dist: ${Math.hypot(player.dx, player.dy).toFixed(2)}`, player.x + player.dx * 10, player.y + player.dy * 10)
+            // Draw the distance to the closest objective
+            const distance = Math.hypot(player.x - window.objectives[0].x, player.y - window.objectives[0].y) - player.size - window.objectives[0].size
+            ctx.fillText(`Dist: ${distance.toFixed(2)}`, player.x - player.size, player.y + player.size + 10)
         })
 
         // Draw objectives progress
