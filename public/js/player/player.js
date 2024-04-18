@@ -111,16 +111,16 @@ export default class Player {
      * Move the player towards the best objective
      */
     moveToBestObjective() {
-        let target = this.objective
+        let target = window.objectives[this.objective.id]
 
         // DEBUG
-        target = window.mouse
+        // target = window.mouse
         // -----
 
         const angle = Math.atan2(target.y - this.y, target.x - this.x)
         this.objective.distance = Math.hypot(target.x - this.x, target.y - this.y)
 
-        if (target.distance < CONST.DEBOUNCER_DISTANCE) {
+        if (this.objective.distance < CONST.DEBOUNCER_DISTANCE) {
             this.dx = 0
             this.dy = 0
             return
@@ -133,16 +133,16 @@ export default class Player {
      * Calculate best objective
      */
     calculateBestObjective() {
-        let bestObjective = { x: 0, y: 0, distance: Infinity }
+        let bestObjective = { id: 0, distance: Infinity }
         // Move to every objective
         for (const objective of window.objectives) {
             // Check if the objective is already taken
-            if (this.objective.team === this.team) continue
+            if (objective.team === this.team && objective.progress >= 100) continue
 
             // Check if the objective is closer than the current best objective
             const distance = Math.hypot(this.x - objective.x, this.y - objective.y)
             if (distance < bestObjective.distance) {
-                bestObjective = { ...objective, distance }
+                bestObjective = { id: objective.id, distance }
             }
         }
 
@@ -150,7 +150,7 @@ export default class Player {
         this.objective = bestObjective
 
         // DEBUG
-        this.objective = window.objectives[1]
+        // this.objective = window.objectives[1]
     }
 
     /*

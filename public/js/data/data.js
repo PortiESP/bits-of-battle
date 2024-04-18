@@ -45,4 +45,4 @@ window.mouse = { x: 0, y: 0 }
 
 // ====================[ Game variables ]====================>
 window.players = [] // Players in the game
-window.objectives = window.calculateObjectivesCoords().map((coords) => ({ ...coords, team: null, progress: 0 })) // Objectives in the game
+window.objectives = window.calculateObjectivesCoords().map((coords, i) => ({ ...coords, id: i, team: null, progress: 0 })) // Objectives in the game

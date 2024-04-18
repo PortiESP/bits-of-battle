@@ -16,7 +16,7 @@ class Game {
 
         // DEBUG
         const { center } = window.canvasDims()
-        window.players = [new Player(center.x, center.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_1_COLOR)]
+        window.players = [new Player(CONST.BASE_PLAYER_SIZE + 10, center.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_1_COLOR)]
     }
 
     mainloop() {
@@ -58,7 +58,7 @@ class Game {
 
     checkObjectives(player) {
         // Check if the player is near an objective
-        const objective = player.objective
+        const objective = window.objectives[player.objective.id]
         const distance = Math.hypot(player.x - objective.x, player.y - objective.y)
 
         // Check if the player is near the objective
@@ -102,6 +102,14 @@ class Game {
             ctx.fillStyle = "#ffffff"
             ctx.font = "12px Arial"
             ctx.fillText(`${Math.floor(player.objective.distance)}`, player.objective.x, player.objective.y)
+        })
+
+        // Draw objectives progress
+        window.objectives.forEach((objective) => {
+            ctx.fillStyle = "#ffffff"
+            ctx.font = "12px Arial"
+            ctx.fillText(`Obj: ${objective.id}`, objective.x - CONST.OBJECTIVE_SIZE / 2, objective.y + CONST.OBJECTIVE_SIZE + 10)
+            ctx.fillText(`Progress${objective.progress.toFixed(2)}`, objective.x - CONST.OBJECTIVE_SIZE / 2, objective.y + CONST.OBJECTIVE_SIZE + 20)
         })
     }
 }
