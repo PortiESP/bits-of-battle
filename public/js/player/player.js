@@ -22,7 +22,8 @@ export default class Player {
         this.attack_range_players = [] // Players in the attack range
 
         // Path
-        this.objective = { x: undefined, y: undefined, distance: Infinity } // The player will move towards this point
+        this.objective = undefined // The player will move towards this point
+        this.objectiveDistance = Infinity
 
         // Create the particles
         this.particles = []
@@ -111,16 +112,16 @@ export default class Player {
      * Move the player towards the best objective
      */
     moveToBestObjective() {
-        let target = window.objectives[this.objective.id]
+        let target = this.objective
 
         // DEBUG
         // target = window.mouse
         // -----
 
         const angle = Math.atan2(target.y - this.y, target.x - this.x)
-        this.objective.distance = Math.hypot(target.x - this.x, target.y - this.y)
+        this.objectiveDistance = Math.hypot(target.x - this.x, target.y - this.y)
 
-        if (this.objective.distance < CONST.DEBOUNCER_DISTANCE) {
+        if (this.objectiveDistance < CONST.DEBOUNCER_DISTANCE) {
             this.dx = 0
             this.dy = 0
             return
@@ -133,21 +134,25 @@ export default class Player {
      * Calculate best objective
      */
     calculateBestObjective() {
-        let bestObjective = { id: 0, distance: Infinity }
+        let bestObjective = window.objectives[0] // Default value is central objective
+        let bestDistance = Infinity
+
         // Move to every objective
         for (const objective of window.objectives) {
             // Check if the objective is already taken
-            if (objective.team === this.team && objective.progress >= 100) continue
+            if (objective.team === this.team && objective.progress >= CONST.MAIN_OBJECTIVE_SIZE) continue
 
             // Check if the objective is closer than the current best objective
             const distance = Math.hypot(this.x - objective.x, this.y - objective.y)
-            if (distance < bestObjective.distance) {
-                bestObjective = { id: objective.id, distance }
+            if (distance < bestDistance) {
+                bestObjective = objective
+                bestDistance = distance
             }
         }
 
         // Set the best objective
         this.objective = bestObjective
+        this.objectiveDistance = bestDistance
 
         // DEBUG
         // this.objective = window.objectives[1]

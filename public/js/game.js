@@ -58,7 +58,7 @@ class Game {
 
     checkObjectives(player) {
         // Check if the player is near an objective
-        const objective = window.objectives[player.objective.id]
+        const objective = player.objective
         const distance = Math.hypot(player.x - objective.x, player.y - objective.y)
 
         // Check if the player is near the objective
@@ -101,7 +101,7 @@ class Game {
             // Draw distance to objective
             ctx.fillStyle = "#ffffff"
             ctx.font = "12px Arial"
-            ctx.fillText(`${Math.floor(player.objective.distance)}`, player.objective.x, player.objective.y)
+            ctx.fillText(`${Math.floor(player.objectiveDistance)}`, player.objective.x, player.objective.y)
         })
 
         // Draw objectives progress
