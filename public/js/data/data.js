@@ -52,6 +52,7 @@ window.calculateObjectivesCoords = () => {
 // ====================[ Global variables ]====================>
 window.mouse = { x: 0, y: 0 } // Mouse position, updated on mousemove
 window.keys = {} //
+window.teams = [CONST.TEAM_1_COLOR, CONST.TEAM_2_COLOR] // Teams in the game
 
 // ====================[ Game variables ]====================>
 // Players in the game
