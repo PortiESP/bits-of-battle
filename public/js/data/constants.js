@@ -23,6 +23,8 @@ const CONST = {
     PLAYER_ORBIT_SPEED: 1, // The player's orbit speed
     PARTICLE_UPDATE_DELAY: 50, // The delay between particle updates
     DEBOUNCER_DISTANCE: 10, // A threshold of the distance apart of the player's target where the player will stop moving
+    CONTROLS_P1: { up: "w", down: "s", left: "a", right: "d" }, // Player 1 controls
+    CONTROLS_P2: { up: "arrowup", down: "arrowdown", left: "arrowleft", right: "arrowright" }, // Player 2 controls
 
     // Objectives
     MAIN_OBJECTIVE_SIZE: 100, // The size of the main objective

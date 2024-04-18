@@ -3,11 +3,13 @@ import CONST from "../data/constants.js"
 const ctx = window.ctx
 
 export default class Player {
-    constructor(xi, yi, sizei, colori) {
+    constructor(xi, yi, sizei, colori, controls) {
         this.x = xi // The player's x position
         this.y = yi // The player's y position
         this.size = sizei // The player's size
         this.team = colori // The player's team (represented by a color in hex format, including the '#' symbol)
+
+        this.controls = controls // The player's controls
 
         // Speed
         this.dx = 0 // The player's speed in the x-axis
@@ -20,10 +22,6 @@ export default class Player {
         // Players in range
         this.detection_range_players = [] // Players in the detection range
         this.attack_range_players = [] // Players in the attack range
-
-        // Path
-        this.objective = undefined // Pointer to the objective that the player is moving towards
-        this.objectiveDistance = Infinity // The distance to the objective
 
         // Create the particles
         this.particles = []
@@ -65,14 +63,11 @@ export default class Player {
         // Detect other players
         this.checkRanges()
 
-        // Make a decision about where to go
-        this.calculateBestObjective()
-
         // Take damage
         this.fight()
 
         // Move the player towards the closest player
-        this.moveToBestObjective()
+        this.move()
 
         // Check if the player is inside the canvas
         this.handleCanvasCollision()
@@ -86,46 +81,20 @@ export default class Player {
     }
 
     /**
-     * Move the player towards the best objective
+     * Move the player based on the keyboard input
      */
-    moveToBestObjective() {
-        let target = this.objective
+    move() {
+        if (window.keys[this.controls.up]) this.dy = -CONST.BASE_SPEED_PLAYER
+        if (window.keys[this.controls.left]) this.dx = -CONST.BASE_SPEED_PLAYER
+        if (window.keys[this.controls.down]) this.dy = CONST.BASE_SPEED_PLAYER
+        if (window.keys[this.controls.right]) this.dx = CONST.BASE_SPEED_PLAYER
 
-        const angle = Math.atan2(target.y - this.y, target.x - this.x)
-        this.objectiveDistance = Math.hypot(target.x - this.x, target.y - this.y)
+        // Stop the player if no key is pressed
+        if (!window.keys[this.controls.up] && !window.keys[this.controls.down]) this.dy = 0
+        if (!window.keys[this.controls.left] && !window.keys[this.controls.right]) this.dx = 0
 
-        if (this.objectiveDistance < CONST.DEBOUNCER_DISTANCE) {
-            this.dx = 0
-            this.dy = 0
-            return
-        }
-        this.dx = Math.cos(angle) * CONST.BASE_SPEED_PLAYER
-        this.dy = Math.sin(angle) * CONST.BASE_SPEED_PLAYER
-    }
-
-    /**
-     * Calculate best objective
-     */
-    calculateBestObjective() {
-        let bestObjective = window.objectives[0] // Default value is central objective
-        let bestDistance = Infinity // Default value is infinity
-
-        // Check the objectives to find the closest one
-        for (const objective of window.objectives) {
-            // Check if the objective is already taken
-            if (objective.team === this.team && objective.progress >= CONST.MAIN_OBJECTIVE_SIZE) continue
-
-            // Check if the objective is closer than the current best objective
-            const distance = Math.hypot(this.x - objective.x, this.y - objective.y)
-            if (distance < bestDistance) {
-                bestObjective = objective
-                bestDistance = distance
-            }
-        }
-
-        // Set the best objective
-        this.objective = bestObjective
-        this.objectiveDistance = bestDistance
+        this.x += this.dx
+        this.y += this.dy
     }
 
     /*

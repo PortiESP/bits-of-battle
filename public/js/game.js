@@ -16,7 +16,7 @@ class Game {
 
         // DEBUG
         const { center } = window.canvasDims()
-        window.players = [new Player(CONST.BASE_PLAYER_SIZE + 10, center.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_1_COLOR), new Player($canvas.width - CONST.BASE_PLAYER_SIZE - 10, center.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_2_COLOR)]
+        window.players = [new Player(CONST.BASE_PLAYER_SIZE + 10, center.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_1_COLOR, CONST.CONTROLS_P1), new Player($canvas.width - CONST.BASE_PLAYER_SIZE - 10, center.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_2_COLOR, CONST.CONTROLS_P2)]
     }
 
     mainloop() {
@@ -58,7 +58,16 @@ class Game {
 
     checkObjectives(player) {
         // Check if the player is near an objective
-        const objective = player.objective
+        let bestDistance = Infinity
+        const objective = window.objectives.reduce((best, curr) => {
+            const distance = Math.hypot(player.x - curr.x, player.y - curr.y) - player.size - curr.size
+            if (distance < bestDistance) {
+                bestDistance = distance
+                return curr
+            } else return best
+
+            return acc
+        }, window.objectives[0])
         const distance = Math.hypot(player.x - objective.x, player.y - objective.y)
 
         // Check if the player is near the objective
@@ -119,16 +128,16 @@ class Game {
             ctx.fillText(`Size: ${player.size.toFixed(2)}`, player.x - player.size, player.y - player.size - 10)
             ctx.fillText(`Speed: ${Math.hypot(player.dx, player.dy).toFixed(2)}`, player.x - player.size, player.y - player.size - 20)
 
-            // Draw line to objective
+            // Draw speed vector
             ctx.strokeStyle = "#ffffff40"
             ctx.beginPath()
             ctx.moveTo(player.x, player.y)
-            ctx.lineTo(player.objective.x, player.objective.y)
+            ctx.lineTo(player.x + player.dx * 10, player.y + player.dy * 10)
             ctx.stroke()
 
             // Draw distance to objective
             ctx.font = "12px Arial"
-            ctx.fillText(`${Math.floor(player.objectiveDistance)}`, player.objective.x, player.objective.y)
+            ctx.fillText(`Dist: ${Math.hypot(player.dx, player.dy).toFixed(2)}`, player.x + player.dx * 10, player.y + player.dy * 10)
         })
 
         // Draw objectives progress
