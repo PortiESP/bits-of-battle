@@ -1,24 +1,20 @@
 .app {
-    display: grid;
-    grid-template-rows: auto auto auto; /* Define three rows */
-    grid-template-columns: auto auto auto auto auto; /* Define five columns */
-    gap: 5px; /* Add some gap between grid items */
+    position: relative;
+    display: flex;
+    /* gap: 5px; Add some gap between grid items */
+
+    width: 100vw;
+    height: 100vh;
 }
 
 .header {
     grid-column: 1 / span 5; /* Span across all five columns */
-    color: #FFF;
-    font-family: 'Courier New', Courier, monospace;
+    color: #fff;
+    font-family: "Courier New", Courier, monospace;
     margin: auto;
 }
-
 .game {
-    grid-column: 2 / span 3; /* Span across three columns starting from the second column */
-}
-
-.aside {
-    padding: 0 2em;
-    background-color: #FFF;
+    width: 90%;
 }
 
 canvas {

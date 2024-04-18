@@ -1,19 +1,17 @@
-import "./App.css";
-import Game from "./components/Game.jsx";
+import "./App.css"
+import Canvas from "./components/Canvas.jsx"
+import PlayerSideMenu from "./components/PlayerSideMenu.jsx"
 
 const App = () => {
     return (
         <div className="app">
-            <div className="header">
-                <h1>Bits-Of-Battle</h1>
-            </div>
-            <div className="aside"></div>
+            <PlayerSideMenu teamId={0} />
             <div className="game">
-                <Game />
+                <Canvas />
             </div>
-            <div className="aside"></div>
+            <PlayerSideMenu teamId={1} />
         </div>
-    );
-};
+    )
+}
 
-export default App;
+export default App
