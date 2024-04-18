@@ -2,17 +2,22 @@ import CONST from "../data/constants.js"
 
 const ctx = window.ctx
 
+/**
+ * Converts the progress of the objective into radians
+ * @param {int} progress Number between 0 and 100
+ * @returns The radians that the progress represents
+ */
 function progressToRadians(progress) {
     return (progress / 100) * Math.PI * 2
 }
 
-export default function drawFlagZones() {
-    const { x: cx, y: cy } = window.canvasDims().center // Get the center of the canvas
+/**
+ * Draws the objective zones (flag zones)
+ */
+export default function drawObjectiveZones() {
     const PI2 = Math.PI * 2
 
-    // Draw the flag zones
-    ctx.strokeStyle = CONST.FLAG_ZONE_COLOR
-    // Draw the secondary flag zones
+    // Draw the objective zones
     window.objectives.forEach(({ x, y, team, progress }, i) => {
         const size = i === 0 ? CONST.MAIN_OBJECTIVE_SIZE : CONST.OBJECTIVE_SIZE
         ctx.beginPath()

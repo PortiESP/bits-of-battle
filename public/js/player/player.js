@@ -4,10 +4,10 @@ const ctx = window.ctx
 
 export default class Player {
     constructor(xi, yi, sizei, colori) {
-        this.x = xi
-        this.y = yi
-        this.size = sizei
-        this.team = colori
+        this.x = xi // The player's x position
+        this.y = yi // The player's y position
+        this.size = sizei // The player's size
+        this.team = colori // The player's team (represented by a color in hex format, including the '#' symbol)
 
         // Speed
         this.dx = 0 // The player's speed in the x-axis
@@ -22,8 +22,8 @@ export default class Player {
         this.attack_range_players = [] // Players in the attack range
 
         // Path
-        this.objective = undefined // The player will move towards this point
-        this.objectiveDistance = Infinity
+        this.objective = undefined // Pointer to the objective that the player is moving towards
+        this.objectiveDistance = Infinity // The distance to the objective
 
         // Create the particles
         this.particles = []
@@ -46,32 +46,6 @@ export default class Player {
      * Draw the player (does not update the player's position)
      */
     draw() {
-        if (window.DEBUG) {
-            // Print the attack, damage and detection range
-            ctx.lineWidth = 2
-            ctx.strokeStyle = "#00000080"
-
-            // Draw the detection range
-            ctx.fillStyle = this.detection_range_players.length > 0 ? "#DADF3180" : "#DADF3110"
-            ctx.beginPath()
-            ctx.arc(this.x, this.y, this.detection_range, 0, Math.PI * 2)
-            ctx.stroke()
-            ctx.fill()
-
-            // Draw the attack  range
-            ctx.fillStyle = "#C731DF33"
-            ctx.beginPath()
-            ctx.arc(this.x, this.y, this.attack_range, 0, Math.PI * 2)
-            ctx.stroke()
-            ctx.fill()
-
-            ctx.fillStyle = this.team
-            ctx.strokeStyle = "black"
-            ctx.beginPath()
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
-            ctx.fill()
-        }
-
         // Draw the player's particles
         for (const particle of this.particles) {
             ctx.fillStyle = this.team
@@ -114,10 +88,6 @@ export default class Player {
     moveToBestObjective() {
         let target = this.objective
 
-        // DEBUG
-        // target = window.mouse
-        // -----
-
         const angle = Math.atan2(target.y - this.y, target.x - this.x)
         this.objectiveDistance = Math.hypot(target.x - this.x, target.y - this.y)
 
@@ -135,9 +105,9 @@ export default class Player {
      */
     calculateBestObjective() {
         let bestObjective = window.objectives[0] // Default value is central objective
-        let bestDistance = Infinity
+        let bestDistance = Infinity // Default value is infinity
 
-        // Move to every objective
+        // Check the objectives to find the closest one
         for (const objective of window.objectives) {
             // Check if the objective is already taken
             if (objective.team === this.team && objective.progress >= CONST.MAIN_OBJECTIVE_SIZE) continue
@@ -153,9 +123,6 @@ export default class Player {
         // Set the best objective
         this.objective = bestObjective
         this.objectiveDistance = bestDistance
-
-        // DEBUG
-        // this.objective = window.objectives[1]
     }
 
     /*
@@ -173,16 +140,23 @@ export default class Player {
         const auxDetectionRange = []
         const auxAttackRange = []
 
+        // Loop through all the players to check the detection and attack ranges
         for (const player of window.players) {
+            // Skip the player itself
             if (player === this) continue
+            // Calculate the distance between the players
             const distance = Math.hypot(this.x - player.x, this.y - player.y)
 
+            // Check if the player is within the attack range
             if (distance < this.attack_range + player.size) {
                 auxAttackRange.push(player)
                 auxDetectionRange.push(player)
-            } else if (distance < this.detection_range + player.size) auxDetectionRange.push(player)
+            }
+            // Check if the player is within the detection range
+            else if (distance < this.detection_range + player.size) auxDetectionRange.push(player)
         }
 
+        // Update the ranges in the player's attributes
         this.detection_range_players = auxDetectionRange
         this.attack_range_players = auxAttackRange
     }

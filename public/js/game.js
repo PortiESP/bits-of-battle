@@ -89,17 +89,44 @@ class Game {
 
         // Add players size at the player position
         window.players.forEach((player) => {
+            ctx.lineWidth = 2
+            ctx.strokeStyle = "#00000080"
+
+            // Draw the detection range
+            ctx.fillStyle = player.detection_range_players.length > 0 ? "#DADF3180" : "#DADF3110"
+            ctx.beginPath()
+            ctx.arc(player.x, player.y, player.detection_range, 0, Math.PI * 2)
+            ctx.stroke()
+            ctx.fill()
+
+            // Draw the attack  range
+            ctx.fillStyle = "#C731DF33"
+            ctx.beginPath()
+            ctx.arc(player.x, player.y, player.attack_range, 0, Math.PI * 2)
+            ctx.stroke()
+            ctx.fill()
+
+            // Draw the player center point using the player's team color and radius
+            ctx.fillStyle = player.team
+            ctx.strokeStyle = "black"
+            ctx.beginPath()
+            ctx.arc(player.x, player.y, player.size, 0, Math.PI * 2)
+            ctx.fill()
+            ctx.stroke()
+
+            ctx.fillStyle = "#ffffff"
+            // Draw the player's size and speed
             ctx.fillText(`Size: ${player.size.toFixed(2)}`, player.x - player.size, player.y - player.size - 10)
             ctx.fillText(`Speed: ${Math.hypot(player.dx, player.dy).toFixed(2)}`, player.x - player.size, player.y - player.size - 20)
 
             // Draw line to objective
+            ctx.strokeStyle = "#ffffff40"
             ctx.beginPath()
             ctx.moveTo(player.x, player.y)
             ctx.lineTo(player.objective.x, player.objective.y)
-            ctx.strokeStyle = "#ffffff40"
             ctx.stroke()
+
             // Draw distance to objective
-            ctx.fillStyle = "#ffffff"
             ctx.font = "12px Arial"
             ctx.fillText(`${Math.floor(player.objectiveDistance)}`, player.objective.x, player.objective.y)
         })

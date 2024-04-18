@@ -1,5 +1,5 @@
 import CONST from "../data/constants.js"
-import drawFlagZones from "./flag-zone.js"
+import drawObjectiveZones from "./flag-zone.js"
 
 // Get the canvas and context from the window object
 const $canvas = window.$canvas
@@ -17,7 +17,6 @@ export function drawBoard() {
     const baseWidth = $canvas.width / 12
     const baseHeight = ($canvas.height * 2) / 3
     const baseCenterY = $canvas.height / 2 - baseHeight / 2
-
     const team1Base = {
         color: CONST.TEAM_1_COLOR + "88", // 88 is the alpha value
         x: -3,
@@ -25,7 +24,6 @@ export function drawBoard() {
         width: baseWidth,
         height: baseHeight,
     }
-
     const team2Base = {
         color: CONST.TEAM_2_COLOR + "88",
         x: $canvas.width - baseWidth + 3,
@@ -34,21 +32,18 @@ export function drawBoard() {
         height: baseHeight,
     }
 
-    // Setup dashed line
+    // Setup dashed line for the bases
     ctx.setLineDash([10, 10])
     ctx.lineWidth = 5
-
     // Draw team 1 Base
     ctx.strokeStyle = team1Base.color
     ctx.strokeRect(team1Base.x, team1Base.y, team1Base.width, team1Base.height)
-
     // Draw team 2 Base
     ctx.strokeStyle = team2Base.color
     ctx.strokeRect(team2Base.x, team2Base.y, team2Base.width, team2Base.height)
-
     // Reset line dash
     ctx.setLineDash([])
 
     // Draw the flag zones
-    drawFlagZones()
+    drawObjectiveZones()
 }

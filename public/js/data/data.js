@@ -8,6 +8,7 @@
  */
 
 // ====================[ Global variables ]====================>
+// Debug mode
 window.DEBUG = true
 // Canvas
 window.$canvas = document.getElementById("screen")
@@ -15,7 +16,10 @@ const $canvas = window.$canvas
 window.ctx = $canvas.getContext("2d")
 
 // ====================[ Functions ]====================>
-// Get the dimensions of the canvas
+/**
+ * Calculates the dimensions of the canvas
+ * @returns Object with the dimensions of the canvas: { width, height, center: { x, y } }
+ */
 window.canvasDims = () => ({
     width: $canvas.width,
     height: $canvas.height,
@@ -25,7 +29,10 @@ window.canvasDims = () => ({
     },
 })
 
-// Secondary flag zone coordinates
+/**
+ * Calculates the coordinates of the objectives
+ * @returns Object with the coordinates of the objectives: { x, y }
+ */
 window.calculateObjectivesCoords = () => {
     const { x: cx, y: cy } = window.canvasDims().center // Get the center of the canvas
     const [cx_2, cy_2] = [cx / 2, cy / 2] // Half of the center
@@ -41,8 +48,10 @@ window.calculateObjectivesCoords = () => {
 }
 
 // ====================[ Global variables ]====================>
-window.mouse = { x: 0, y: 0 }
+window.mouse = { x: 0, y: 0 } // Mouse position, updated on mousemove
 
 // ====================[ Game variables ]====================>
-window.players = [] // Players in the game
-window.objectives = window.calculateObjectivesCoords().map((coords, i) => ({ ...coords, id: i, team: null, progress: 0 })) // Objectives in the game
+// Players in the game
+window.players = []
+// Objectives in the game, updated on resize. This is an ARRAY o { x, y, id, team, progress }
+window.objectives = window.calculateObjectivesCoords().map((coords, i) => ({ ...coords, id: i, team: null, progress: 0 }))
