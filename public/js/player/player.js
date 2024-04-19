@@ -84,17 +84,23 @@ export default class Player {
      * Move the player based on the keyboard input
      */
     move() {
-        if (window.keys[this.controls.up]) this.dy = -CONST.BASE_SPEED_PLAYER
-        if (window.keys[this.controls.left]) this.dx = -CONST.BASE_SPEED_PLAYER
-        if (window.keys[this.controls.down]) this.dy = CONST.BASE_SPEED_PLAYER
-        if (window.keys[this.controls.right]) this.dx = CONST.BASE_SPEED_PLAYER
+        if (window.keys[this.controls.up]) this.dy -= CONST.BASE_SPEED_PLAYER * CONST.BASE_ACCELERATION_PLAYER;
+        if (window.keys[this.controls.left]) this.dx -= CONST.BASE_SPEED_PLAYER * CONST.BASE_ACCELERATION_PLAYER;
+        if (window.keys[this.controls.down]) this.dy += CONST.BASE_SPEED_PLAYER * CONST.BASE_ACCELERATION_PLAYER;
+        if (window.keys[this.controls.right]) this.dx += CONST.BASE_SPEED_PLAYER * CONST.BASE_ACCELERATION_PLAYER;
 
-        // Stop the player if no key is pressed
-        if (!window.keys[this.controls.up] && !window.keys[this.controls.down]) this.dy = 0
-        if (!window.keys[this.controls.left] && !window.keys[this.controls.right]) this.dx = 0
+        // Decelerate gradually if no keys are pressed
+        if (!window.keys[this.controls.up] && this.dy < 0) this.dy += Math.abs(this.dy * CONST.BASE_ACCELERATION_PLAYER);
+        if (!window.keys[this.controls.down] && this.dy > 0) this.dy -= Math.abs(this.dy * CONST.BASE_ACCELERATION_PLAYER);
+        if (!window.keys[this.controls.left] && this.dx < 0) this.dx += Math.abs(this.dx * CONST.BASE_ACCELERATION_PLAYER);
+        if (!window.keys[this.controls.right] && this.dx > 0) this.dx -= Math.abs(this.dx * CONST.BASE_ACCELERATION_PLAYER);
 
-        this.x += this.dx
-        this.y += this.dy
+        // Limit speed to base speed
+        this.dy = Math.min(Math.max(this.dy, -CONST.BASE_SPEED_PLAYER), CONST.BASE_SPEED_PLAYER);
+        this.dx = Math.min(Math.max(this.dx, -CONST.BASE_SPEED_PLAYER), CONST.BASE_SPEED_PLAYER);
+
+        this.x += this.dx;
+        this.y += this.dy;
     }
 
     /*
