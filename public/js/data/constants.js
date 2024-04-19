@@ -1,3 +1,5 @@
+import wall from "../power_ups/wall.js"
+
 /**
  * Constants used in the game
  */
@@ -19,6 +21,7 @@ const CONST = {
     BASE_PLAYER_SIZE: 30, // The player's size at the start of the game
     BASE_SPEED_PLAYER: 3, // The player's speed at the start of the game
     BASE_ACCELERATION_PLAYER: 0.05, // The player's acceleration factor
+    BASE_BRAKE_PLAYER: 1.5, // The player's break factor (the higher the value, the faster the player will stop)
     PLAYER_ATTACK_MULTIPLIER: 0.05, // The player's attack multiplier
     PLAYER_ATTACK_CHANCE: 0.4, // The player's attack chance
     PLAYER_ORBIT_SPEED: 1, // The player's orbit speed
@@ -32,6 +35,11 @@ const CONST = {
     OBJECTIVE_SIZE: 50, // The size of the other objectives
     OBJECTIVE_PROGRESS_STEP: 1, // The progress step of the objectives
     OBJECTIVE_MAX_PROGRESS: 100, // The maximum progress of the objectives
+
+    // POWERUPS
+    POWERUPS_FUNCTIONS: {
+        wall,
+    },
 }
 
 export default CONST
