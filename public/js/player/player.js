@@ -67,10 +67,6 @@ export default class Player {
         // Take damage
         this.fight()
 
-        // Check if the player is inside the canvas
-        this.handleCanvasCollision()
-        this.handleObstacleCollision()
-
         // Move the player
         this.move()
 
@@ -94,7 +90,11 @@ export default class Player {
         if (!window.keys[this.controls.left] && this.dx < 0) this.dx += Math.abs(this.dx * CONST.BASE_ACCELERATION_PLAYER * CONST.BASE_BRAKE_PLAYER)
         if (!window.keys[this.controls.right] && this.dx > 0) this.dx -= Math.abs(this.dx * CONST.BASE_ACCELERATION_PLAYER * CONST.BASE_BRAKE_PLAYER)
 
-d        // Limit speed to base speed
+        // Check if the player is inside the canvas
+        this.handleCanvasCollision()
+        this.handleObstacleCollision()
+
+        // Limit speed to base speed
         this.dx = clamp(this.dx, -CONST.BASE_SPEED_PLAYER, CONST.BASE_SPEED_PLAYER)
         this.dy = clamp(this.dy, -CONST.BASE_SPEED_PLAYER, CONST.BASE_SPEED_PLAYER)
         // Threshold to stop the player (prevent the player from moving indefinitely when the speed is too low, but not zero)
@@ -167,6 +167,16 @@ d        // Limit speed to base speed
     handleObstacleCollision() {
         for (const obstacle of window.obstacles) {
             if (obstacle.checkCollision(this)) {
+                // Move the player to the closest point of the
+                const { x: cx, y: cy } = obstacle.getClosestCollisionPoint(this.x, this.y)
+
+                // calculate the angle and distance from the center
+                const angle = Math.atan2(this.y - cy, this.x - cx)
+
+                this.x = cx + Math.cos(angle) * (this.size + 0.01)
+                this.y = cy + Math.sin(angle) * (this.size + 0.01)
+
+                // Stop the player
                 this.dx = 0
                 this.dy = 0
             }

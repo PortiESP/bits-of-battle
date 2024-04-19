@@ -68,4 +68,12 @@ class RectWall {
 
         return { x: closestX, y: closestY }
     }
+
+    getPosRelative(player) {
+        const { x: cpx, y: cpy } = this.getClosestCollisionPoint(player.x, player.y)
+        const dx = player.x - cpx
+        const dy = player.y - cpy
+
+        return { dx, dy }
+    }
 }
