@@ -1,20 +1,20 @@
 import { clamp } from "../utils/collisions.js"
 
-export default function wall(team) {
-    window.obstacles.push(new RectWall(team))
+export default function spark(team) {
+    window.obstacles.push(new Spark(team))
 }
 
-class RectWall {
+class Spark {
     constructor(color) {
-        console.log("Wall power up activated")
+        console.log("Spark power up activated")
         this.x = window.mouse.x
         this.y = window.mouse.y
         this.placed = false
-        this.width = 20
-        this.height = 60
+        this.width = 25
+        this.height = 25
         this.color = color
 
-        // Wall coordinates (not considered until the wall is placed)
+        // Coordinates (not considered until the spark is placed)
         this.x1 = undefined
         this.y1 = undefined
         this.x2 = undefined
@@ -27,13 +27,13 @@ class RectWall {
     }
 
     update() {
-        // Move the wall if it hasn't been placed
+        // Move the spark if it hasn't been placed
         if (!this.placed) {
             this.x = window.mouse.x
             this.y = window.mouse.y
         }
 
-        // Placing the wall
+        // Placing the spark
         if (!this.placed && window.keys.mouse0) {
             this.placed = true
             this.x1 = this.x
@@ -63,18 +63,19 @@ class RectWall {
     }
 
     actionOnCollision(player) {
-        // Move the player to the closest point of the
-        const { x: cx, y: cy } = this.getClosestCollisionPoint(player.x, player.y)
+        if (!this.placed) return
 
-        // calculate the angle and distance from the center
-        const angle = Math.atan2(player.y - cy, player.x - cx)
+        let value = 0
+        if (player.team === this.color) value = 2
+        else value = -2
 
-        player.x = cx + Math.cos(angle) * (player.size + 0.01)
-        player.y = cy + Math.sin(angle) * (player.size + 0.01)
+        player.size += value
+        this.destructor()
+    }
 
-        // Stop the player
-        player.dx = 0
-        player.dy = 0
+    destructor() {
+        const index = window.obstacles.indexOf(this)
+        window.obstacles.splice(index, 1)
     }
 
     getClosestCollisionPoint(x, y) {

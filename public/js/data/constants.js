@@ -1,4 +1,5 @@
 import wall from "../power_ups/wall.js"
+import spark from "../power_ups/spark.js"
 
 /**
  * Constants used in the game
@@ -45,6 +46,7 @@ const CONST = {
     // POWERUPS
     POWERUPS_FUNCTIONS: {
         wall,
+        spark,
     },
 }
 

@@ -179,18 +179,7 @@ export default class Player {
     handleObstacleCollision() {
         for (const obstacle of window.obstacles) {
             if (obstacle.checkCollision(this)) {
-                // Move the player to the closest point of the
-                const { x: cx, y: cy } = obstacle.getClosestCollisionPoint(this.x, this.y)
-
-                // calculate the angle and distance from the center
-                const angle = Math.atan2(this.y - cy, this.x - cx)
-
-                this.x = cx + Math.cos(angle) * (this.size + 0.01)
-                this.y = cy + Math.sin(angle) * (this.size + 0.01)
-
-                // Stop the player
-                this.dx = 0
-                this.dy = 0
+                obstacle.actionOnCollision(this)
             }
         }
     }
