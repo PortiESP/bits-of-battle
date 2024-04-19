@@ -26,17 +26,29 @@ export default class Player {
         // Create the particles
         this.particles = []
         this.divider = this.size > 10 ? 2 : 1
-        const randomData = {
-            minX: this.x - this.attack_range,
-            minY: this.y - this.attack_range,
-            maxX: this.x + this.attack_range,
-            maxY: this.y + this.attack_range,
-        }
+    
         for (let i = 0; i < this.size / this.divider; i++) {
-            this.particles.push({
-                x: Math.floor(Math.random() * (randomData.maxX - randomData.minX) + randomData.minX),
-                y: Math.floor(Math.random() * (randomData.maxY - randomData.minY) + randomData.minY),
-            })
+            const particle = {
+                size: 5,
+                position: {
+                    x: this.x,
+                    y: this.y
+                },
+                offset: {
+                    x: 0,
+                    y: 0
+                },
+                shift: {
+                    x: this.x,
+                    y: this.y
+                },
+                speed: CONST.PLAYER_ORBIT_SPEED + Math.random() * CONST.PLAYER_ORBIT_SPEED_VARIATION,
+                targetSize: CONST.PARTICLE_TARGET_SIZE,
+                fillColor: this.team,
+                orbit: CONST.PLAYER_ORBIT_RADIUS / 3 * Math.random()
+            };
+
+            this.particles.push(particle);
         }
     }
 
@@ -46,10 +58,10 @@ export default class Player {
     draw() {
         // Draw the player's particles
         for (const particle of this.particles) {
-            ctx.fillStyle = this.team
-            ctx.beginPath()
-            ctx.arc(particle.x, particle.y, this.size / this.divider, 0, Math.PI * 2)
-            ctx.fill()
+            ctx.beginPath();
+            ctx.fillStyle = particle.fillColor;
+            ctx.arc(particle.position.x, particle.position.y, particle.size / 2, 0, Math.PI * 2, true);
+            ctx.fill();
         }
     }
 
@@ -188,6 +200,9 @@ export default class Player {
         const centerX = this.x
         const centerY = this.y
 
+        const width = window.canvasDims().width
+        const height = window.canvasDims().height
+
         const particleNumber = this.size / this.divider
 
         for (let i = 0; i < particleNumber; i++) {
@@ -195,21 +210,19 @@ export default class Player {
 
             if (!currentParticle) continue
 
-            // Calculate the angle and distance from the center
-            let angle = Math.atan2(currentParticle.y - centerY, currentParticle.x - centerX)
-            const distance = Math.hypot(currentParticle.x - centerX, currentParticle.y - centerY)
-
-            // Increase the angle to move the particle along the orbit
-            angle += (CONST.PLAYER_ORBIT_SPEED * Math.PI) / 180 // Rad to degrees
-
-            // Calculate the new position
-            currentParticle.x = centerX + distance * Math.cos(angle) + this.dx
-            currentParticle.y = centerY + distance * Math.sin(angle) + this.dy
-
-            // Check if the particle is inside the canvas
-            if (currentParticle.x < 0 || currentParticle.x > window.canvasDims().width) currentParticle.x = Math.min(Math.max(currentParticle.x, 0), window.canvasDims().width)
-
-            if (currentParticle.y < 0 || currentParticle.y > window.canvasDims().height) currentParticle.y = Math.min(Math.max(currentParticle.y, 0), window.canvasDims().height)
+            currentParticle.offset.x += currentParticle.speed * 0.7;
+            currentParticle.offset.y += currentParticle.speed * 0.7;
+            currentParticle.shift.x += (centerX - currentParticle.shift.x) * currentParticle.speed * CONST.PARTICLE_SHIFT;
+            currentParticle.shift.y += (centerY - currentParticle.shift.y) * currentParticle.speed * CONST.PARTICLE_SHIFT;
+            currentParticle.position.x = currentParticle.shift.x + Math.cos(i + currentParticle.offset.x) * currentParticle.orbit * CONST.PLAYER_ORBIT_SCALE;
+            currentParticle.position.y = currentParticle.shift.y + Math.sin(i + currentParticle.offset.y) * currentParticle.orbit * CONST.PLAYER_ORBIT_SCALE;
+            currentParticle.position.x = Math.max(Math.min(currentParticle.position.x, width), 0);
+            currentParticle.position.y = Math.max(Math.min(currentParticle.position.y, height), 0);
+            currentParticle.size += (currentParticle.targetSize - currentParticle.size) * CONST.PARTICLE_BLINK_FREQUENCY;
+            
+            if (Math.round(currentParticle.size) === Math.round(currentParticle.targetSize)) {
+                currentParticle.targetSize = 1 + Math.random() * 10;
+            }
         }
 
         this.particles.splice(particleNumber, this.particles.length - particleNumber)

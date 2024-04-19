@@ -21,7 +21,13 @@ const CONST = {
     BASE_ACCELERATION_PLAYER: 0.05, // The player's acceleration factor
     PLAYER_ATTACK_MULTIPLIER: 0.05, // The player's attack multiplier
     PLAYER_ATTACK_CHANCE: 0.4, // The player's attack chance
-    PLAYER_ORBIT_SPEED: 1, // The player's orbit speed
+    PLAYER_ORBIT_SPEED: 0.02, // The player's orbit speed
+    PLAYER_ORBIT_SPEED_VARIATION: 0.02, // The player's orbit speed
+    PLAYER_ORBIT_RADIUS: 200, // Player's orbit radius
+    PLAYER_ORBIT_SCALE: 3, // Player's orbit scale
+    PARTICLE_TARGET_SIZE: 5, // Particle target size
+    PARTICLE_BLINK_FREQUENCY: 0.05, // Particle "blinking" ratio
+    PARTICLE_SHIFT: 1, // Particle shift coefficient with respect to the player
     PARTICLE_UPDATE_DELAY: 50, // The delay between particle updates
     DEBOUNCER_DISTANCE: 10, // A threshold of the distance apart of the player's target where the player will stop moving
     CONTROLS_P1: { up: "w", down: "s", left: "a", right: "d" }, // Player 1 controls
