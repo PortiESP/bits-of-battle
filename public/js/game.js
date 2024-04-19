@@ -28,6 +28,7 @@ class Game {
 
     draw() {
         drawBoard()
+        window.obstacles.forEach((obstacle) => obstacle.draw())
         window.players.forEach((player) => player.draw())
 
         if (window.DEBUG) this.printDebugInfo()
@@ -35,6 +36,7 @@ class Game {
 
     update() {
         // Update the game state
+        window.obstacles.forEach((obstacle) => obstacle.update())
         window.players.forEach((player) => {
             player.update()
             this.checkObjectives(player)
@@ -92,8 +94,11 @@ class Game {
         }
     }
 
-    handlePowerUpEvent(player, powerUp) {
-        console.log("PowerUp event", player, powerUp)
+    handlePowerUpEvent(team, powerUp) {
+        console.log("PowerUp event", team, powerUp)
+
+        // Call the power up function
+        CONST.POWERUPS_FUNCTIONS[powerUp](team)
     }
 
     printDebugInfo() {

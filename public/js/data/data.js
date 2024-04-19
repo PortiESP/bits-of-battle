@@ -51,7 +51,7 @@ window.calculateObjectivesCoords = () => {
 
 // ====================[ Global variables ]====================>
 window.mouse = { x: 0, y: 0 } // Mouse position, updated on mousemove
-window.keys = {} //
+window.keys = {} // Keys pressed and mouse buttons clicked
 window.teams = [CONST.TEAM_1_COLOR, CONST.TEAM_2_COLOR] // Teams in the game
 
 // ====================[ Game variables ]====================>
@@ -59,3 +59,5 @@ window.teams = [CONST.TEAM_1_COLOR, CONST.TEAM_2_COLOR] // Teams in the game
 window.players = []
 // Objectives in the game, updated on resize. This is an ARRAY o { x, y, id, team, progress }
 window.objectives = window.calculateObjectivesCoords().map((coords, i) => ({ ...coords, id: i, team: null, progress: 0 }))
+// Obstacules in the game, updated on resize. This is an ARRAY o { x, y, size }
+window.obstacles = []
