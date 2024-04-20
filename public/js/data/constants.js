@@ -5,6 +5,10 @@ import spark from "../power_ups/spark.js"
  * Constants used in the game
  */
 const CONST = {
+    // Canvas
+    CANVAS_WIDTH: 960, // The width of the canvas
+    CANVAS_HEIGHT: 640, // The height of the canvas,
+
     // Board & Style
     BACKGROUND_COLOR: "#FAF7F5",
     BOARD_COLOR: "#222",

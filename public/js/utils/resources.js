@@ -5,6 +5,7 @@ class Resources {
         this.toLoad = {
             background: "assets/test-background.png",
             floor: "assets/test-floor.png",
+            powerUp: "assets/test-powerUp.png",
         }
 
         this.images = {}

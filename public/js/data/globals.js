@@ -12,8 +12,13 @@ import CONST from "./constants.js"
 // ====================[ Global variables ]====================>
 // Debug mode
 window.DEBUG = true
+
 // Canvas
 window.$canvas = document.getElementById("screen")
+window.$canvas.width = CONST.CANVAS_WIDTH
+window.$canvas.height = CONST.CANVAS_HEIGHT
+
+// Context
 const $canvas = window.$canvas
 window.ctx = $canvas.getContext("2d")
 

@@ -18,12 +18,9 @@ export function drawBoard() {
 
             const current = mapData.map[y / mapData.pixelSize][x / mapData.pixelSize]
 
-            if (current === "W") {
-                ctx.drawImage(images.background.img, x, y, mapData.pixelSize, mapData.pixelSize)
-                
-            } else {
-                ctx.drawImage(images.floor.img, x, y, mapData.pixelSize, mapData.pixelSize)
-            }
+            if (current === "W") ctx.drawImage(images.background.img, x, y, mapData.pixelSize, mapData.pixelSize)
+            else if (current === "P") ctx.drawImage(images.powerUp.img, x, y, mapData.pixelSize, mapData.pixelSize)
+            else ctx.drawImage(images.floor.img, x, y, mapData.pixelSize, mapData.pixelSize)
         }
     }
 }
