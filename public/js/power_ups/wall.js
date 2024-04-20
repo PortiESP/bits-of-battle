@@ -11,6 +11,7 @@ class RectWall extends powerUp {
         this.height = 60
     }
 
+    // ====================[ Overrides ]====================>
     draw() {
         ctx.fillStyle = this.color
         ctx.fillRect(this.x, this.y, this.width, this.height)
@@ -19,7 +20,7 @@ class RectWall extends powerUp {
     actionOnCollision(player) {
         // Move the player to the closest point of the
         const { x: cx, y: cy } = this.getClosestCollisionPoint(player.x, player.y)
-        const { dx, dy } = this.getPosRelative(player)
+        const { dx, dy } = this.getPosRelative(player.x, player.y)
 
         // Calculate the angle and distance from the center
         const angle = Math.atan2(player.y - cy, player.x - cx)

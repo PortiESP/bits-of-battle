@@ -7,7 +7,7 @@
  *
  */
 
-import CONST from "../data/constants.js"
+import CONST from "./constants.js"
 
 // ====================[ Global variables ]====================>
 // Debug mode
@@ -59,5 +59,5 @@ window.teams = [CONST.TEAM_1_COLOR, CONST.TEAM_2_COLOR] // Teams in the game
 window.players = []
 // Objectives in the game, updated on resize. This is an ARRAY o { x, y, id, team, progress }
 window.objectives = window.calculateObjectivesCoords().map((coords, i) => ({ ...coords, id: i, team: null, progress: 0 }))
-// Obstacules in the game, updated on resize. This is an ARRAY o { x, y, size }
+// Obstacules in the game, updated on resize. This is an ARRAY of objects (Wall): { x, y, size }
 window.obstacles = []

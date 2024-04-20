@@ -11,6 +11,7 @@ class Spark extends powerUp {
         this.height = 20
     }
 
+    // ====================[ Overrides ]====================>
     draw() {
         ctx.fillStyle = this.color
         ctx.fillRect(this.x, this.y, this.width, this.height)

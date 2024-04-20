@@ -2,9 +2,13 @@ import { drawBoard } from "./board/board.js"
 import CONST from "./data/constants.js"
 import Player from "./player/player.js"
 
+// Get the canvas and context from the global scope
 const ctx = window.ctx
 const $canvas = window.$canvas
 
+/**
+ * The main game class
+ */
 class Game {
     constructor() {
         // Resize canvas
@@ -14,11 +18,14 @@ class Game {
         // Set Game attributes
         this.finished = false
 
-        // DEBUG
+        // DEBUG (forcing an initial setup)
         const { center } = window.canvasDims()
         window.players = [new Player(CONST.BASE_PLAYER_SIZE + 10, center.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_1_COLOR, CONST.CONTROLS_P1), new Player($canvas.width - CONST.BASE_PLAYER_SIZE - 10, center.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_2_COLOR, CONST.CONTROLS_P2)]
     }
 
+    /**
+     * The main game loop. It updates the game state and draws the game objects on the canvas.
+     */
     mainloop() {
         requestAnimationFrame(() => this.mainloop())
         ctx.clearRect(0, 0, $canvas.width, $canvas.height)
@@ -26,23 +33,37 @@ class Game {
         this.draw()
     }
 
+    /**
+     * Draw the game objects on the canvas
+     */
     draw() {
+        // Board
         drawBoard()
+        // Obstacles
         window.obstacles.forEach((obstacle) => obstacle.draw())
+        // Players
         window.players.forEach((player) => player.draw())
 
+        // DEBUG
         if (window.DEBUG) this.printDebugInfo()
     }
 
+    /**
+     * Update the game state
+     */
     update() {
-        // Update the game state
+        // Obstacles
         window.obstacles.forEach((obstacle) => obstacle.update())
+        // Players
         window.players.forEach((player) => {
-            player.update()
-            this.checkObjectives(player)
+            player.update() // Update the player state
+            this.checkObjectives(player) // Check if the player is close to an objective
         })
     }
 
+    /**
+     * Resize the canvas to fit the window size
+     */
     resizeCanvas() {
         const { x, y } = $canvas.getBoundingClientRect()
         const { width, height } = document.querySelector(".game").getBoundingClientRect()
@@ -59,6 +80,10 @@ class Game {
         })
     }
 
+    /**
+     * Check if a player is close to an objective and update the objective state
+     * @param {Player} player The player to check if it is close to an objective
+     */
     checkObjectives(player) {
         // Find the closest objective
         let bestDistance = Infinity
@@ -94,6 +119,11 @@ class Game {
         }
     }
 
+    /**
+     * Calls the power up function that was triggered
+     * @param {String} team The team that triggered the power up event
+     * @param {String} powerUp The power up that was triggered. It must be a key in the `POWERUPS_FUNCTIONS` object in the `constants.js` file
+     */
     handlePowerUpEvent(team, powerUp) {
         console.log("PowerUp event", team, powerUp)
 
@@ -101,6 +131,18 @@ class Game {
         CONST.POWERUPS_FUNCTIONS[powerUp](team)
     }
 
+    /**
+     * Print debug information on the canvas
+     *
+     * - Players size and speed
+     * - Players detection and attack range
+     * - Objectives progress
+     * - Mouse position
+     * - Number of players
+     * - Player center point
+     * - Speed vector
+     * - Objectives progress and id
+     */
     printDebugInfo() {
         ctx.fillStyle = "#eee"
         ctx.font = "12px Arial"

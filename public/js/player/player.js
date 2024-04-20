@@ -1,5 +1,6 @@
 import CONST from "../data/constants.js"
 import { clamp } from "../utils/collisions.js"
+import Particle from "./particle.js"
 
 const ctx = window.ctx
 
@@ -26,30 +27,9 @@ export default class Player {
 
         // Create the particles
         this.particles = []
-        this.divider = this.size > 10 ? 2 : 1
-    
+        this.divider = this.size > 10 ? 2 : 1 // Determines the number of particles that will be generated based on the player's size
         for (let i = 0; i < this.size / this.divider; i++) {
-            const particle = {
-                size: 5,
-                position: {
-                    x: this.x,
-                    y: this.y
-                },
-                offset: {
-                    x: 0,
-                    y: 0
-                },
-                shift: {
-                    x: this.x,
-                    y: this.y
-                },
-                speed: CONST.PLAYER_ORBIT_SPEED + Math.random() * CONST.PLAYER_ORBIT_SPEED_VARIATION,
-                targetSize: CONST.PARTICLE_TARGET_SIZE,
-                fillColor: this.team,
-                orbit: CONST.PLAYER_ORBIT_RADIUS / 3 * Math.random()
-            };
-
-            this.particles.push(particle);
+            this.particles.push(new Particle(this.x, this.y, this.size, this.team))
         }
     }
 
@@ -59,10 +39,10 @@ export default class Player {
     draw() {
         // Draw the player's particles
         for (const particle of this.particles) {
-            ctx.beginPath();
-            ctx.fillStyle = particle.fillColor;
-            ctx.arc(particle.position.x, particle.position.y, particle.size / 2, 0, Math.PI * 2, true);
-            ctx.fill();
+            ctx.beginPath()
+            ctx.fillStyle = particle.fillColor
+            ctx.arc(particle.position.x, particle.position.y, particle.size / 2, 0, Math.PI * 2, true)
+            ctx.fill()
         }
     }
 
@@ -176,6 +156,9 @@ export default class Player {
         }
     }
 
+    /**
+     * Handle the player's collision with the obstacles
+     */
     handleObstacleCollision() {
         for (const obstacle of window.obstacles) {
             if (obstacle.checkCollision(this)) {
@@ -205,37 +188,23 @@ export default class Player {
      * Update the player's particles
      */
     updateParticles() {
+        // Update the number of particles based on the player's size
         this.divider = this.size > 10 ? 2 : 1
 
+        // Constants
         const centerX = this.x
         const centerY = this.y
-
         const width = window.canvasDims().width
         const height = window.canvasDims().height
-
         const particleNumber = this.size / this.divider
 
+        // Update each particle
         for (let i = 0; i < particleNumber; i++) {
-            const currentParticle = this.particles[i]
-
-            if (!currentParticle) continue
-
-            currentParticle.offset.x += currentParticle.speed * 0.7;
-            currentParticle.offset.y += currentParticle.speed * 0.7;
-            currentParticle.shift.x += (centerX - currentParticle.shift.x) * currentParticle.speed * CONST.PARTICLE_SHIFT;
-            currentParticle.shift.y += (centerY - currentParticle.shift.y) * currentParticle.speed * CONST.PARTICLE_SHIFT;
-            currentParticle.position.x = currentParticle.shift.x + Math.cos(i + currentParticle.offset.x) * currentParticle.orbit * CONST.PLAYER_ORBIT_SCALE;
-            currentParticle.position.y = currentParticle.shift.y + Math.sin(i + currentParticle.offset.y) * currentParticle.orbit * CONST.PLAYER_ORBIT_SCALE;
-            currentParticle.position.x = Math.max(Math.min(currentParticle.position.x, width), 0);
-            currentParticle.position.y = Math.max(Math.min(currentParticle.position.y, height), 0);
-            currentParticle.size += (currentParticle.targetSize - currentParticle.size) * CONST.PARTICLE_BLINK_FREQUENCY;
-            
-            if (Math.round(currentParticle.size) === Math.round(currentParticle.targetSize)) {
-                currentParticle.targetSize = 1 + Math.random() * 10;
-            }
+            this.particles[i].update(i, centerX, centerY, width, height)
         }
 
-        this.particles.splice(particleNumber, this.particles.length - particleNumber)
+        // Remove the particles that are not needed
+        this.particles = this.particles.slice(0, particleNumber)
     }
 
     /**

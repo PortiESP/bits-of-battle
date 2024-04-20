@@ -6,7 +6,7 @@ const $canvas = window.$canvas
 const ctx = window.ctx
 
 /**
- * Draws the base graphics of the game
+ * Draws the base graphics of the game (background, bases, and objective zones)
  */
 export function drawBoard() {
     // Draw background
