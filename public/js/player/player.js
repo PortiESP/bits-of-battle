@@ -26,11 +26,7 @@ export default class Player {
         this.attack_range_players = [] // Players in the attack range
 
         // Create the particles
-        this.particles = []
-        this.divider = this.size > 10 ? 2 : 1 // Determines the number of particles that will be generated based on the player's size
-        for (let i = 0; i < this.size / this.divider; i++) {
-            this.particles.push(new Particle(this.x, this.y, this.size, this.team))
-        }
+        this.particles = Array.from({ length: this.size }, (_, i) => new Particle(i, this.x, this.y, CONST.PARTICLE_TARGET_SIZE, this.team))
     }
 
     /**
@@ -189,22 +185,24 @@ export default class Player {
      */
     updateParticles() {
         // Update the number of particles based on the player's size
-        this.divider = this.size > 10 ? 2 : 1
 
         // Constants
         const centerX = this.x
         const centerY = this.y
         const width = window.canvasDims().width
         const height = window.canvasDims().height
-        const particleNumber = this.size / this.divider
 
         // Update each particle
-        for (let i = 0; i < particleNumber; i++) {
-            this.particles[i].update(i, centerX, centerY, width, height)
+        for (let prt of this.particles) {
+            prt.update(centerX, centerY, width, height)
         }
 
-        // Remove the particles that are not needed
-        this.particles = this.particles.slice(0, particleNumber)
+        if (this.size > this.particles.length) {
+            const newParticles = Array.from({ length: this.size - this.particles.length }, (_, i) => new Particle(i, this.x, this.y, CONST.PARTICLE_TARGET_SIZE, this.team))
+            this.particles = this.particles.concat(newParticles)
+        } else if (this.size < this.particles.length) {
+            this.particles = this.particles.slice(0, this.size)
+        }
     }
 
     /**
