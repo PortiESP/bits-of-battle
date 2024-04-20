@@ -1,13 +1,22 @@
 import wall from "../power_ups/wall.js"
 import spark from "../power_ups/spark.js"
 
+const canvasWidth = 960
+const canvasHeight = 640
+const cellSize = 32
+
 /**
  * Constants used in the game
  */
 const CONST = {
     // Canvas
-    CANVAS_WIDTH: 960, // The width of the canvas
-    CANVAS_HEIGHT: 640, // The height of the canvas,
+    CANVAS_WIDTH: canvasWidth, // The width of the canvas
+    CANVAS_HEIGHT: canvasHeight, // The height of the canvas,
+    CELL_SIZE: cellSize, // The size of the cells in the canvas
+
+    // Game
+    PLAYER_1_INITIAL: { x: cellSize + cellSize / 2, y: cellSize + cellSize / 2 }, // Initial position of player 1
+    PLAYER_2_INITIAL: { x: canvasWidth - cellSize - cellSize / 2, y: canvasHeight - cellSize - cellSize / 2 }, // Initial position of player 2
 
     // Board & Style
     BACKGROUND_COLOR: "#FAF7F5",

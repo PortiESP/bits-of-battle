@@ -12,7 +12,6 @@ const $canvas = window.$canvas
  */
 class Game {
     constructor() {
-        this.ctx = ctx
         // Resize canvas
         // this.resizeCanvas()
         this.mainloop()
@@ -23,18 +22,18 @@ class Game {
 
         // DEBUG (forcing an initial setup)
         const { center } = window.canvasDims()
-        window.players = [new Player(CONST.BASE_PLAYER_SIZE + 10, center.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_1_COLOR, CONST.CONTROLS_P1), new Player($canvas.width - CONST.BASE_PLAYER_SIZE - 10, center.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_2_COLOR, CONST.CONTROLS_P2)]
+        window.players = [new Player(CONST.PLAYER_1_INITIAL.x, CONST.PLAYER_1_INITIAL.y, 5, CONST.TEAM_1_COLOR, CONST.CONTROLS_P1), new Player(CONST.PLAYER_2_INITIAL.x, CONST.PLAYER_2_INITIAL.y, 5, CONST.TEAM_2_COLOR, CONST.CONTROLS_P2)]
     }
 
     /**
      * The main game loop. It updates the game state and draws the game objects on the canvas.
      */
     mainloop() {
-        requestAnimationFrame(() => this.mainloop())
-        this.ctx.clearRect(0, 0, $canvas.width, $canvas.height)
+        ctx.clearRect(0, 0, $canvas.width, $canvas.height)
         this.update()
         this.draw()
         this.updateGameStatus()
+        requestAnimationFrame(() => this.mainloop())
     }
 
     /**
