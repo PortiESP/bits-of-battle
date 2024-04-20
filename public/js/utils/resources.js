@@ -4,6 +4,7 @@ class Resources {
         // Images to be loaded in the game
         this.toLoad = {
             background: "assets/test-background.png",
+            floor: "assets/test-floor.png",
         }
 
         this.images = {}
