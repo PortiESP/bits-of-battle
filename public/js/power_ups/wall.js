@@ -19,15 +19,12 @@ class RectWall extends powerUp {
     actionOnCollision(player) {
         // Move the player to the closest point of the
         const { x: cx, y: cy } = this.getClosestCollisionPoint(player.x, player.y)
+        const { dx, dy } = this.getPosRelative(player)
 
         // Calculate the angle and distance from the center
         const angle = Math.atan2(player.y - cy, player.x - cx)
 
-        player.x = cx + Math.cos(angle) * (player.size + 0.01)
-        player.y = cy + Math.sin(angle) * (player.size + 0.01)
-
-        // Stop the player
-        player.dx = 0
-        player.dy = 0
+        if (dx) player.x = cx + Math.cos(angle) * (player.size + 0.01)
+        if (dy) player.y = cy + Math.sin(angle) * (player.size + 0.01)
     }
 }
