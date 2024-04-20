@@ -1,4 +1,5 @@
 import { drawBoard } from "./board/board.js"
+import { drawEndScreen } from "./board/endScreen.js"
 import CONST from "./data/constants.js"
 import Player from "./player/player.js"
 
@@ -17,6 +18,7 @@ class Game {
 
         // Set Game attributes
         this.finished = false
+        this.winner = null
 
         // DEBUG (forcing an initial setup)
         const { center } = window.canvasDims()
@@ -31,12 +33,18 @@ class Game {
         ctx.clearRect(0, 0, $canvas.width, $canvas.height)
         this.update()
         this.draw()
+        this.updateGameStatus()
     }
 
     /**
      * Draw the game objects on the canvas
      */
     draw() {
+        if (this.finished) {
+            drawEndScreen()
+            return
+        }
+
         // Board
         drawBoard()
         // Obstacles
@@ -59,6 +67,23 @@ class Game {
             player.update() // Update the player state
             this.checkObjectives(player) // Check if the player is close to an objective
         })
+    }
+
+    /**
+     * Update the game status
+     */ 
+    updateGameStatus() {
+        // Check if the game is finished by objectives
+        if (window.objectives.every((objective) => objective.progress >= 100 && objective.team === window.objectives[0].team)) {
+            this.finished = true
+            this.winner = window.objectives[0].team === CONST.TEAM_1_COLOR ? "Team 1" : "Team 2"
+        }
+
+        // Check if the game is finished by players alive
+        if (window.players.length === 1) {
+            this.finished = true
+            this.winner = window.players[0].team === CONST.TEAM_1_COLOR ? "Team 1" : "Team 2"
+        }
     }
 
     /**
