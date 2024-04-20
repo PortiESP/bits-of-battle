@@ -12,8 +12,9 @@ const $canvas = window.$canvas
  */
 class Game {
     constructor() {
+        this.ctx = ctx
         // Resize canvas
-        this.resizeCanvas()
+        // this.resizeCanvas()
         this.mainloop()
 
         // Set Game attributes
@@ -30,7 +31,7 @@ class Game {
      */
     mainloop() {
         requestAnimationFrame(() => this.mainloop())
-        ctx.clearRect(0, 0, $canvas.width, $canvas.height)
+        this.ctx.clearRect(0, 0, $canvas.width, $canvas.height)
         this.update()
         this.draw()
         this.updateGameStatus()
