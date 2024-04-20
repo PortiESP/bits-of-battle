@@ -6,6 +6,8 @@ class Resources {
             background: "assets/test-background.png",
             floor: "assets/test-floor.png",
             powerUp: "assets/test-powerUp.png",
+            player1: "assets/test-player1.png",
+            player2: "assets/test-player2.png",
         }
 
         this.images = {}

@@ -20,6 +20,8 @@ export function drawBoard() {
 
             if (current === "W") ctx.drawImage(images.background.img, x, y, mapData.pixelSize, mapData.pixelSize)
             else if (current === "P") ctx.drawImage(images.powerUp.img, x, y, mapData.pixelSize, mapData.pixelSize)
+            else if (current === "1") ctx.drawImage(images.player1.img, x, y, mapData.pixelSize, mapData.pixelSize)
+            else if (current === "2") ctx.drawImage(images.player2.img, x, y, mapData.pixelSize, mapData.pixelSize)
             else ctx.drawImage(images.floor.img, x, y, mapData.pixelSize, mapData.pixelSize)
         }
     }
