@@ -22,6 +22,13 @@ class Resources {
             }
         })
     }
+
+    /**
+     * Check if all images are loaded
+     */
+    isReady() {
+        return Object.keys(this.images).every((key) => this.images[key].loaded)
+    }
 }
 
 export const resources = new Resources()
