@@ -13,7 +13,7 @@ const CONST = {
     CANVAS_WIDTH: canvasWidth, // The width of the canvas
     CANVAS_HEIGHT: canvasHeight, // The height of the canvas,
     CELL_SIZE: cellSize, // The size of the cells in the canvas
-    CHARACTER_SPRITE_SIZE: 16, // The size of the character sprite
+    CHARACTER_SPRITE_SIZE: 64, // The size of the character sprite
 
     // Game
     PLAYER_1_INITIAL: { x: cellSize + cellSize / 2, y: cellSize + cellSize / 2 }, // Initial position of player 1

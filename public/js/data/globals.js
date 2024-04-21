@@ -21,6 +21,8 @@ window.$canvas.height = CONST.CANVAS_HEIGHT
 // Context
 const $canvas = window.$canvas
 window.ctx = $canvas.getContext("2d")
+window.ctx.imageSmoothingEnabled = true
+window.ctx.imageSmoothingQuality = "high"
 
 // ====================[ Functions ]====================>
 /**

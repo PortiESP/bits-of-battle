@@ -1,7 +1,7 @@
 import CONST from "../data/constants.js"
 import { clamp } from "../utils/functions.js"
 import { resources } from "../utils/resources.js"
-import { mapData} from "../board/map.js"
+import { mapData } from "../board/map.js"
 import Particle from "./particle.js"
 
 const ctx = window.ctx
@@ -52,10 +52,16 @@ export default class Player {
         // Draw the sprite
         ctx.drawImage(
             image, // Image
-            spriteX * spriteWidth, spriteY * spriteHeight, spriteWidth, spriteHeight, // Source rectangle
-            this.x - mapData.pixelSize / 2, this.y - mapData.pixelSize / 2, spriteWidth * 2, spriteHeight * 2 // Destination rectangle (scaled 2x)
+            spriteX * spriteWidth,
+            spriteY * spriteHeight,
+            spriteWidth,
+            spriteHeight, // Source rectangle
+            this.x - mapData.pixelSize / 2,
+            this.y - mapData.pixelSize / 2,
+            spriteWidth / 2,
+            spriteHeight / 2 // Destination rectangle (scaled 2x)
         )
-        
+
         // Draw the player's particles
         for (const particle of this.particles) {
             ctx.beginPath()

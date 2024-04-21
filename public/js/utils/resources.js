@@ -1,3 +1,4 @@
+import CONST from "../data/constants.js"
 
 class Resources {
     constructor() {
@@ -18,13 +19,16 @@ class Resources {
             const img = new Image()
             img.src = this.toLoad[key]
 
-            this.images[key] = {
-                img: img,
-                loaded: false
-            }
-
             img.onload = () => {
-                this.images[key].loaded = true
+                createImageBitmap(img, { colorSpaceConversion: "none", resizeQuality: "pixelated" }).then((bitmap) => {
+                    this.images[key] = {
+                        key: key,
+                        img: bitmap,
+                        loaded: true,
+                        src: this.toLoad[key],
+                        width: CONST.CHARACTER_SPRITE_SIZE,
+                    }
+                })
             }
         })
     }
@@ -33,7 +37,7 @@ class Resources {
      * Check if all images are loaded
      */
     isReady() {
-        return Object.keys(this.images).every((key) => this.images[key].loaded)
+        return Object.values(this.images).every((value) => value.loaded) && Object.keys(this.toLoad).length === Object.keys(this.images).length
     }
 }
 
