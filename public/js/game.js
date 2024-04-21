@@ -1,4 +1,4 @@
-import { drawBoard } from "./board/board.js"
+import { drawBoard, setupBoardCollision } from "./board/board.js"
 import { drawEndScreen } from "./board/endScreen.js"
 import CONST from "./data/constants.js"
 import Player from "./player/player.js"
@@ -12,17 +12,19 @@ const $canvas = window.$canvas
  */
 class Game {
     constructor() {
-        // Resize canvas
-        // this.resizeCanvas()
-        this.mainloop()
-
-        // Set Game attributes
+        // Initial setup
         this.finished = false
         this.winner = null
+        setupBoardCollision()
 
         // DEBUG (forcing an initial setup)
-        const { center } = window.canvasDims()
         window.players = [new Player(CONST.PLAYER_1_INITIAL.x, CONST.PLAYER_1_INITIAL.y, 5, CONST.TEAM_1_COLOR, CONST.CONTROLS_P1), new Player(CONST.PLAYER_2_INITIAL.x, CONST.PLAYER_2_INITIAL.y, 5, CONST.TEAM_2_COLOR, CONST.CONTROLS_P2)]
+
+        // Resize canvas
+        // this.resizeCanvas()
+
+        // Main game loop
+        this.mainloop()
     }
 
     /**
@@ -47,6 +49,7 @@ class Game {
 
         // Board
         drawBoard()
+
         // Obstacles
         window.obstacles.forEach((obstacle) => obstacle.draw())
         // Players
@@ -71,7 +74,7 @@ class Game {
 
     /**
      * Update the game status
-     */ 
+     */
     updateGameStatus() {
         // Check if the game is finished by objectives
         if (window.objectives.every((objective) => objective.progress >= 100 && objective.team === window.objectives[0].team)) {

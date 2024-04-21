@@ -1,19 +1,25 @@
-import powerUp from "./powerUp.js"
+import PowerUp from "./powerUp.js"
 
-export default function wall(team) {
-    window.obstacles.push(new RectWall(team))
+export default function createWall(x, y, width, height, team) {
+    window.obstacles.push(new RectWall(x, y, width, height, team))
 }
 
-class RectWall extends powerUp {
-    constructor(color) {
-        super(color)
-        this.width = 20
-        this.height = 60
+class RectWall extends PowerUp {
+    constructor(x, y, width, height, team) {
+        super(x, y, width, height, team)
+
+        // Set the wall's properties
+        this.x1 = x
+        this.y1 = y
+        this.x2 = x + width
+        this.y2 = y + height
     }
 
     // ====================[ Overrides ]====================>
     draw() {
-        ctx.fillStyle = this.color
+        // Draw the wall in debug mode with a red color
+        if (!this.team && window.DEBUG) ctx.fillStyle = "#ff000080"
+        ctx.fillStyle = this.team
         ctx.fillRect(this.x, this.y, this.width, this.height)
     }
 

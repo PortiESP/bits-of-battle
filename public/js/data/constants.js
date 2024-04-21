@@ -1,5 +1,5 @@
-import wall from "../power_ups/wall.js"
-import spark from "../power_ups/spark.js"
+import createWall from "../power_ups/wall.js"
+import createSpark from "../power_ups/spark.js"
 
 const canvasWidth = 960
 const canvasHeight = 640
@@ -58,8 +58,7 @@ const CONST = {
 
     // POWERUPS
     POWERUPS_FUNCTIONS: {
-        wall,
-        spark,
+        spark: createSpark,
     },
 }
 
