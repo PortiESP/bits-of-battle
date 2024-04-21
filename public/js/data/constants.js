@@ -1,9 +1,9 @@
-import createWall from "../power_ups/wall.js"
 import createSpark from "../power_ups/spark.js"
 
-const canvasWidth = 960
-const canvasHeight = 640
 const cellSize = 32
+const canvasMatrixSize = [30, 20]
+const canvasWidth = canvasMatrixSize[0] * cellSize
+const canvasHeight = canvasMatrixSize[1] * cellSize
 
 /**
  * Constants used in the game
