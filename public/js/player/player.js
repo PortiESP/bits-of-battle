@@ -14,6 +14,7 @@ export default class Player {
         this.team = colori // The player's team (represented by a color in hex format, including the '#' symbol)
 
         this.controls = controls // The player's controls
+        this.pressedKeysStack = [] // The last key pressed by the player
 
         this.state = {
             // The player's state
@@ -102,20 +103,33 @@ export default class Player {
         const currentDirection = this.state.direction
         let newDirection = { x: 0, y: 0 }
 
-        // Accelerate the player if the keys are pressed
-        if (window.keys[this.controls.up]) {
-            newDirection = { x: 0, y: -1 }
-            if (currentDirection !== newDirection) this.dy = -CONST.BASE_SPEED_PLAYER
-        } else if (window.keys[this.controls.down]) {
-            newDirection = { x: 0, y: 1 }
-            if (currentDirection !== newDirection) this.dy = CONST.BASE_SPEED_PLAYER
-        } else if (window.keys[this.controls.left]) {
-            newDirection = { x: -1, y: 0 }
-            if (currentDirection !== newDirection) this.dx = -CONST.BASE_SPEED_PLAYER
-        } else if (window.keys[this.controls.right]) {
-            newDirection = { x: 1, y: 0 }
-            if (currentDirection !== newDirection) this.dx = CONST.BASE_SPEED_PLAYER
-        } else this.state.moving = false
+        // Handle the key press
+        this.handleKeyPress()
+
+        // Update the direction based on the keys pressed
+        //  The most recent key pressed has priority
+        const keysPressed = this.pressedKeysStack.length // Number of keys pressed
+        if (keysPressed) {
+            // Get the most recent key pressed from the stack
+            const mostRecentKeyPressed = this.pressedKeysStack[keysPressed - 1]
+
+            // Update the direction based on the most recent key pressed
+            if (mostRecentKeyPressed === this.controls.up) {
+                newDirection = { x: 0, y: -1 }
+                if (currentDirection !== newDirection) this.dy = -CONST.BASE_SPEED_PLAYER
+            } else if (mostRecentKeyPressed === this.controls.down) {
+                newDirection = { x: 0, y: 1 }
+                if (currentDirection !== newDirection) this.dy = CONST.BASE_SPEED_PLAYER
+            } else if (mostRecentKeyPressed === this.controls.left) {
+                newDirection = { x: -1, y: 0 }
+                if (currentDirection !== newDirection) this.dx = -CONST.BASE_SPEED_PLAYER
+            } else if (mostRecentKeyPressed === this.controls.right) {
+                newDirection = { x: 1, y: 0 }
+                if (currentDirection !== newDirection) this.dx = CONST.BASE_SPEED_PLAYER
+            }
+        }
+        // If no keys are pressed, stop the player
+        else this.state.moving = false
 
         // Update the direction
         if (this.state.moving) this.state.direction = newDirection
@@ -139,6 +153,25 @@ export default class Player {
 
         this.x += this.dx
         this.y += this.dy
+    }
+
+    /**
+     * Updates the pressed keys stack based on the keyboard input.
+     * Newly pressed keys are added to the stack, while keys that are no longer pressed are removed from the stack
+     */
+    handleKeyPress() {
+        // Update the most recent key pressed
+        for (let key in this.controls) {
+            const keyState = window.keys[this.controls[key]]
+            // Update the most recent key pressed
+            if (keyState && !this.pressedKeysStack.includes(this.controls[key])) {
+                this.pressedKeysStack.push(this.controls[key])
+            }
+            // Remove the key from the stack if it is not pressed anymore
+            else if (!keyState && this.pressedKeysStack.includes(this.controls[key])) {
+                this.pressedKeysStack = this.pressedKeysStack.filter((k) => k !== this.controls[key])
+            }
+        }
     }
 
     // Calculate the step
