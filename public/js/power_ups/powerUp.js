@@ -1,4 +1,4 @@
-import { clamp } from "../utils/collisions.js"
+import { clamp } from "../utils/functions.js"
 
 /**
  * This is the parent class for all the power ups.

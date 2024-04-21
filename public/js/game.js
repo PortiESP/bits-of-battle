@@ -1,7 +1,8 @@
-import { drawBoard, setupBoardCollision } from "./board/board.js"
+import { drawBoard, generateBoardBounds } from "./board/board.js"
 import { drawEndScreen } from "./board/endScreen.js"
 import CONST from "./data/constants.js"
 import Player from "./player/player.js"
+import { progressToRadians } from "./utils/functions.js"
 
 // Get the canvas and context from the global scope
 const ctx = window.ctx
@@ -15,7 +16,9 @@ class Game {
         // Initial setup
         this.finished = false
         this.winner = null
-        setupBoardCollision()
+
+        // Set the obstacles
+        window.obstacles = window.obstacles.concat(generateBoardBounds())
 
         // DEBUG (forcing an initial setup)
         window.players = [new Player(CONST.PLAYER_1_INITIAL.x, CONST.PLAYER_1_INITIAL.y, 5, CONST.TEAM_1_COLOR, CONST.CONTROLS_P1), new Player(CONST.PLAYER_2_INITIAL.x, CONST.PLAYER_2_INITIAL.y, 5, CONST.TEAM_2_COLOR, CONST.CONTROLS_P2)]
@@ -221,6 +224,19 @@ class Game {
 
         // Draw objectives progress
         window.objectives.forEach((objective) => {
+            // Draw the objectives
+            ctx.fillStyle = (objective.team || "#ffffff") + "80"
+            ctx.beginPath()
+            ctx.arc(objective.x, objective.y, CONST.OBJECTIVE_SIZE, 0, progressToRadians(objective.progress))
+            ctx.lineTo(objective.x, objective.y)
+            ctx.fill()
+            ctx.fillStyle = "#ffffff20"
+            ctx.beginPath()
+            ctx.arc(objective.x, objective.y, CONST.OBJECTIVE_SIZE, progressToRadians(objective.progress), 0)
+            ctx.lineTo(objective.x, objective.y)
+            ctx.fill()
+
+            // Type progress
             ctx.fillStyle = "#ffffff"
             ctx.font = "12px Arial"
             ctx.fillText(`Obj: ${objective.id}`, objective.x - CONST.OBJECTIVE_SIZE / 2, objective.y + CONST.OBJECTIVE_SIZE + 10)

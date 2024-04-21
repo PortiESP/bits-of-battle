@@ -8,3 +8,12 @@
 export function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max)
 }
+
+/**
+ * Converts the progress of the objective into radians
+ * @param {int} progress Number between 0 and 100
+ * @returns The radians that the progress represents
+ */
+export function progressToRadians(progress) {
+    return (progress / 100) * Math.PI * 2
+}

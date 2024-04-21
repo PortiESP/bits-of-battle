@@ -1,5 +1,5 @@
 import CONST from "../data/constants.js"
-import { clamp } from "../utils/collisions.js"
+import { clamp } from "../utils/functions.js"
 import Particle from "./particle.js"
 
 const ctx = window.ctx

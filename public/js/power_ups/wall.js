@@ -4,7 +4,7 @@ export default function createWall(x, y, width, height, team) {
     window.obstacles.push(new RectWall(x, y, width, height, team))
 }
 
-class RectWall extends PowerUp {
+export class RectWall extends PowerUp {
     constructor(x, y, width, height, team) {
         super(x, y, width, height, team)
 

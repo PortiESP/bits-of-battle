@@ -1,6 +1,7 @@
-import createWall from "../power_ups/wall.js"
+import { RectWall } from "../power_ups/wall.js"
 import { resources } from "../utils/resources.js"
 import { mapData } from "./map.js"
+import drawObjectiveZones from "./objective-zone.js"
 
 // Get the canvas and context from the window object
 const $canvas = window.$canvas
@@ -27,15 +28,23 @@ export function drawBoard() {
             else ctx.drawImage(images.floor.img, x, y, mapData.pixelSize, mapData.pixelSize)
         }
     }
+
+    // Draw the objective zones
+    drawObjectiveZones()
 }
 
-export function setupBoardCollision() {
-    window.obstacles = []
+/**
+ * Returns the RectWall object matching the board walls
+ */
+export function generateBoardBounds() {
+    const walls = []
     for (let x = 0; x < mapData.width; x++) {
         for (let y = 0; y < mapData.height; y++) {
             if (mapData.map[y][x] === "W") {
-                createWall(x * mapData.pixelSize, y * mapData.pixelSize, mapData.pixelSize, mapData.pixelSize)
+                walls.push(new RectWall(x * mapData.pixelSize, y * mapData.pixelSize, mapData.pixelSize, mapData.pixelSize))
             }
         }
     }
+
+    return walls
 }
