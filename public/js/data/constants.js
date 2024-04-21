@@ -37,7 +37,7 @@ const CONST = {
 
     // Player
     BASE_PLAYER_SIZE: 30, // The player's size at the start of the game
-    BASE_SPEED_PLAYER: 3, // The player's speed at the start of the game
+    BASE_SPEED_PLAYER: 2, // The player's speed at the start of the game
     BASE_ACCELERATION_PLAYER: 0.05, // The player's acceleration factor
     BASE_BRAKE_PLAYER: 1.5, // The player's break factor (the higher the value, the faster the player will stop)
     PLAYER_ATTACK_MULTIPLIER: 0.05, // The player's attack multiplier
