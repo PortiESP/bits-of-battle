@@ -56,8 +56,8 @@ export default class Player {
             spriteY * spriteHeight,
             spriteWidth,
             spriteHeight, // Source rectangle
-            this.x - mapData.pixelSize / 2,
-            this.y - mapData.pixelSize / 2,
+            this.x - mapData.pixelSize / CONST.CHARACTER_CELL_RATIO,
+            this.y - mapData.pixelSize / CONST.CHARACTER_CELL_RATIO,
             spriteWidth / 2,
             spriteHeight / 2 // Destination rectangle (scaled 2x)
         )
