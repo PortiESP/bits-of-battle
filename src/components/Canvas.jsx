@@ -1,30 +1,20 @@
 import { useEffect } from "react"
+import globalsSetup from "../../public/js/data/globals"
+import { resources } from "../../public/js/utils/resources.js"
+import setupEvents from "../../public/js/utils/events.js"
+import Game from "../../public/js/game.js"
 
-const Game = () => {
+const Canvas = () => {
     useEffect(() => {
-        let scripts = []
+        // ==========[ Globals ]==========================>
+        globalsSetup()
 
-        {
-            const script = document.createElement("script")
-            script.src = "js/data/globals.js"
-            script.type = "module"
-            script.defer = true
-            scripts.push(script)
-        }
+        // ==========[ Create the game ]==================>
+        window.game = new Game(window.$canvas)
+        window.resources = resources
 
-        {
-            const script = document.createElement("script")
-            script.src = "js/script.js"
-            script.type = "module"
-            script.defer = true
-            scripts.push(script)
-        }
-
-        scripts.forEach((script) => document.body.appendChild(script))
-
-        return () => {
-            scripts.forEach((script) => document.body.removeChild(script))
-        }
+        // ==========[ Event Listeners ]==================>
+        setupEvents(window.game)
     }, [])
 
     return (
@@ -34,4 +24,4 @@ const Game = () => {
     )
 }
 
-export default Game
+export default Canvas

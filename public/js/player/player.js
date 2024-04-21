@@ -73,7 +73,6 @@ export default class Player {
      * Update the player's position and status
      */
     update() {
-        console.log("PLAYER", this.state)
         // Check if player is dead
         if (this.isDead()) this.kill()
 
