@@ -1,17 +1,20 @@
-import "./App.css"
-import Canvas from "./components/Canvas.jsx"
-import PlayerSideMenu from "./components/PlayerSideMenu.jsx"
+import { useState } from "react";
+import "./App.css";
+import GameScreen from "./components/GameScreen.jsx";
+import StartScreen from "./components/StartScreen.jsx";
 
 const App = () => {
+    const [showStart, setShowStart] = useState(true); 
+
     return (
         <div className="app">
-            <PlayerSideMenu teamId={0} />
-            <div className="game">
-                <Canvas />
-            </div>
-            <PlayerSideMenu teamId={1} />
+            {showStart ? 
+                <StartScreen action={() => setShowStart(false)}/>
+             : 
+                <GameScreen/>
+            }
         </div>
-    )
-}
+    );
+};
 
-export default App
+export default App;
