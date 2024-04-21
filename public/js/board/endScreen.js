@@ -1,9 +1,8 @@
-
-// Get the canvas and context from the window object
-const $canvas = window.$canvas
-const ctx = window.ctx
-
 export function drawEndScreen() {
+    // Get the canvas and context from the window object
+    const $canvas = window.$canvas
+    const ctx = window.ctx
+
     // Draw background
     ctx.fillStyle = "rgba(0, 0, 0, 0.8)"
     ctx.fillRect(0, 0, $canvas.width, $canvas.height)

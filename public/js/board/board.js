@@ -3,14 +3,13 @@ import { resources } from "../utils/resources.js"
 import { mapData } from "./map.js"
 import drawObjectiveZones from "./objective-zone.js"
 
-// Get the canvas and context from the window object
-const $canvas = window.$canvas
-const ctx = window.ctx
-
 /**
  * Draws the base graphics of the game (background, bases, and objective zones)
  */
 export function drawBoard() {
+    // Get the canvas and context from the window object
+    const ctx = window.ctx
+
     if (!resources.isReady()) return
     const images = resources.images
 

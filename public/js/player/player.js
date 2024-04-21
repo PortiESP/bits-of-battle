@@ -4,36 +4,37 @@ import { resources } from "../utils/resources.js"
 import { mapData } from "../board/map.js"
 import Particle from "./particle.js"
 
-const ctx = window.ctx
-
 export default class Player {
     constructor(xi, yi, sizei, colori, controls) {
-        this.x = xi                             // The player's x position
-        this.y = yi                             // The player's y position
-        this.size = sizei                       // The player's size
-        this.team = colori                      // The player's team (represented by a color in hex format, including the '#' symbol)
+        this.ctx = window.ctx
 
-        this.controls = controls                // The player's controls
+        this.x = xi // The player's x position
+        this.y = yi // The player's y position
+        this.size = sizei // The player's size
+        this.team = colori // The player's team (represented by a color in hex format, including the '#' symbol)
 
-        this.state = {                          // The player's state
-            moving: false,                      // The player is moving
-            direction: { x: 0, y: 0 },          // The player's direction
-            currentSprite: { x: 0, y: 0},       // The player's current sprite
-            step: 0,                           // The player's step
-            frame: 0                            // The player's frame
+        this.controls = controls // The player's controls
+
+        this.state = {
+            // The player's state
+            moving: false, // The player is moving
+            direction: { x: 0, y: 0 }, // The player's direction
+            currentSprite: { x: 0, y: 0 }, // The player's current sprite
+            step: 0, // The player's step
+            frame: 0, // The player's frame
         }
 
         // Speed
-        this.dx = 0                             // The player's speed in the x-axis
-        this.dy = 0                             // The player's speed in the y-axis
+        this.dx = 0 // The player's speed in the x-axis
+        this.dy = 0 // The player's speed in the y-axis
 
         // Ranges
-        this.attack_range = CONST.BASE_RADIUS_ATTACK            // The player will attack players within this range
-        this.detection_range = CONST.BASE_RADIUS_DETECTION      // The player will detect players within this range
+        this.attack_range = CONST.BASE_RADIUS_ATTACK // The player will attack players within this range
+        this.detection_range = CONST.BASE_RADIUS_DETECTION // The player will detect players within this range
 
         // Players in range
-        this.detection_range_players = []                       // Players in the detection range
-        this.attack_range_players = []                          // Players in the attack range
+        this.detection_range_players = [] // Players in the detection range
+        this.attack_range_players = [] // Players in the attack range
 
         // Create the particles
         this.particles = Array.from({ length: this.size }, (_, i) => new Particle(i, this.x, this.y, CONST.PARTICLE_TARGET_SIZE, this.team))
@@ -106,19 +107,15 @@ export default class Player {
         if (window.keys[this.controls.up]) {
             newDirection = { x: 0, y: -1 }
             if (currentDirection !== newDirection) this.dy = -CONST.BASE_SPEED_PLAYER
-
         } else if (window.keys[this.controls.down]) {
             newDirection = { x: 0, y: 1 }
             if (currentDirection !== newDirection) this.dy = CONST.BASE_SPEED_PLAYER
-
         } else if (window.keys[this.controls.left]) {
             newDirection = { x: -1, y: 0 }
             if (currentDirection !== newDirection) this.dx = -CONST.BASE_SPEED_PLAYER
-
         } else if (window.keys[this.controls.right]) {
             newDirection = { x: 1, y: 0 }
             if (currentDirection !== newDirection) this.dx = CONST.BASE_SPEED_PLAYER
-
         } else this.state.moving = false
 
         // Update the direction

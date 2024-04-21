@@ -4,15 +4,15 @@ import CONST from "./data/constants.js"
 import Player from "./player/player.js"
 import { progressToRadians } from "./utils/functions.js"
 
-// Get the canvas and context from the global scope
-const ctx = window.ctx
-const $canvas = window.$canvas
-
 /**
  * The main game class
  */
 class Game {
     constructor() {
+        // Get the canvas and context from the global scope
+        this.ctx = window.ctx
+        this.$canvas = window.$canvas
+
         // Initial setup
         this.finished = false
         this.winner = null
