@@ -8,24 +8,30 @@ const ctx = window.ctx
 
 export default class Player {
     constructor(xi, yi, sizei, colori, controls) {
-        this.x = xi // The player's x position
-        this.y = yi // The player's y position
-        this.size = sizei // The player's size
-        this.team = colori // The player's team (represented by a color in hex format, including the '#' symbol)
+        this.x = xi                             // The player's x position
+        this.y = yi                             // The player's y position
+        this.size = sizei                       // The player's size
+        this.team = colori                      // The player's team (represented by a color in hex format, including the '#' symbol)
 
-        this.controls = controls // The player's controls
+        this.controls = controls                // The player's controls
+
+        this.state = {                          // The player's state
+            moving: false,                      // The player is moving
+            direction: { x: 0, y: 0 },          // The player's direction
+            step: -1,                            // The player's step
+        }
 
         // Speed
-        this.dx = 0 // The player's speed in the x-axis
-        this.dy = 0 // The player's speed in the y-axis
+        this.dx = 0                             // The player's speed in the x-axis
+        this.dy = 0                             // The player's speed in the y-axis
 
         // Ranges
-        this.attack_range = CONST.BASE_RADIUS_ATTACK // The player will attack players within this range
-        this.detection_range = CONST.BASE_RADIUS_DETECTION // The player will detect players within this range
+        this.attack_range = CONST.BASE_RADIUS_ATTACK            // The player will attack players within this range
+        this.detection_range = CONST.BASE_RADIUS_DETECTION      // The player will detect players within this range
 
         // Players in range
-        this.detection_range_players = [] // Players in the detection range
-        this.attack_range_players = [] // Players in the attack range
+        this.detection_range_players = []                       // Players in the detection range
+        this.attack_range_players = []                          // Players in the attack range
 
         // Create the particles
         this.particles = Array.from({ length: this.size }, (_, i) => new Particle(i, this.x, this.y, CONST.PARTICLE_TARGET_SIZE, this.team))
@@ -42,9 +48,14 @@ export default class Player {
         const spriteWidth = CONST.CHARACTER_SPRITE_SIZE
         const spriteHeight = CONST.CHARACTER_SPRITE_SIZE
 
-        // Define the sprite you want to draw
-        const spriteX = 0 // Change this to select the sprite
-        const spriteY = 0 // Change this to select the sprite
+        // Define the sprite wanted to draw
+        let spriteX = 0
+        let spriteY = 0
+
+        const step = this.calculateStep()
+        
+        spriteX = step.spriteX
+        spriteY = step.spriteY
 
         // Select the image based on the player's team
         const image = this.team === CONST.TEAM_1_COLOR ? images[CONST.PLAYER_1_CHARACTER].img : images[CONST.PLAYER_2_CHARACTER].img // Image
@@ -61,20 +72,13 @@ export default class Player {
             spriteWidth / 2,
             spriteHeight / 2 // Destination rectangle (scaled 2x)
         )
-
-        // Draw the player's particles
-        for (const particle of this.particles) {
-            ctx.beginPath()
-            ctx.fillStyle = particle.fillColor
-            ctx.arc(particle.position.x, particle.position.y, particle.size / 2, 0, Math.PI * 2, true)
-            ctx.fill()
-        }
     }
 
     /**
      * Update the player's position and status
      */
     update() {
+        console.log("PLAYER", this.state)
         // Check if player is dead
         if (this.isDead()) this.kill()
 
@@ -95,12 +99,37 @@ export default class Player {
      * Move the player based on the keyboard input
      */
     move() {
-        // Controls
+        // Reset the speed
+        this.dx = 0
+        this.dy = 0
+
+        // Check if the player is moving
+        this.state.moving = true
+        const currentDirection = this.state.direction
+        let newDirection = { x: 0, y: 0 }
+
         // Accelerate the player if the keys are pressed
-        if (window.keys[this.controls.up]) this.dy -= CONST.BASE_SPEED_PLAYER * CONST.BASE_ACCELERATION_PLAYER
-        if (window.keys[this.controls.left]) this.dx -= CONST.BASE_SPEED_PLAYER * CONST.BASE_ACCELERATION_PLAYER
-        if (window.keys[this.controls.down]) this.dy += CONST.BASE_SPEED_PLAYER * CONST.BASE_ACCELERATION_PLAYER
-        if (window.keys[this.controls.right]) this.dx += CONST.BASE_SPEED_PLAYER * CONST.BASE_ACCELERATION_PLAYER
+        if (window.keys[this.controls.up]) {
+            newDirection = { x: 0, y: -1 }
+            if (currentDirection !== newDirection) this.dy = -CONST.BASE_SPEED_PLAYER
+
+        } else if (window.keys[this.controls.down]) {
+            newDirection = { x: 0, y: 1 }
+            if (currentDirection !== newDirection) this.dy = CONST.BASE_SPEED_PLAYER
+
+        } else if (window.keys[this.controls.left]) {
+            newDirection = { x: -1, y: 0 }
+            if (currentDirection !== newDirection) this.dx = -CONST.BASE_SPEED_PLAYER
+
+        } else if (window.keys[this.controls.right]) {
+            newDirection = { x: 1, y: 0 }
+            if (currentDirection !== newDirection) this.dx = CONST.BASE_SPEED_PLAYER
+
+        } else this.state.moving = false
+
+        // Update the direction
+        if (this.state.moving) this.state.direction = newDirection
+
         // Decelerate gradually if no keys are pressed
         if (!window.keys[this.controls.up] && this.dy < 0) this.dy += Math.abs(this.dy * CONST.BASE_ACCELERATION_PLAYER * CONST.BASE_BRAKE_PLAYER)
         if (!window.keys[this.controls.down] && this.dy > 0) this.dy -= Math.abs(this.dy * CONST.BASE_ACCELERATION_PLAYER * CONST.BASE_BRAKE_PLAYER)
@@ -120,6 +149,26 @@ export default class Player {
 
         this.x += this.dx
         this.y += this.dy
+    }
+
+    // Calculate the step
+    calculateStep() {
+        this.state.step += 1
+        if (this.state.step >= 4) this.state.step = 0
+
+        // Calculate the sprite position
+        let spriteX = 0
+        let spriteY = this.state.step
+
+        // Calculate the direction
+        if (this.state.direction.y === 1) spriteX = 0
+        else if (this.state.direction.y === -1) spriteX = 1
+        else if (this.state.direction.x === -1) spriteX = 2
+        else if (this.state.direction.x === 1) spriteX = 3
+
+
+        console.log("CALCULATE STEP", spriteX, spriteY)
+        return { spriteX, spriteY }
     }
 
     /*
