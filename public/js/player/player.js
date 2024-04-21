@@ -1,5 +1,7 @@
 import CONST from "../data/constants.js"
 import { clamp } from "../utils/functions.js"
+import { resources } from "../utils/resources.js"
+import { mapData} from "../board/map.js"
 import Particle from "./particle.js"
 
 const ctx = window.ctx
@@ -33,13 +35,26 @@ export default class Player {
      * Draw the player (does not update the player's position)
      */
     draw() {
-        // Draw the player
-            ctx.fillStyle = this.team
-            ctx.strokeStyle = "black"
-            ctx.beginPath()
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
-            ctx.fill()
-            ctx.stroke()
+        if (!resources.isReady()) return
+        const images = resources.images
+
+        // Define the size of each sprite
+        const spriteWidth = CONST.CHARACTER_SPRITE_SIZE
+        const spriteHeight = CONST.CHARACTER_SPRITE_SIZE
+
+        // Define the sprite you want to draw
+        const spriteX = 0 // Change this to select the sprite
+        const spriteY = 0 // Change this to select the sprite
+
+        // Select the image based on the player's team
+        const image = this.team === CONST.TEAM_1_COLOR ? images[CONST.PLAYER_1_CHARACTER].img : images[CONST.PLAYER_2_CHARACTER].img // Image
+
+        // Draw the sprite
+        ctx.drawImage(
+            image, // Image
+            spriteX * spriteWidth, spriteY * spriteHeight, spriteWidth, spriteHeight, // Source rectangle
+            this.x - mapData.pixelSize / 2, this.y - mapData.pixelSize / 2, spriteWidth * 2, spriteHeight * 2 // Destination rectangle (scaled 2x)
+        )
         
         // Draw the player's particles
         for (const particle of this.particles) {

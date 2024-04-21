@@ -8,6 +8,8 @@ class Resources {
             powerUp: "assets/test-powerUp.png",
             player1: "assets/test-player1.png",
             player2: "assets/test-player2.png",
+            ninja: "assets/character-ninja.png",
+            dragon: "assets/character-dragon.png",
         }
 
         this.images = {}

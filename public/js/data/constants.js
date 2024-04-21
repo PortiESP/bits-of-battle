@@ -13,10 +13,13 @@ const CONST = {
     CANVAS_WIDTH: canvasWidth, // The width of the canvas
     CANVAS_HEIGHT: canvasHeight, // The height of the canvas,
     CELL_SIZE: cellSize, // The size of the cells in the canvas
+    CHARACTER_SPRITE_SIZE: 16, // The size of the character sprite
 
     // Game
     PLAYER_1_INITIAL: { x: cellSize + cellSize / 2, y: cellSize + cellSize / 2 }, // Initial position of player 1
     PLAYER_2_INITIAL: { x: canvasWidth - cellSize - cellSize / 2, y: canvasHeight - cellSize - cellSize / 2 }, // Initial position of player 2
+    PLAYER_1_CHARACTER: "ninja", // Character of player 1
+    PLAYER_2_CHARACTER: "dragon", // Character of player 2
 
     // Board & Style
     BACKGROUND_COLOR: "#FAF7F5",
