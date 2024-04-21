@@ -8,6 +8,7 @@ const Game = () => {
             const script = document.createElement("script")
             script.src = "js/data/globals.js"
             script.type = "module"
+            script.defer = true
             scripts.push(script)
         }
 
@@ -15,6 +16,7 @@ const Game = () => {
             const script = document.createElement("script")
             script.src = "js/script.js"
             script.type = "module"
+            script.defer = true
             scripts.push(script)
         }
 

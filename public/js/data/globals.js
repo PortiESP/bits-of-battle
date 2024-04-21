@@ -10,9 +10,6 @@
 import CONST from "./constants.js"
 
 // ====================[ Global variables ]====================>
-// Debug mode
-window.DEBUG = false
-
 // Canvas
 window.$canvas = document.getElementById("screen")
 window.$canvas.width = CONST.CANVAS_WIDTH

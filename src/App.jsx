@@ -1,20 +1,13 @@
-import { useState } from "react";
-import "./App.css";
-import GameScreen from "./components/GameScreen.jsx";
-import StartScreen from "./components/StartScreen.jsx";
+import { useState } from "react"
+import "./App.css"
+import GameScreen from "./components/GameScreen.jsx"
+import StartScreen from "./components/StartScreen.jsx"
 
 const App = () => {
-    const [showStart, setShowStart] = useState(true); 
+    console.log(window.DEBUG ? "Debug mode" : "Production mode")
+    const [showStart, setShowStart] = useState(window.DEBUG ? false : true)
 
-    return (
-        <div className="app">
-            {showStart ? 
-                <StartScreen action={() => setShowStart(false)}/>
-             : 
-                <GameScreen/>
-            }
-        </div>
-    );
-};
+    return <div className="app">{showStart ? <StartScreen action={() => setShowStart(false)} /> : <GameScreen />}</div>
+}
 
-export default App;
+export default App
