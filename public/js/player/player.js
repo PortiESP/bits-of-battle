@@ -100,7 +100,6 @@ export default class Player {
 
         // Check if the player is moving
         this.state.moving = true
-        const currentDirection = this.state.direction
         let newDirection = { x: 0, y: 0 }
 
         // Handle the key press
@@ -116,16 +115,16 @@ export default class Player {
             // Update the direction based on the most recent key pressed
             if (mostRecentKeyPressed === this.controls.up) {
                 newDirection = { x: 0, y: -1 }
-                if (currentDirection !== newDirection) this.dy = -CONST.BASE_SPEED_PLAYER
+                this.dy = -CONST.BASE_SPEED_PLAYER
             } else if (mostRecentKeyPressed === this.controls.down) {
                 newDirection = { x: 0, y: 1 }
-                if (currentDirection !== newDirection) this.dy = CONST.BASE_SPEED_PLAYER
+                this.dy = CONST.BASE_SPEED_PLAYER
             } else if (mostRecentKeyPressed === this.controls.left) {
                 newDirection = { x: -1, y: 0 }
-                if (currentDirection !== newDirection) this.dx = -CONST.BASE_SPEED_PLAYER
+                this.dx = -CONST.BASE_SPEED_PLAYER
             } else if (mostRecentKeyPressed === this.controls.right) {
                 newDirection = { x: 1, y: 0 }
-                if (currentDirection !== newDirection) this.dx = CONST.BASE_SPEED_PLAYER
+                this.dx = CONST.BASE_SPEED_PLAYER
             }
         }
         // If no keys are pressed, stop the player
@@ -134,22 +133,9 @@ export default class Player {
         // Update the direction
         if (this.state.moving) this.state.direction = newDirection
 
-        // Decelerate gradually if no keys are pressed
-        if (!window.keys[this.controls.up] && this.dy < 0) this.dy += Math.abs(this.dy * CONST.BASE_ACCELERATION_PLAYER * CONST.BASE_BRAKE_PLAYER)
-        if (!window.keys[this.controls.down] && this.dy > 0) this.dy -= Math.abs(this.dy * CONST.BASE_ACCELERATION_PLAYER * CONST.BASE_BRAKE_PLAYER)
-        if (!window.keys[this.controls.left] && this.dx < 0) this.dx += Math.abs(this.dx * CONST.BASE_ACCELERATION_PLAYER * CONST.BASE_BRAKE_PLAYER)
-        if (!window.keys[this.controls.right] && this.dx > 0) this.dx -= Math.abs(this.dx * CONST.BASE_ACCELERATION_PLAYER * CONST.BASE_BRAKE_PLAYER)
-
         // Check if the player is inside the canvas
         this.handleCanvasCollision()
         this.handleObstacleCollision()
-
-        // Limit speed to base speed
-        this.dx = clamp(this.dx, -CONST.BASE_SPEED_PLAYER, CONST.BASE_SPEED_PLAYER)
-        this.dy = clamp(this.dy, -CONST.BASE_SPEED_PLAYER, CONST.BASE_SPEED_PLAYER)
-        // Threshold to stop the player (prevent the player from moving indefinitely when the speed is too low, but not zero)
-        if (Math.abs(this.dx) < 0.1) this.dx = 0
-        if (Math.abs(this.dy) < 0.1) this.dy = 0
 
         this.x += this.dx
         this.y += this.dy
