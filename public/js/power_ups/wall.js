@@ -18,9 +18,10 @@ export class RectWall extends PowerUp {
     // ====================[ Overrides ]====================>
     draw() {
         // Draw the wall in debug mode with a red color
-        if (!this.team && window.DEBUG) ctx.fillStyle = "#ff000080"
-        ctx.fillStyle = this.team
-        ctx.fillRect(this.x, this.y, this.width, this.height)
+        if (!this.team && window.DEBUG) {
+            ctx.fillStyle = "#ff000080"
+            ctx.fillRect(this.x, this.y, this.width, this.height)
+        }
     }
 
     actionOnCollision(player) {

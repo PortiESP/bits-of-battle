@@ -33,6 +33,14 @@ export default class Player {
      * Draw the player (does not update the player's position)
      */
     draw() {
+        // Draw the player
+            ctx.fillStyle = this.team
+            ctx.strokeStyle = "black"
+            ctx.beginPath()
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
+            ctx.fill()
+            ctx.stroke()
+        
         // Draw the player's particles
         for (const particle of this.particles) {
             ctx.beginPath()

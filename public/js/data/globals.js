@@ -11,7 +11,7 @@ import CONST from "./constants.js"
 
 // ====================[ Global variables ]====================>
 // Debug mode
-window.DEBUG = true
+window.DEBUG = false
 
 // Canvas
 window.$canvas = document.getElementById("screen")
