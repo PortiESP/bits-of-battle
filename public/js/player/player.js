@@ -19,7 +19,7 @@ export default class Player {
             moving: false,                      // The player is moving
             direction: { x: 0, y: 0 },          // The player's direction
             currentSprite: { x: 0, y: 0},       // The player's current sprite
-            step: -1,                           // The player's step
+            step: 0,                           // The player's step
             frame: 0                            // The player's frame
         }
 
@@ -149,7 +149,7 @@ export default class Player {
     calculateStep() {
         if (!this.state.moving) return
         this.state.step += 1
-        if (this.state.step >= 4) this.state.step = -1
+        if (this.state.step >= 4) this.state.step = 0
 
         // Calculate the sprite position
         let spriteX = 0
