@@ -15,6 +15,7 @@ const CONST = {
     CELL_SIZE: cellSize, // The size of the cells in the canvas
     CHARACTER_SPRITE_SIZE: 64, // The size of the character sprite
     CHARACTER_CELL_RATIO: 2, // The ratio between the character sprite and the cell size
+    FRAME_RATE: 10, // The frame rate of the game
 
     // Game
     PLAYER_1_INITIAL: { x: cellSize + cellSize / 2, y: cellSize + cellSize / 2 }, // Initial position of player 1

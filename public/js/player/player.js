@@ -18,7 +18,9 @@ export default class Player {
         this.state = {                          // The player's state
             moving: false,                      // The player is moving
             direction: { x: 0, y: 0 },          // The player's direction
-            step: -1,                            // The player's step
+            currentSprite: { x: 0, y: 0},       // The player's current sprite
+            step: -1,                           // The player's step
+            frame: 0                            // The player's frame
         }
 
         // Speed
@@ -44,33 +46,25 @@ export default class Player {
         if (!resources.isReady()) return
         const images = resources.images
 
-        // Define the size of each sprite
-        const spriteWidth = CONST.CHARACTER_SPRITE_SIZE
-        const spriteHeight = CONST.CHARACTER_SPRITE_SIZE
-
-        // Define the sprite wanted to draw
-        let spriteX = 0
-        let spriteY = 0
-
-        const step = this.calculateStep()
-        
-        spriteX = step.spriteX
-        spriteY = step.spriteY
+        if (this.state.frame % CONST.FRAME_RATE === 0 || this.state.step === -1) {
+            this.calculateStep()
+        }
+        this.state.frame += 1
 
         // Select the image based on the player's team
-        const image = this.team === CONST.TEAM_1_COLOR ? images[CONST.PLAYER_1_CHARACTER].img : images[CONST.PLAYER_2_CHARACTER].img // Image
+        const image = this.team === CONST.TEAM_1_COLOR ? images[CONST.PLAYER_1_CHARACTER].img : images[CONST.PLAYER_2_CHARACTER].img
 
         // Draw the sprite
         ctx.drawImage(
-            image, // Image
-            spriteX * spriteWidth,
-            spriteY * spriteHeight,
-            spriteWidth,
-            spriteHeight, // Source rectangle
+            image,
+            this.state.currentSprite.x * CONST.CHARACTER_SPRITE_SIZE,
+            this.state.currentSprite.y * CONST.CHARACTER_SPRITE_SIZE,
+            CONST.CHARACTER_SPRITE_SIZE,
+            CONST.CHARACTER_SPRITE_SIZE, // Source rectangle
             this.x - mapData.pixelSize / CONST.CHARACTER_CELL_RATIO,
             this.y - mapData.pixelSize / CONST.CHARACTER_CELL_RATIO,
-            spriteWidth / 2,
-            spriteHeight / 2 // Destination rectangle (scaled 2x)
+            CONST.CHARACTER_SPRITE_SIZE / 2,
+            CONST.CHARACTER_SPRITE_SIZE / 2 // Destination rectangle (scaled 2x)
         )
     }
 
@@ -153,8 +147,9 @@ export default class Player {
 
     // Calculate the step
     calculateStep() {
+        if (!this.state.moving) return
         this.state.step += 1
-        if (this.state.step >= 4) this.state.step = 0
+        if (this.state.step >= 4) this.state.step = -1
 
         // Calculate the sprite position
         let spriteX = 0
@@ -166,9 +161,7 @@ export default class Player {
         else if (this.state.direction.x === -1) spriteX = 2
         else if (this.state.direction.x === 1) spriteX = 3
 
-
-        console.log("CALCULATE STEP", spriteX, spriteY)
-        return { spriteX, spriteY }
+        this.state.currentSprite = { x: spriteX, y: spriteY }
     }
 
     /*
