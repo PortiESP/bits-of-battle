@@ -1,4 +1,4 @@
-import { clamp } from "../utils/collisions.js"
+import { clamp } from "../utils/functions.js"
 
 /**
  * This is the parent class for all the power ups.
@@ -9,16 +9,14 @@ import { clamp } from "../utils/collisions.js"
  *
  * See the `docs/project.md` file for more information.
  */
-export default class powerUp {
-    constructor(color) {
-        this.x = window.mouse.x
-        this.y = window.mouse.y
-        this.width = undefined
-        this.height = undefined
+export default class PowerUp {
+    constructor(x, y, width = undefined, height = undefined, team = undefined) {
+        this.x = x
+        this.y = y
+        this.width = width
+        this.height = height
 
-        this.placed = false
-
-        this.color = color
+        this.team = team
 
         // Coordinates (not considered until the power up is placed)
         this.x1 = undefined
@@ -38,22 +36,7 @@ export default class powerUp {
     /**
      * Update the power up's position and status
      */
-    update() {
-        // Move the power up if it hasn't been placed
-        if (!this.placed) {
-            this.x = window.mouse.x
-            this.y = window.mouse.y
-        }
-
-        // Placing the power up
-        if (!this.placed && window.keys.mouse0) {
-            this.placed = true
-            this.x1 = this.x
-            this.y1 = this.y
-            this.x2 = this.x + this.width
-            this.y2 = this.y + this.height
-        }
-    }
+    update() {}
 
     // Check if the player is colliding with the power up
     /**
@@ -62,8 +45,6 @@ export default class powerUp {
      * @returns {boolean} True if the player is colliding with the power up, false otherwise
      */
     checkCollision(player) {
-        if (!this.placed) return
-
         const { x, y } = player
         const { x1, y1, x2, y2 } = this
 

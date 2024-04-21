@@ -4,7 +4,7 @@
 
 export default function setupEvents(game) {
     // Resize the canvas when the window is resized
-    window.addEventListener("resize", () => game.resizeCanvas())
+    // window.addEventListener("resize", () => game.resizeCanvas())
 
     // Update the mouse position
     window.addEventListener("mousemove", (e) => {

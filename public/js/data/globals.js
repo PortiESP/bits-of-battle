@@ -11,11 +11,18 @@ import CONST from "./constants.js"
 
 // ====================[ Global variables ]====================>
 // Debug mode
-window.DEBUG = true
+window.DEBUG = false
+
 // Canvas
 window.$canvas = document.getElementById("screen")
+window.$canvas.width = CONST.CANVAS_WIDTH
+window.$canvas.height = CONST.CANVAS_HEIGHT
+
+// Context
 const $canvas = window.$canvas
 window.ctx = $canvas.getContext("2d")
+window.ctx.imageSmoothingEnabled = true
+window.ctx.imageSmoothingQuality = "high"
 
 // ====================[ Functions ]====================>
 /**
@@ -36,16 +43,12 @@ window.canvasDims = () => ({
  * @returns Object with the coordinates of the objectives: { x, y }
  */
 window.calculateObjectivesCoords = () => {
-    const { x: cx, y: cy } = window.canvasDims().center // Get the center of the canvas
-    const [cx_2, cy_2] = [cx / 2, cy / 2] // Half of the center
     return [
-        // Central objective zone
-        { x: cx, y: cy, size: CONST.MAIN_OBJECTIVE_SIZE },
-        // Secondary objective zones
-        { x: cx - cx_2, y: cy - cy_2, size: CONST.OBJECTIVE_SIZE },
-        { x: cx - cx_2, y: cy + cy_2, size: CONST.OBJECTIVE_SIZE },
-        { x: cx + cx_2, y: cy + cy_2, size: CONST.OBJECTIVE_SIZE },
-        { x: cx + cx_2, y: cy - cy_2, size: CONST.OBJECTIVE_SIZE },
+        // Objective zones
+        { x: 65, y: 220, size: CONST.OBJECTIVE_SIZE },
+        { x: 65, y: 510, size: CONST.OBJECTIVE_SIZE },
+        { x: 880, y: 300, size: CONST.OBJECTIVE_SIZE },
+        { x: 675, y: 445, size: CONST.OBJECTIVE_SIZE },
     ]
 }
 

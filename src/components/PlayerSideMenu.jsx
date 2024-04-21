@@ -8,7 +8,6 @@ export default function PlayerSideMenu(props) {
                 <PlayerSideMenuButton value="✨" teamId={props.teamId} powerUp="spark" />
                 <PlayerSideMenuButton value="➕" teamId={props.teamId} powerUp="add" />
                 <PlayerSideMenuButton value="🎁" teamId={props.teamId} powerUp="present" />
-                <PlayerSideMenuButton value="🧱" teamId={props.teamId} powerUp="wall" />
             </aside>
         </div>
     )

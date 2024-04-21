@@ -1,7 +1,8 @@
-import { drawBoard } from "./board/board.js"
+import { drawBoard, generateBoardBounds } from "./board/board.js"
 import { drawEndScreen } from "./board/endScreen.js"
 import CONST from "./data/constants.js"
 import Player from "./player/player.js"
+import { progressToRadians } from "./utils/functions.js"
 
 // Get the canvas and context from the global scope
 const ctx = window.ctx
@@ -12,28 +13,32 @@ const $canvas = window.$canvas
  */
 class Game {
     constructor() {
-        // Resize canvas
-        this.resizeCanvas()
-        this.mainloop()
-
-        // Set Game attributes
+        // Initial setup
         this.finished = false
         this.winner = null
 
+        // Set the obstacles
+        window.obstacles = window.obstacles.concat(generateBoardBounds())
+
         // DEBUG (forcing an initial setup)
-        const { center } = window.canvasDims()
-        window.players = [new Player(CONST.BASE_PLAYER_SIZE + 10, center.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_1_COLOR, CONST.CONTROLS_P1), new Player($canvas.width - CONST.BASE_PLAYER_SIZE - 10, center.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_2_COLOR, CONST.CONTROLS_P2)]
+        window.players = [new Player(CONST.PLAYER_1_INITIAL.x, CONST.PLAYER_1_INITIAL.y, CONST.PLAYER_SIZE, CONST.TEAM_1_COLOR, CONST.CONTROLS_P1), new Player(CONST.PLAYER_2_INITIAL.x, CONST.PLAYER_2_INITIAL.y, CONST.PLAYER_SIZE, CONST.TEAM_2_COLOR, CONST.CONTROLS_P2)]
+
+        // Resize canvas
+        // this.resizeCanvas()
+
+        // Main game loop
+        this.mainloop()
     }
 
     /**
      * The main game loop. It updates the game state and draws the game objects on the canvas.
      */
     mainloop() {
-        requestAnimationFrame(() => this.mainloop())
         ctx.clearRect(0, 0, $canvas.width, $canvas.height)
         this.update()
         this.draw()
         this.updateGameStatus()
+        requestAnimationFrame(() => this.mainloop())
     }
 
     /**
@@ -47,6 +52,7 @@ class Game {
 
         // Board
         drawBoard()
+
         // Obstacles
         window.obstacles.forEach((obstacle) => obstacle.draw())
         // Players
@@ -71,7 +77,7 @@ class Game {
 
     /**
      * Update the game status
-     */ 
+     */
     updateGameStatus() {
         // Check if the game is finished by objectives
         if (window.objectives.every((objective) => objective.progress >= 100 && objective.team === window.objectives[0].team)) {
@@ -218,6 +224,19 @@ class Game {
 
         // Draw objectives progress
         window.objectives.forEach((objective) => {
+            // Draw the objectives
+            ctx.fillStyle = (objective.team || "#ffffff") + "80"
+            ctx.beginPath()
+            ctx.arc(objective.x, objective.y, CONST.OBJECTIVE_SIZE, 0, progressToRadians(objective.progress))
+            ctx.lineTo(objective.x, objective.y)
+            ctx.fill()
+            ctx.fillStyle = "#ffffff20"
+            ctx.beginPath()
+            ctx.arc(objective.x, objective.y, CONST.OBJECTIVE_SIZE, progressToRadians(objective.progress), 0)
+            ctx.lineTo(objective.x, objective.y)
+            ctx.fill()
+
+            // Type progress
             ctx.fillStyle = "#ffffff"
             ctx.font = "12px Arial"
             ctx.fillText(`Obj: ${objective.id}`, objective.x - CONST.OBJECTIVE_SIZE / 2, objective.y + CONST.OBJECTIVE_SIZE + 10)

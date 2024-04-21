@@ -1,4 +1,6 @@
-import CONST from "../data/constants.js"
+import { RectWall } from "../power_ups/wall.js"
+import { resources } from "../utils/resources.js"
+import { mapData } from "./map.js"
 import drawObjectiveZones from "./objective-zone.js"
 
 // Get the canvas and context from the window object
@@ -9,41 +11,40 @@ const ctx = window.ctx
  * Draws the base graphics of the game (background, bases, and objective zones)
  */
 export function drawBoard() {
-    // Draw background
-    ctx.fillStyle = CONST.BOARD_COLOR
-    ctx.fillRect(0, 0, $canvas.width, $canvas.height)
+    if (!resources.isReady()) return
+    const images = resources.images
 
-    // Setup base dimensions
-    const baseWidth = $canvas.width / 12
-    const baseHeight = ($canvas.height * 2) / 3
-    const baseCenterY = $canvas.height / 2 - baseHeight / 2
-    const team1Base = {
-        color: CONST.TEAM_1_COLOR + "88", // 88 is the alpha value
-        x: -3,
-        y: baseCenterY,
-        width: baseWidth,
-        height: baseHeight,
-    }
-    const team2Base = {
-        color: CONST.TEAM_2_COLOR + "88",
-        x: $canvas.width - baseWidth + 3,
-        y: baseCenterY,
-        width: baseWidth,
-        height: baseHeight,
-    }
+    // Draw the background
+    for (let x = 0; x < mapData.width * mapData.pixelSize; x += mapData.pixelSize) {
+        for (let y = 0; y < mapData.height * mapData.pixelSize; y += mapData.pixelSize) {
+            // Get the current tile
+            const current = mapData.map[y / mapData.pixelSize][x / mapData.pixelSize]
 
-    // Setup dashed line for the bases
-    ctx.setLineDash([10, 10])
-    ctx.lineWidth = 5
-    // Draw team 1 Base
-    ctx.strokeStyle = team1Base.color
-    ctx.strokeRect(team1Base.x, team1Base.y, team1Base.width, team1Base.height)
-    // Draw team 2 Base
-    ctx.strokeStyle = team2Base.color
-    ctx.strokeRect(team2Base.x, team2Base.y, team2Base.width, team2Base.height)
-    // Reset line dash
-    ctx.setLineDash([])
+            // Draw the corresponding image
+            if (current === "W") ctx.drawImage(images.background.img, x, y, mapData.pixelSize, mapData.pixelSize)
+            else if (current === "P") ctx.drawImage(images.powerUp.img, x, y, mapData.pixelSize, mapData.pixelSize)
+            else if (current === "1") ctx.drawImage(images.player1.img, x, y, mapData.pixelSize, mapData.pixelSize)
+            else if (current === "2") ctx.drawImage(images.player2.img, x, y, mapData.pixelSize, mapData.pixelSize)
+            else ctx.drawImage(images.floor.img, x, y, mapData.pixelSize, mapData.pixelSize)
+        }
+    }
 
     // Draw the objective zones
     drawObjectiveZones()
+}
+
+/**
+ * Returns the RectWall object matching the board walls
+ */
+export function generateBoardBounds() {
+    const walls = []
+    for (let x = 0; x < mapData.width; x++) {
+        for (let y = 0; y < mapData.height; y++) {
+            if (mapData.map[y][x] === "W") {
+                walls.push(new RectWall(x * mapData.pixelSize, y * mapData.pixelSize, mapData.pixelSize, mapData.pixelSize))
+            }
+        }
+    }
+
+    return walls
 }

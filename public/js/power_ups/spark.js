@@ -1,19 +1,19 @@
-import powerUp from "./powerUp.js"
+import PowerUp from "./powerUp.js"
 
-export default function spark(team) {
+export default function createSpark(team) {
     window.obstacles.push(new Spark(team))
 }
 
-class Spark extends powerUp {
-    constructor(color) {
-        super(color)
+class Spark extends PowerUp {
+    constructor(x, y, width, height, team) {
+        super(x, y, width, height, team)
         this.width = 20
         this.height = 20
     }
 
     // ====================[ Overrides ]====================>
     draw() {
-        ctx.fillStyle = this.color
+        ctx.fillStyle = this.team
         ctx.fillRect(this.x, this.y, this.width, this.height)
     }
 
@@ -21,7 +21,7 @@ class Spark extends powerUp {
         if (!this.placed) return
 
         let value = 0
-        if (player.team === this.color) value = 2
+        if (player.team === this.team) value = 2
         else value = -2
 
         player.size += value
