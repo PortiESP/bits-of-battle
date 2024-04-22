@@ -7,7 +7,6 @@
  *
  */
 
-import { generateObjectiveZones } from "../board/board.js"
 import CONST from "./constants.js"
 
 export default function globalsSetup() {
@@ -36,20 +35,6 @@ export default function globalsSetup() {
             y: $canvas.height / 2,
         },
     })
-
-    /**
-     * Calculates the coordinates of the objectives
-     * @returns Object with the coordinates of the objectives: { x, y }
-     */
-    window.calculateObjectivesCoords = () => {
-        return [
-            // Objective zones
-            { x: 65, y: 220, size: CONST.OBJECTIVE_SIZE },
-            { x: 65, y: 510, size: CONST.OBJECTIVE_SIZE },
-            { x: 880, y: 300, size: CONST.OBJECTIVE_SIZE },
-            { x: 675, y: 445, size: CONST.OBJECTIVE_SIZE },
-        ]
-    }
 
     // ====================[ Global variables ]====================>
     window.mouse = { x: 0, y: 0 } // Mouse position, updated on mousemove
