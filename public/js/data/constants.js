@@ -1,5 +1,3 @@
-import createSpark from "../power_ups/spark.js"
-
 const cellSize = 32
 const canvasMatrixSize = [30, 20]
 const canvasWidth = canvasMatrixSize[0] * cellSize
@@ -63,9 +61,7 @@ const CONST = {
     OBJECTIVE_MAX_PROGRESS: 100, // The maximum progress of the objectives
 
     // POWERUPS
-    POWERUPS_FUNCTIONS: {
-        spark: createSpark,
-    },
+    POWERUPS_FUNCTIONS: {},
 }
 
 export default CONST

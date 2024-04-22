@@ -1,16 +1,11 @@
-import PlayerSideMenu from "./PlayerSideMenu";
-import Canvas from "./Canvas";
+import Canvas from "./Canvas"
 
 const GameScreen = () => {
     return (
-        <>
-            <PlayerSideMenu teamId={0} />
-            <div className="game">
-                <Canvas />
-            </div>
-            <PlayerSideMenu teamId={1} />
-        </>
-    );
-};
+        <div className="game">
+            <Canvas />
+        </div>
+    )
+}
 
-export default GameScreen;
+export default GameScreen
