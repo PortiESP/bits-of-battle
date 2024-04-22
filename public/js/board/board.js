@@ -49,33 +49,39 @@ export function drawBoard() {
 }
 
 /**
- * Returns the RectWall object matching the board walls
+ * Generic function to generate objects based on map data and a condition callback
+ * @param {string} char The character to search for in the map data
+ * @param {Function} callback A callback function that receives x, y coordinates and returns an object based on those coordinates
+ * @returns {Array} An array of objects generated based on the condition callback
  */
-export function generateBoardBounds() {
-    const walls = []
+export function generateObjects(char, callback) {
+    const objects = [];
     for (let x = 0; x < mapData.width; x++) {
         for (let y = 0; y < mapData.height; y++) {
-            if (mapData.map[y][x] === "W") {
-                walls.push(new RectWall(x * mapData.pixelSize, y * mapData.pixelSize, mapData.pixelSize, mapData.pixelSize))
+            if (mapData.map[y][x] === char) {
+                objects.push(callback(x, y));
             }
         }
     }
-
-    return walls
+    return objects;
 }
 
 /**
- * Returns the objectievs pool
+ * Returns an array of wall objects
+ * @returns {Array} An array of wall objects
+ */
+export function generateBoardBounds() {
+    return generateObjects("W", (x, y) => new RectWall(x * mapData.pixelSize, y * mapData.pixelSize, mapData.pixelSize, mapData.pixelSize));
+}
+
+/**
+ * Returns an array of objective zone objects
+ * @returns {Array} An array of objective zone objects
  */
 export function generateObjectiveZones() {
-    const pool = []
-    for (let x = 0; x < mapData.width; x++) {
-        for (let y = 0; y < mapData.height; y++) {
-            if (mapData.map[y][x] === "O") {
-                pool.push({ x: x * mapData.pixelSize + mapData.pixelSize/2, y: y * mapData.pixelSize + mapData.pixelSize/2, size: CONST.OBJECTIVE_SIZE} )
-            }
-        }
-    }
-
-    return pool
+    return generateObjects("O", (x, y) => ({
+        x: x * mapData.pixelSize + mapData.pixelSize / 2,
+        y: y * mapData.pixelSize + mapData.pixelSize / 2,
+        size: CONST.OBJECTIVE_SIZE
+    }));
 }
