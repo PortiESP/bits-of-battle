@@ -1,7 +1,6 @@
-import { drawBoard, generateBoardBounds, generateObjectiveZones } from "./board/board.js"
+import { drawBoard, generateBoardBounds, generateObjectiveZones, generatePlayers } from "./board/board.js"
 import { drawEndScreen } from "./board/endScreen.js"
 import CONST from "./data/constants.js"
-import Player from "./player/player.js"
 import { progressToRadians } from "./utils/functions.js"
 
 /**
@@ -21,8 +20,10 @@ class Game {
         window.obstacles = window.obstacles.concat(generateBoardBounds())
 
         // DEBUG (forcing an initial setup)
-        window.players = [new Player(CONST.PLAYER_1_INITIAL.x, CONST.PLAYER_1_INITIAL.y, CONST.PLAYER_SIZE, CONST.TEAM_1_COLOR, CONST.CONTROLS_P1), new Player(CONST.PLAYER_2_INITIAL.x, CONST.PLAYER_2_INITIAL.y, CONST.PLAYER_SIZE, CONST.TEAM_2_COLOR, CONST.CONTROLS_P2)]
-
+        window.players = [
+            ...generatePlayers("1", CONST.PLAYER_SIZE, CONST.TEAM_1_COLOR, CONST.CONTROLS_P1),
+            ...generatePlayers("2", CONST.PLAYER_SIZE, CONST.TEAM_2_COLOR, CONST.CONTROLS_P2)
+        ];
         // Resize canvas
         // this.resizeCanvas()
 

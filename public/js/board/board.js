@@ -3,7 +3,7 @@ import { resources } from "../utils/resources.js"
 import { mapData } from "./map.js"
 import drawObjectiveZones from "./objective-zone.js"
 import CONST from "../data/constants.js"
-
+import Player from "../player/player"
 /**
  * Draws the base graphics of the game (background, bases, and objective zones)
  */
@@ -84,4 +84,17 @@ export function generateObjectiveZones() {
         y: y * mapData.pixelSize + mapData.pixelSize / 2,
         size: CONST.OBJECTIVE_SIZE
     }));
+}
+
+/**
+ * Generates an array of Player objects based on the team, initial position, size, team color, and controls
+ * @param {string} team The team of the players ("1" for player 1, "2" for player 2)
+ * @param {object} initialPosition The initial position of the players
+ * @param {number} size The size of the players
+ * @param {string} teamColor The color of the players' team
+ * @param {object} controls The controls for the players
+ * @returns {Array} An array of Player objects
+ */
+export function generatePlayers(team, size, teamColor, controls) {
+    return generateObjects(team, (x, y) => (new Player(x*mapData.pixelSize + mapData.pixelSize/2, y*mapData.pixelSize + mapData.pixelSize/2, size, teamColor, controls)));
 }
