@@ -2,6 +2,7 @@ import { RectWall } from "../power_ups/wall.js"
 import { resources } from "../utils/resources.js"
 import { mapData } from "./map.js"
 import drawObjectiveZones from "./objective-zone.js"
+import CONST from "../data/constants.js"
 
 /**
  * Draws the base graphics of the game (background, bases, and objective zones)
@@ -20,11 +21,26 @@ export function drawBoard() {
             const current = mapData.map[y / mapData.pixelSize][x / mapData.pixelSize]
 
             // Draw the corresponding image
-            if (current === "W") ctx.drawImage(images.background.img, x, y, mapData.pixelSize, mapData.pixelSize)
-            else if (current === "P") ctx.drawImage(images.powerUp.img, x, y, mapData.pixelSize, mapData.pixelSize)
-            else if (current === "1") ctx.drawImage(images.player1.img, x, y, mapData.pixelSize, mapData.pixelSize)
-            else if (current === "2") ctx.drawImage(images.player2.img, x, y, mapData.pixelSize, mapData.pixelSize)
-            else ctx.drawImage(images.floor.img, x, y, mapData.pixelSize, mapData.pixelSize)
+            switch(current) {
+                case "W":
+                    ctx.drawImage(images.background.img, x, y, mapData.pixelSize, mapData.pixelSize)
+                    break
+                case "O":
+                    ctx.drawImage(images.objective.img, x, y, mapData.pixelSize, mapData.pixelSize)
+                    break
+                case "P":
+                    ctx.drawImage(images.powerUp.img, x, y, mapData.pixelSize, mapData.pixelSize)
+                    break
+                case "1":
+                    ctx.drawImage(images.player1.img, x, y, mapData.pixelSize, mapData.pixelSize)
+                    break;
+                case "2":
+                    ctx.drawImage(images.player2.img, x, y, mapData.pixelSize, mapData.pixelSize)
+                    break
+                default:
+                    ctx.drawImage(images.floor.img, x, y, mapData.pixelSize, mapData.pixelSize)
+              }
+              
         }
     }
 
@@ -46,4 +62,20 @@ export function generateBoardBounds() {
     }
 
     return walls
+}
+
+/**
+ * Returns the objectievs pool
+ */
+export function generateObjectiveZones() {
+    const pool = []
+    for (let x = 0; x < mapData.width; x++) {
+        for (let y = 0; y < mapData.height; y++) {
+            if (mapData.map[y][x] === "O") {
+                pool.push({ x: x * mapData.pixelSize + mapData.pixelSize/2, y: y * mapData.pixelSize + mapData.pixelSize/2, size: CONST.OBJECTIVE_SIZE} )
+            }
+        }
+    }
+
+    return pool
 }

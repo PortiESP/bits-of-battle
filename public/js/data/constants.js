@@ -57,8 +57,8 @@ const CONST = {
     CONTROLS_P2: { up: "arrowup", down: "arrowdown", left: "arrowleft", right: "arrowright" }, // Player 2 controls
 
     // Objectives
-    MAIN_OBJECTIVE_SIZE: 100, // The size of the main objective
-    OBJECTIVE_SIZE: 40, // The size of the other objectives
+    MAIN_OBJECTIVE_SIZE: 64, // The size of the main objective
+    OBJECTIVE_SIZE: 16, // The size of the other objectives
     OBJECTIVE_PROGRESS_STEP: 1, // The progress step of the objectives
     OBJECTIVE_MAX_PROGRESS: 100, // The maximum progress of the objectives
 

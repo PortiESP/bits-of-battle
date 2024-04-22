@@ -1,4 +1,4 @@
-import { drawBoard, generateBoardBounds } from "./board/board.js"
+import { drawBoard, generateBoardBounds, generateObjectiveZones } from "./board/board.js"
 import { drawEndScreen } from "./board/endScreen.js"
 import CONST from "./data/constants.js"
 import Player from "./player/player.js"

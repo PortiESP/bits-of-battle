@@ -7,6 +7,7 @@
  *
  */
 
+import { generateObjectiveZones } from "../board/board.js"
 import CONST from "./constants.js"
 
 export default function globalsSetup() {
@@ -59,7 +60,7 @@ export default function globalsSetup() {
     // Players in the game
     window.players = []
     // Objectives in the game, updated on resize. This is an ARRAY o { x, y, id, team, progress }
-    window.objectives = window.calculateObjectivesCoords().map((coords, i) => ({ ...coords, id: i, team: null, progress: 0 }))
+    window.objectives = generateObjectiveZones().map((coords, i) => ({ ...coords, id: i, team: null, progress: 0 }))
     // Obstacules in the game, updated on resize. This is an ARRAY of objects (Wall): { x, y, size }
     window.obstacles = []
 }
