@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { drawBoard, generateBoardBounds, generateObjectiveZones, generatePlayers } from "./board/board.js"
 import { drawEndScreen } from "./board/endScreen.js"
 import CONST from "./data/constants.js"
@@ -18,6 +19,9 @@ class Game {
 
         // Set the obstacles
         window.obstacles = window.obstacles.concat(generateBoardBounds())
+
+        // Set the objectives
+        window.objectives = generateObjectiveZones().map((coords, i) => ({ ...coords, id: i, team: null, progress: 0 }))
 
         // DEBUG (forcing an initial setup)
         window.players = [

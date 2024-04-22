@@ -60,7 +60,7 @@ export default function globalsSetup() {
     // Players in the game
     window.players = []
     // Objectives in the game, updated on resize. This is an ARRAY o { x, y, id, team, progress }
-    window.objectives = generateObjectiveZones().map((coords, i) => ({ ...coords, id: i, team: null, progress: 0 }))
+    window.objectives = []
     // Obstacules in the game, updated on resize. This is an ARRAY of objects (Wall): { x, y, size }
     window.obstacles = []
 }
