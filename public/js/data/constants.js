@@ -48,7 +48,7 @@ const CONST = {
     MAX_PLAYER_DEFENSE: 50, // The player's maximum defense
 
     BASE_PLAYER_SIZE: 30, // The player's size at the start of the game
-    BASE_SPEED_PLAYER: 2, // The player's speed at the start of the game
+    BASE_SPEED_PLAYER: 1, // The player's speed at the start of the game
     BASE_ACCELERATION_PLAYER: 0.05, // The player's acceleration factor
     BASE_BRAKE_PLAYER: 1.5, // The player's break factor (the higher the value, the faster the player will stop)
     PLAYER_SIZE: 16, // Player's hitbox radius

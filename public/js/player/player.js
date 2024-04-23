@@ -117,8 +117,13 @@ export default class Player {
             this.dx = CONST.BASE_SPEED_PLAYER
         }
 
-        // If no keys are pressed, stop the player
+        if (!(this.dx*this.dy === 0)) {
+            let v = Math.sqrt(Math.pow(this.dx, 2) + Math.pow(this.dy, 2))
+            this.dx /= v
+            this.dy /= v
+        }
 
+        // If no keys are pressed, stop the player
         this.state.moving = Object.values(this.controls).filter((value) => (window.keys[value] ? true : false)).length
 
         // Update the direction
