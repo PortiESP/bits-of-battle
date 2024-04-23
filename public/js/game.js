@@ -97,9 +97,20 @@ class Game {
      * Update the game status
      */
     updateGameStatus() {
+        let winnerObjectives = Math.max(
+            ...Object.values(
+                window.board.objectives.reduce((acc, item) => {
+                    acc[item.team] =
+                        (acc[item.team] || 0) + (item.progress >= 100 ? 1 : 0);
+                    return acc;
+                }, {})
+            )
+        );
+
         // Check if the game is finished by objectives
-        if (window.board.objectives.every((objective) => objective.progress >= 100)) {
-            this.finished = true
+        if (winnerObjectives === window.board.objectives.length) {
+            this.finished = true;
+            this.winner = window.board.objectives[0]?.team === CONST.TEAM_1_COLOR ? "Team 1" : "Team 2";
         }
 
         // Check if the game is finished by players alive
