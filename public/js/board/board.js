@@ -12,18 +12,18 @@ export function generateBoardData() {
     for (let row = 0; row < mapData.height; row++) {
         for (let col = 0; col < mapData.width; col++) {
             const current = mapData.map[row][col]
-            const x = x * mapData.pixelSize
-            const y = y * mapData.pixelSize
+            const x = col * mapData.pixelSize
+            const y = row * mapData.pixelSize
 
             // Walls of floors
-            if (current === "W") {
+            if (current === CONST.WALL_ID) {
                 walls.push({ x, y, row: y, col: x })
                 continue
             } else floors.push({ x, y, row: y, col: x })
 
             // Player spawns
-            if (current === "1") window.board.spawn1 = { x, y, row: y, col: x }
-            else if (current === "2") window.board.spawn2 = { x, y, row: y, col: x }
+            if (current === CONST.PLAYER_1_ID) window.board.spawn1 = { x, y, row: y, col: x }
+            else if (current === CONST.PLAYER_2_ID) window.board.spawn2 = { x, y, row: y, col: x }
         }
     }
 
