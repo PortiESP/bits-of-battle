@@ -1,7 +1,15 @@
+@font-face {
+    font-family: "NormalFont";
+    src: url("/assets/fonts/NormalFont.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "NormalFont", sans-serif;
 }
 
 #root {
@@ -13,6 +21,8 @@
 
     overflow: hidden;
 }
+
+
 html {
     background-image: linear-gradient(to right top, #263a59, #004d7a, #008793, #438698, #2a456b);
 }
