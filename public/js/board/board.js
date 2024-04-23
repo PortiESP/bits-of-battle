@@ -60,7 +60,7 @@ export function drawBoard() {
     window.board.objectives.forEach((objective) => ctx.drawImage(images.objective.img, objective.drawX, objective.drawY, CONST.CELL_SIZE, CONST.CELL_SIZE))
 
     // Draw the power-ups
-    window.board.powerUps.forEach((powerUp) => ctx.drawImage(images.powerUp.img, powerUp.x, powerUp.y, CONST.CELL_SIZE, CONST.CELL_SIZE))
+    window.board.powerUps.forEach((powerUp) => powerUp.draw())
 }
 
 /**
