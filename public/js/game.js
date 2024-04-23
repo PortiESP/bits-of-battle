@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { drawBoard, generateBoardBounds, generateObjectiveZones, generatePlayers } from "./board/board.js"
+import { drawBoard, generateBoardBounds, generateBoardData, generateObjectiveZones, generatePlayers } from "./board/board.js"
 import { drawEndScreen } from "./board/endScreen.js"
 import CONST from "./data/constants.js"
 import { progressToRadians } from "./utils/functions.js"
@@ -16,6 +16,9 @@ class Game {
         // Initial setup
         this.finished = false
         this.winner = null
+
+        // Set map data to the window object
+        generateBoardData()
 
         // Set the obstacles
         window.obstacles = window.obstacles.concat(generateBoardBounds())

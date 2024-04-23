@@ -38,7 +38,7 @@ const CONST = {
     FLAG_ZONE_COLOR: "#fff2", // Flag zone color when not owned
 
     // Ranges
-    BASE_RADIUS_ATTACK: 60, // The player will attack players within this range
+    BASE_RADIUS_ATTACK: 32, // The player will attack players within this range
     BASE_RADIUS_DETECTION: 200, // The player will detect players within this range
 
     // Player
