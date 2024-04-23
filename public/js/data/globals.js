@@ -44,8 +44,6 @@ export default function globalsSetup() {
     // ====================[ Game variables ]====================>
     // Players in the game
     window.players = []
-    // Objectives in the game, updated on resize. This is an ARRAY o { x, y, id, team, progress }
-    window.objectives = []
     // Obstacules in the game, updated on resize. This is an ARRAY of objects (Wall): { x, y, size }
     window.obstacles = []
     // Board data

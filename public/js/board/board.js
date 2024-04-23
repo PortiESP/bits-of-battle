@@ -1,9 +1,9 @@
 import { RectWall } from "../power_ups/wall.js"
 import { resources } from "../utils/resources.js"
 import { mapData } from "./map.js"
-import drawObjectiveZones from "./objective-zone.js"
 import CONST from "../data/constants.js"
 import Player from "../player/player"
+import Objective from "./objective.js"
 
 export function generateBoardData() {
     const walls = [] // Array of {x, y, row, col}
@@ -31,7 +31,7 @@ export function generateBoardData() {
     window.board.walls = walls
     window.board.floors = floors
     window.board.map = mapData.map
-    window.board.objectives = mapData.objectives.map((data) => ({ ...data, x: data.col * mapData.pixelSize, y: data.row * mapData.pixelSize }))
+    window.board.objectives = mapData.objectives.map((data, i) => new Objective(i, data.row, data.col))
     window.board.powerUps = mapData.powerUps.map((data) => ({ ...data, x: data.col * mapData.pixelSize, y: data.row * mapData.pixelSize }))
 }
 
@@ -46,62 +46,26 @@ export function drawBoard() {
     const images = resources.images
 
     // Draw the background
-    for (let x = 0; x < mapData.width * mapData.pixelSize; x += mapData.pixelSize) {
-        for (let y = 0; y < mapData.height * mapData.pixelSize; y += mapData.pixelSize) {
-            // Get the current tile
-            const current = mapData.map[y / mapData.pixelSize][x / mapData.pixelSize]
+    window.board.floors.forEach((floor) => ctx.drawImage(images.floor.img, floor.x, floor.y, mapData.pixelSize, mapData.pixelSize))
+    window.board.walls.forEach((wall) => ctx.drawImage(images.background.img, wall.x, wall.y, mapData.pixelSize, mapData.pixelSize))
 
-            // Draw the corresponding image
-            switch (current) {
-                case CONST.WALL_ID:
-                    ctx.drawImage(images.background.img, x, y, mapData.pixelSize, mapData.pixelSize)
-                    break
-                case CONST.OBJECTIVE_ID:
-                    ctx.drawImage(images.objective.img, x, y, mapData.pixelSize, mapData.pixelSize)
-                    break
-                case CONST.POWERUP_ID:
-                    ctx.drawImage(images.powerUp.img, x, y, mapData.pixelSize, mapData.pixelSize)
-                    break
-                case CONST.PLAYER_1_ID:
-                    ctx.drawImage(images.player1.img, x, y, mapData.pixelSize, mapData.pixelSize)
-                    break
-                case CONST.PLAYER_2_ID:
-                    ctx.drawImage(images.player2.img, x, y, mapData.pixelSize, mapData.pixelSize)
-                    break
-                default:
-                    ctx.drawImage(images.floor.img, x, y, mapData.pixelSize, mapData.pixelSize)
-            }
-        }
-    }
+    // Draw the spawn points
+    ctx.drawImage(images.player1.img, window.board.spawn1.x, window.board.spawn1.y, mapData.pixelSize, mapData.pixelSize)
+    ctx.drawImage(images.player2.img, window.board.spawn2.x, window.board.spawn2.y, mapData.pixelSize, mapData.pixelSize)
 
     // Draw the objective zones
-    drawObjectiveZones()
-}
+    window.board.objectives.forEach((objective) => ctx.drawImage(images.objective.img, objective.drawX, objective.drawY, mapData.pixelSize, mapData.pixelSize))
 
-/**
- * Generic function to generate objects based on map data and a condition callback
- * @param {string} char The character to search for in the map data
- * @param {Function} callback A callback function that receives x, y coordinates and returns an object based on those coordinates
- * @returns {Array} An array of objects generated based on the condition callback
- */
-export function generateObjects(char, callback) {
-    const objects = []
-    for (let x = 0; x < mapData.width; x++) {
-        for (let y = 0; y < mapData.height; y++) {
-            if (mapData.map[y][x] === char) {
-                objects.push(callback(x, y))
-            }
-        }
-    }
-    return objects
+    // Draw the power-ups
+    window.board.powerUps.forEach((powerUp) => ctx.drawImage(images.powerUp.img, powerUp.x, powerUp.y, mapData.pixelSize, mapData.pixelSize))
 }
 
 /**
  * Returns an array of wall objects
  * @returns {Array} An array of wall objects
  */
-export function generateBoardBounds() {
-    return generateObjects(CONST.WALL_ID, (x, y) => new RectWall(x * mapData.pixelSize, y * mapData.pixelSize, mapData.pixelSize, mapData.pixelSize));
+export function generateBoardWalls() {
+    return window.board.walls.map((wall) => new RectWall(wall.x, wall.y, mapData.pixelSize, mapData.pixelSize))
 }
 
 /**
@@ -109,11 +73,7 @@ export function generateBoardBounds() {
  * @returns {Array} An array of objective zone objects
  */
 export function generateObjectiveZones() {
-    return generateObjects(CONST.OBJECTIVE_ID, (x, y) => ({
-        x: x * mapData.pixelSize + mapData.pixelSize / 2,
-        y: y * mapData.pixelSize + mapData.pixelSize / 2,
-        size: CONST.OBJECTIVE_SIZE,
-    }))
+    return window.board.objectives.map((objective) => new ObjectiveZone(objective.x, objective.y, mapData.pixelSize, mapData.pixelSize))
 }
 
 /**
@@ -125,6 +85,6 @@ export function generateObjectiveZones() {
  * @param {object} controls The controls for the players
  * @returns {Array} An array of Player objects
  */
-export function generatePlayers(team, size, teamColor, controls) {
-    return generateObjects(team, (x, y) => new Player(x * mapData.pixelSize + mapData.pixelSize / 2, y * mapData.pixelSize + mapData.pixelSize / 2, size, teamColor, controls))
+export function generatePlayers() {
+    return [new Player(window.board.spawn1.x, window.board.spawn1.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_1_COLOR, CONST.CONTROLS_P1), new Player(window.board.spawn2.x, window.board.spawn2.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_2_COLOR, CONST.CONTROLS_P2)]
 }

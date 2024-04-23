@@ -6,9 +6,9 @@ export default class Player {
     constructor(xi, yi, sizei, colori, controls) {
         this.ctx = window.ctx
 
-        this.x = xi // The player's x position
-        this.y = yi // The player's y position
-        this.size = sizei // The player's size
+        this.x = xi + CONST.CELL_SIZE / 2 // The player's x position
+        this.y = yi + CONST.CELL_SIZE / 2 // The player's y position
+        this.size = sizei / 2 // The player's size as a radius
         this.team = colori // The player's team (represented by a color in hex format, including the '#' symbol)
 
         this.controls = controls // The player's controls
@@ -126,8 +126,7 @@ export default class Player {
         // Update the direction
         if (this.state.moving) this.state.direction = newDirection
 
-        // Check if the player is inside the canvas
-        this.handleCanvasCollision()
+        // Check if the player is colliding with the obstacles
         this.handleObstacleCollision()
 
         this.x += this.dx
@@ -172,14 +171,6 @@ export default class Player {
         this.state.currentSprite = { x: spriteX, y: spriteY }
     }
 
-    /*
-     * Check if the player is inside the canvas
-     */
-    isInsideCanvas() {
-        const { width, height } = window.canvasDims()
-        return [this.x - this.size > 0 && this.x + this.size < width, this.y - this.size > 0 && this.y + this.size < height]
-    }
-
     /**
      * Check the players within the detection and attack ranges
      */
@@ -206,29 +197,6 @@ export default class Player {
         // Update the ranges in the player's attributes
         this.detection_range_players = auxDetectionRange
         this.attack_range_players = auxAttackRange
-    }
-
-    /**
-     * Handle the player's collision with the canvas. Prevents the player from going outside the canvas and getting stuck on the edges
-     */
-    handleCanvasCollision() {
-        const threshold = 0.1 // To avoid the player getting stuck on the edge of the canvas
-        const { width, height } = window.canvasDims()
-        const [isX, isY] = this.isInsideCanvas()
-
-        // Check if the player is inside the canvas
-        if (!isX) {
-            this.dx = 0 // Stop the player
-            // Bring the player back inside the canvas
-            if (this.x - this.size < 0) this.x = this.size + threshold
-            else this.x = width - this.size - threshold
-        }
-        if (!isY) {
-            this.dy = 0 // Stop the player
-            // Bring the player back inside the canvas
-            if (this.y - this.size < 0) this.y = this.size + threshold
-            else this.y = height - this.size - threshold
-        }
     }
 
     /**

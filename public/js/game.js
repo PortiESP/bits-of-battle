@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { drawBoard, generateBoardBounds, generateBoardData, generateObjectiveZones, generatePlayers } from "./board/board.js"
+import { drawBoard, generateBoardWalls, generateBoardData, generateObjectiveZones, generatePlayers } from "./board/board.js"
 import { drawEndScreen } from "./board/endScreen.js"
 import CONST from "./data/constants.js"
 import { progressToRadians } from "./utils/functions.js"
@@ -21,20 +21,14 @@ class Game {
         generateBoardData()
 
         // Set the obstacles
-        window.obstacles = window.obstacles.concat(generateBoardBounds())
+        window.obstacles = window.obstacles.concat(generateBoardWalls())
 
-        // Set the objectives
-        window.objectives = generateObjectiveZones().map((coords, i) => ({ ...coords, id: i, team: null, progress: 0 }))
-
-        // DEBUG (forcing an initial setup)
-        window.players = [
-            ...generatePlayers("1", CONST.PLAYER_SIZE, CONST.TEAM_1_COLOR, CONST.CONTROLS_P1),
-            ...generatePlayers("2", CONST.PLAYER_SIZE, CONST.TEAM_2_COLOR, CONST.CONTROLS_P2)
-        ];
-        
         // Retrieve players menu
         window.$player1Menu = document.getElementById("1")
         window.$player2Menu = document.getElementById("2")
+
+        // Set the objective zones
+        window.players = generatePlayers()
 
         // Main game loop
         this.mainloop()
@@ -90,9 +84,8 @@ class Game {
      */
     updateGameStatus() {
         // Check if the game is finished by objectives
-        if (window.objectives.every((objective) => objective.progress >= 100 && objective.team === window.objectives[0].team)) {
+        if (window.board.objectives.every((objective) => objective.progress >= 100)) {
             this.finished = true
-            this.winner = window.objectives[0].team === CONST.TEAM_1_COLOR ? "Team 1" : "Team 2"
         }
 
         // Check if the game is finished by players alive
@@ -115,7 +108,7 @@ class Game {
 
         // Objectives (update the coordinates of the objectives)
         const newObjectives = [window.calculateObjectivesCoords(), window.canvasDims().center].flat()
-        window.objectives.map((coords, i) => {
+        window.board.objectives.map((coords, i) => {
             coords.x = newObjectives[i].x
             coords.y = newObjectives[i].y
         })
@@ -128,7 +121,7 @@ class Game {
     checkObjectives(player) {
         // Find the closest objective
         let bestDistance = Infinity
-        const objective = window.objectives.reduce((best, curr) => {
+        const objective = window.board.objectives.reduce((best, curr) => {
             // Calculate the distance between the player and the objective (from perimeter to perimeter)
             const distance = Math.hypot(player.x - curr.x, player.y - curr.y) - player.size - curr.size
             // Check if the current objective is closer than the best objective from previous iterations
@@ -138,7 +131,7 @@ class Game {
             }
             // If the current objective is not closer, keep the best objective from previous iterations
             else return best
-        }, window.objectives[0])
+        }, window.board.objectives[0])
 
         const distance = bestDistance
 
@@ -233,7 +226,7 @@ class Game {
         })
 
         // Draw objectives progress
-        window.objectives.forEach((objective) => {
+        window.board.objectives.forEach((objective) => {
             // Draw the objectives
             ctx.fillStyle = (objective.team || "#ffffff") + "80"
             ctx.beginPath()
