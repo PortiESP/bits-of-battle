@@ -26,6 +26,11 @@ const CONST = {
     PLAYER_1_CHARACTER: "ninja", // Character of player 1
     PLAYER_2_CHARACTER: "dragon", // Character of player 2
 
+    // Flags
+    PLAYER_1_FLAG: "redFlag", // Flag of player 1
+    PLAYER_2_FLAG: "blueFlag", // Flag of player 2
+    DEFAULT_FLAG: "whiteFlag", // Default flag
+
     // Board & Style
     BACKGROUND_COLOR: "#FAF7F5",
     BOARD_COLOR: "#222",
