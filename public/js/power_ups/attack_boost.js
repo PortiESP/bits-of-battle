@@ -21,7 +21,7 @@ export class AttackBoost extends PowerUp {
     }
 
     actionOnCollision(player) {
-        player.data.attack += this.boost
+        player.stats.attack += this.boost
         this.destructor()
     }
 }

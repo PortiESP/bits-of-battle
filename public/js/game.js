@@ -28,9 +28,11 @@ class Game {
         // window.$player2Menu = document.getElementById("2")
         window.$health1 = document.getElementById("health-value1")
         window.$captured1 = document.getElementById("captured-flags-value1")
+        window.$attack1 = document.getElementById("attack-value1")
 
         window.$health2 = document.getElementById("health-value2")
         window.$captured2 = document.getElementById("captured-flags-value2")
+        window.$attack2 = document.getElementById("attack-value2")
 
         // Generate the players
         window.players = generatePlayers()
@@ -70,11 +72,17 @@ class Game {
     }
 
     updateUI() {
-        $health1.textContent = window?.players[0]?.data?.health?.toFixed(2)
-        $captured1.textContent = window?.board?.objectives?.filter((obj) => obj.team === CONST.TEAM_1_COLOR).length
+        // Update the player health
+        $health1.textContent = window.players[0].stats.health.toFixed(2)
+        $health2.textContent = window.players[1].stats.health.toFixed(2)
 
-        $health2.textContent = window?.players[1]?.data?.health?.toFixed(2)
-        $captured2.textContent = window?.board?.objectives?.filter((obj) => obj.team === CONST.TEAM_2_COLOR).length
+        // Update the player attack
+        $attack1.textContent = window.players[0].stats.attack.toFixed(2)
+        $attack2.textContent = window.players[1].stats.attack.toFixed(2)
+
+        // Update the player objectives
+        $captured1.textContent = window.board.objectives.filter((obj) => obj.team === CONST.TEAM_1_COLOR).length
+        $captured2.textContent = window.board.objectives.filter((obj) => obj.team === CONST.TEAM_2_COLOR).length
     }
 
     /**
@@ -84,6 +92,8 @@ class Game {
         this.updateUI()
         // Obstacles
         window.obstacles.forEach((obstacle) => obstacle.update())
+        // Power-ups
+        window.board.powerUps.forEach((powerUp) => powerUp.update())
         // Players
         window.players.forEach((player) => {
             player.update() // Update the player state
@@ -173,18 +183,6 @@ class Game {
                 }
             }
         }
-    }
-
-    /**
-     * Calls the power up function that was triggered
-     * @param {String} team The team that triggered the power up event
-     * @param {String} powerUp The power up that was triggered. It must be a key in the `POWERUPS_FUNCTIONS` object in the `constants.js` file
-     */
-    handlePowerUpEvent(team, powerUp) {
-        console.log("PowerUp event", team, powerUp)
-
-        // Call the power up function
-        CONST.POWERUPS_FUNCTIONS[powerUp](team)
     }
 
     /**

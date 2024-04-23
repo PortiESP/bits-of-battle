@@ -21,7 +21,7 @@ export default class Player {
         }
 
         // Player data
-        this.data = {
+        this.stats = {
             health: CONST.MAX_PLAYER_HEALTH,
             attack: CONST.BASE_PLAYER_ATTACK,
             defense: CONST.BASE_PLAYER_DEFENSE,
@@ -39,9 +39,6 @@ export default class Player {
         // Players in range
         this.detection_range_players = [] // Players in the detection range
         this.attack_range_players = [] // Players in the attack range
-
-        // Attack
-        this.attack = CONST.BASE_PLAYER_ATTACK
     }
 
     /**
@@ -127,9 +124,6 @@ export default class Player {
         // Update the direction
         if (this.state.moving) this.state.direction = newDirection
 
-        // Check if the player is colliding with the obstacles
-        this.handleObstacleCollision()
-
         this.x += this.dx
         this.y += this.dy
     }
@@ -201,23 +195,12 @@ export default class Player {
     }
 
     /**
-     * Handle the player's collision with the obstacles
-     */
-    handleObstacleCollision() {
-        for (const obstacle of window.obstacles) {
-            if (obstacle.checkCollision(this)) {
-                obstacle.actionOnCollision(this)
-            }
-        }
-    }
-
-    /**
      * Reduce the player's size when fighting
      */
     fight() {
         for (const player of this.attack_range_players) {
             // Calculate the damage
-            player.data.health -= this.attack
+            player.stats.health -= this.attack
         }
     }
 
@@ -226,7 +209,7 @@ export default class Player {
      * @returns {boolean} True if the player is dead
      */
     isDead() {
-        return this.data.health <= 0
+        return this.stats.health <= 0
     }
 
     /**

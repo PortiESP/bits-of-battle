@@ -41,7 +41,13 @@ export default class PowerUp {
     /**
      * Update the power up's position and status
      */
-    update() {}
+    update() {
+        for (const player of window.players) {
+            if (this.checkCollision(player)) {
+                this.actionOnCollision(player)
+            }
+        }
+    }
 
     // Check if the player is colliding with the power up
     /**
@@ -81,8 +87,8 @@ export default class PowerUp {
      * Destructor to remove the power up from the obstacles array
      */
     destructor() {
-        const index = window.obstacles.indexOf(this)
-        window.obstacles.splice(index, 1)
+        const index = window.board.powerUps.indexOf(this)
+        window.board.powerUps.splice(index, 1)
     }
 
     /**
