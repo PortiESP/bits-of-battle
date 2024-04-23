@@ -1,7 +1,6 @@
 import CONST from "../data/constants.js"
 import { resources } from "../utils/resources.js"
 import { mapData } from "../board/map.js"
-import Particle from "./particle.js"
 
 export default class Player {
     constructor(xi, yi, sizei, colori, controls) {
@@ -35,9 +34,6 @@ export default class Player {
         // Players in range
         this.detection_range_players = [] // Players in the detection range
         this.attack_range_players = [] // Players in the attack range
-
-        // Create the particles
-        this.particles = Array.from({ length: this.size }, (_, i) => new Particle(i, this.x, this.y, CONST.PARTICLE_TARGET_SIZE, this.team))
     }
 
     /**
@@ -84,9 +80,6 @@ export default class Player {
 
         // Move the player
         this.move()
-
-        // Update the particles
-        this.updateParticles()
     }
 
     /**
@@ -262,31 +255,6 @@ export default class Player {
             this.size -= damageTaken
             const damage = Math.max(0, s1) * randomDamageMultiplier()
             player.size -= damage
-        }
-    }
-
-    /**
-     * Update the player's particles
-     */
-    updateParticles() {
-        // Update the number of particles based on the player's size
-
-        // Constants
-        const centerX = this.x
-        const centerY = this.y
-        const width = window.canvasDims().width
-        const height = window.canvasDims().height
-
-        // Update each particle
-        for (let prt of this.particles) {
-            prt.update(centerX, centerY, width, height)
-        }
-
-        if (this.size > this.particles.length) {
-            const newParticles = Array.from({ length: this.size - this.particles.length }, (_, i) => new Particle(i, this.x, this.y, CONST.PARTICLE_TARGET_SIZE, this.team))
-            this.particles = this.particles.concat(newParticles)
-        } else if (this.size < this.particles.length) {
-            this.particles = this.particles.slice(0, this.size)
         }
     }
 
