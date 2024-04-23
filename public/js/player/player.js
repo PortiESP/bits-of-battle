@@ -264,7 +264,7 @@ export default class Player {
      * @returns {boolean} True if the player is dead
      */
     isDead() {
-        return this.size <= 1
+        return this.data.health <= 0
     }
 
     /**

@@ -28,8 +28,10 @@ class Game {
             ...generatePlayers("1", CONST.PLAYER_SIZE, CONST.TEAM_1_COLOR, CONST.CONTROLS_P1),
             ...generatePlayers("2", CONST.PLAYER_SIZE, CONST.TEAM_2_COLOR, CONST.CONTROLS_P2)
         ];
-        // Resize canvas
-        // this.resizeCanvas()
+        
+        // Retrieve players menu
+        window.$player1Menu = document.getElementById("1")
+        window.$player2Menu = document.getElementById("2")
 
         // Main game loop
         this.mainloop()
