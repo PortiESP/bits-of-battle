@@ -12,7 +12,6 @@ export default class Player {
         this.team = colori // The player's team (represented by a color in hex format, including the '#' symbol)
 
         this.controls = controls // The player's controls
-        this.pressedKeysStack = [] // The last key pressed by the player
 
         this.state = {
             // The player's state
@@ -102,34 +101,27 @@ export default class Player {
         this.state.moving = true
         let newDirection = { x: 0, y: 0 }
 
-        // Handle the key press
-        this.handleKeyPress()
-
-        // Update the direction based on the keys pressed
-        //  The most recent key pressed has priority
-        const keysPressed = this.pressedKeysStack.length // Number of keys pressed
-        if (keysPressed) {
-            this.data.attack += 1
-            // Get the most recent key pressed from the stack
-            const mostRecentKeyPressed = this.pressedKeysStack[keysPressed - 1]
-
-            // Update the direction based on the most recent key pressed
-            if (mostRecentKeyPressed === this.controls.up) {
-                newDirection = { x: 0, y: -1 }
-                this.dy = -CONST.BASE_SPEED_PLAYER
-            } else if (mostRecentKeyPressed === this.controls.down) {
-                newDirection = { x: 0, y: 1 }
-                this.dy = CONST.BASE_SPEED_PLAYER
-            } else if (mostRecentKeyPressed === this.controls.left) {
-                newDirection = { x: -1, y: 0 }
-                this.dx = -CONST.BASE_SPEED_PLAYER
-            } else if (mostRecentKeyPressed === this.controls.right) {
-                newDirection = { x: 1, y: 0 }
-                this.dx = CONST.BASE_SPEED_PLAYER
-            }
+        // Update the direction based on the most recent key pressed
+        if (window.keys[this.controls.up]) {
+            newDirection = { x: 0, y: -1 }
+            this.dy = -CONST.BASE_SPEED_PLAYER
         }
+        if (window.keys[this.controls.down]) {
+            newDirection = { x: 0, y: 1 }
+            this.dy = CONST.BASE_SPEED_PLAYER
+        }
+        if (window.keys[this.controls.left]) {
+            newDirection = { x: -1, y: 0 }
+            this.dx = -CONST.BASE_SPEED_PLAYER
+        }
+        if (window.keys[this.controls.right]) {
+            newDirection = { x: 1, y: 0 }
+            this.dx = CONST.BASE_SPEED_PLAYER
+        }
+
         // If no keys are pressed, stop the player
-        else this.state.moving = false
+
+        this.state.moving = Object.values(this.controls).filter((value) => (window.keys[value] ? true : false)).length
 
         // Update the direction
         if (this.state.moving) this.state.direction = newDirection
