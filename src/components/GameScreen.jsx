@@ -1,14 +1,14 @@
-import PlayerSideMenu from "./PlayerSideMenu";
-import Canvas from "./Canvas";
+import PlayerSideMenu from "./PlayerSideMenu"
+import Canvas from "./Canvas"
 
 const GameScreen = () => {
     return (
         <>
-            <PlayerSideMenu teamId={0} />
+            <PlayerSideMenu name={"Player 1"} id={"1"} />
             <div className="game">
                 <Canvas />
             </div>
-            <PlayerSideMenu teamId={1} />
+            <PlayerSideMenu name={"Player 2"} id={"2"} />
         </>
     );
 };
