@@ -10,7 +10,7 @@ import { clamp } from "../utils/functions.js"
  * See the `docs/project.md` file for more information.
  */
 export default class PowerUp {
-    constructor(x, y, width = undefined, height = undefined, team = undefined) {
+    constructor(x, y, width, height, team) {
         this.x = x
         this.y = y
         this.width = width
@@ -18,11 +18,11 @@ export default class PowerUp {
 
         this.team = team
 
-        // Coordinates (not considered until the power up is placed)
-        this.x1 = undefined
-        this.y1 = undefined
-        this.x2 = undefined
-        this.y2 = undefined
+        // Coordinates of the power up
+        this.x1 = x
+        this.y1 = y
+        this.x2 = x + width
+        this.y2 = y + height
     }
 
     /**

@@ -1,7 +1,7 @@
-import { drawBoard, generateBoardBounds } from "./board/board.js"
+/* eslint-disable no-undef */
+import { drawBoard, generateBoardWalls, generateBoardData, generatePlayers } from "./board/board.js"
 import { drawEndScreen } from "./board/endScreen.js"
 import CONST from "./data/constants.js"
-import Player from "./player/player.js"
 import { progressToRadians } from "./utils/functions.js"
 
 /**
@@ -17,14 +17,23 @@ class Game {
         this.finished = false
         this.winner = null
 
+        // Set map data to the window object
+        generateBoardData()
+
         // Set the obstacles
-        window.obstacles = window.obstacles.concat(generateBoardBounds())
+        window.obstacles = window.obstacles.concat(generateBoardWalls())
 
-        // DEBUG (forcing an initial setup)
-        window.players = [new Player(CONST.PLAYER_1_INITIAL.x, CONST.PLAYER_1_INITIAL.y, CONST.PLAYER_SIZE, CONST.TEAM_1_COLOR, CONST.CONTROLS_P1), new Player(CONST.PLAYER_2_INITIAL.x, CONST.PLAYER_2_INITIAL.y, CONST.PLAYER_SIZE, CONST.TEAM_2_COLOR, CONST.CONTROLS_P2)]
+        // Retrieve players menu
+        // window.$player1Menu = document.getElementById("1")
+        // window.$player2Menu = document.getElementById("2")
+        window.$health1 = document.getElementById("health-value1")
+        window.$captured1 = document.getElementById("captured-flags-value1")
 
-        // Resize canvas
-        // this.resizeCanvas()
+        window.$health2 = document.getElementById("health-value2")
+        window.$captured2 = document.getElementById("captured-flags-value2")
+
+        // Set the objective zones
+        window.players = generatePlayers()
 
         // Main game loop
         this.mainloop()
@@ -62,10 +71,19 @@ class Game {
         if (window.DEBUG) this.printDebugInfo()
     }
 
+    updateUI() {
+        $health1.textContent = window?.players[0]?.data?.health?.toFixed(2)
+        $captured1.textContent = window?.board?.objectives?.filter(obj => obj.team === CONST.TEAM_1_COLOR).length
+
+        $health2.textContent = window?.players[1]?.data?.health?.toFixed(2)
+        $captured2.textContent = window?.board?.objectives?.filter(obj => obj.team === CONST.TEAM_2_COLOR).length
+    }
+
     /**
      * Update the game state
      */
     update() {
+        this.updateUI()
         // Obstacles
         window.obstacles.forEach((obstacle) => obstacle.update())
         // Players
@@ -79,10 +97,20 @@ class Game {
      * Update the game status
      */
     updateGameStatus() {
+        let winnerObjectives = Math.max(
+            ...Object.values(
+                window.board.objectives.reduce((acc, item) => {
+                    acc[item.team] =
+                        (acc[item.team] || 0) + (item.progress >= 100 ? 1 : 0);
+                    return acc;
+                }, {})
+            )
+        );
+
         // Check if the game is finished by objectives
-        if (window.objectives.every((objective) => objective.progress >= 100 && objective.team === window.objectives[0].team)) {
-            this.finished = true
-            this.winner = window.objectives[0].team === CONST.TEAM_1_COLOR ? "Team 1" : "Team 2"
+        if (winnerObjectives === window.board.objectives.length) {
+            this.finished = true;
+            this.winner = window.board.objectives[0]?.team === CONST.TEAM_1_COLOR ? "Team 1" : "Team 2";
         }
 
         // Check if the game is finished by players alive
@@ -105,7 +133,7 @@ class Game {
 
         // Objectives (update the coordinates of the objectives)
         const newObjectives = [window.calculateObjectivesCoords(), window.canvasDims().center].flat()
-        window.objectives.map((coords, i) => {
+        window.board.objectives.map((coords, i) => {
             coords.x = newObjectives[i].x
             coords.y = newObjectives[i].y
         })
@@ -118,7 +146,7 @@ class Game {
     checkObjectives(player) {
         // Find the closest objective
         let bestDistance = Infinity
-        const objective = window.objectives.reduce((best, curr) => {
+        const objective = window.board.objectives.reduce((best, curr) => {
             // Calculate the distance between the player and the objective (from perimeter to perimeter)
             const distance = Math.hypot(player.x - curr.x, player.y - curr.y) - player.size - curr.size
             // Check if the current objective is closer than the best objective from previous iterations
@@ -128,7 +156,7 @@ class Game {
             }
             // If the current objective is not closer, keep the best objective from previous iterations
             else return best
-        }, window.objectives[0])
+        }, window.board.objectives[0])
 
         const distance = bestDistance
 
@@ -223,7 +251,7 @@ class Game {
         })
 
         // Draw objectives progress
-        window.objectives.forEach((objective) => {
+        window.board.objectives.forEach((objective) => {
             // Draw the objectives
             ctx.fillStyle = (objective.team || "#ffffff") + "80"
             ctx.beginPath()

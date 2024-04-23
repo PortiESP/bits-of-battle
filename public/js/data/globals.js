@@ -36,20 +36,6 @@ export default function globalsSetup() {
         },
     })
 
-    /**
-     * Calculates the coordinates of the objectives
-     * @returns Object with the coordinates of the objectives: { x, y }
-     */
-    window.calculateObjectivesCoords = () => {
-        return [
-            // Objective zones
-            { x: 65, y: 220, size: CONST.OBJECTIVE_SIZE },
-            { x: 65, y: 510, size: CONST.OBJECTIVE_SIZE },
-            { x: 880, y: 300, size: CONST.OBJECTIVE_SIZE },
-            { x: 675, y: 445, size: CONST.OBJECTIVE_SIZE },
-        ]
-    }
-
     // ====================[ Global variables ]====================>
     window.mouse = { x: 0, y: 0 } // Mouse position, updated on mousemove
     window.keys = {} // Keys pressed and mouse buttons clicked
@@ -58,8 +44,14 @@ export default function globalsSetup() {
     // ====================[ Game variables ]====================>
     // Players in the game
     window.players = []
-    // Objectives in the game, updated on resize. This is an ARRAY o { x, y, id, team, progress }
-    window.objectives = window.calculateObjectivesCoords().map((coords, i) => ({ ...coords, id: i, team: null, progress: 0 }))
     // Obstacules in the game, updated on resize. This is an ARRAY of objects (Wall): { x, y, size }
     window.obstacles = []
+    // Board data
+    window.board = {
+        walls: [], // Data of the walls in the game {x, y, row, col}
+        floors: [], // Data of the floors in the game {x, y, row, col}
+        map: [], // Map of the game matrix of characters
+        objectives: [], // Objectives in the game {x, y, row, col}
+        powerUps: [], // PowerUps in the game {x, y, row, col, type}
+    }
 }

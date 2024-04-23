@@ -1,15 +1,14 @@
 import CONST from "../data/constants.js"
 import { resources } from "../utils/resources.js"
 import { mapData } from "../board/map.js"
-import Particle from "./particle.js"
 
 export default class Player {
     constructor(xi, yi, sizei, colori, controls) {
         this.ctx = window.ctx
 
-        this.x = xi // The player's x position
-        this.y = yi // The player's y position
-        this.size = sizei // The player's size
+        this.x = xi + CONST.CELL_SIZE / 2 // The player's x position
+        this.y = yi + CONST.CELL_SIZE / 2 // The player's y position
+        this.size = sizei / 2 // The player's size as a radius
         this.team = colori // The player's team (represented by a color in hex format, including the '#' symbol)
 
         this.controls = controls // The player's controls
@@ -23,6 +22,14 @@ export default class Player {
             frame: 0, // The player's frame
         }
 
+        // Player data
+        this.data = {
+            health: CONST.MAX_PLAYER_HEALTH,
+            attack: CONST.BASE_PLAYER_ATTACK,
+            defense: CONST.BASE_PLAYER_DEFENSE,
+            flags: 0,
+        }
+
         // Speed
         this.dx = 0 // The player's speed in the x-axis
         this.dy = 0 // The player's speed in the y-axis
@@ -34,9 +41,6 @@ export default class Player {
         // Players in range
         this.detection_range_players = [] // Players in the detection range
         this.attack_range_players = [] // Players in the attack range
-
-        // Create the particles
-        this.particles = Array.from({ length: this.size }, (_, i) => new Particle(i, this.x, this.y, CONST.PARTICLE_TARGET_SIZE, this.team))
     }
 
     /**
@@ -83,9 +87,6 @@ export default class Player {
 
         // Move the player
         this.move()
-
-        // Update the particles
-        this.updateParticles()
     }
 
     /**
@@ -99,8 +100,6 @@ export default class Player {
         // Check if the player is moving
         this.state.moving = true
         let newDirection = { x: 0, y: 0 }
-
-        // Update the direction based on the keys pressed
 
         // Update the direction based on the most recent key pressed
         if (window.keys[this.controls.up]) {
@@ -127,8 +126,7 @@ export default class Player {
         // Update the direction
         if (this.state.moving) this.state.direction = newDirection
 
-        // Check if the player is inside the canvas
-        this.handleCanvasCollision()
+        // Check if the player is colliding with the obstacles
         this.handleObstacleCollision()
 
         this.x += this.dx
@@ -173,14 +171,6 @@ export default class Player {
         this.state.currentSprite = { x: spriteX, y: spriteY }
     }
 
-    /*
-     * Check if the player is inside the canvas
-     */
-    isInsideCanvas() {
-        const { width, height } = window.canvasDims()
-        return [this.x - this.size > 0 && this.x + this.size < width, this.y - this.size > 0 && this.y + this.size < height]
-    }
-
     /**
      * Check the players within the detection and attack ranges
      */
@@ -210,29 +200,6 @@ export default class Player {
     }
 
     /**
-     * Handle the player's collision with the canvas. Prevents the player from going outside the canvas and getting stuck on the edges
-     */
-    handleCanvasCollision() {
-        const threshold = 0.1 // To avoid the player getting stuck on the edge of the canvas
-        const { width, height } = window.canvasDims()
-        const [isX, isY] = this.isInsideCanvas()
-
-        // Check if the player is inside the canvas
-        if (!isX) {
-            this.dx = 0 // Stop the player
-            // Bring the player back inside the canvas
-            if (this.x - this.size < 0) this.x = this.size + threshold
-            else this.x = width - this.size - threshold
-        }
-        if (!isY) {
-            this.dy = 0 // Stop the player
-            // Bring the player back inside the canvas
-            if (this.y - this.size < 0) this.y = this.size + threshold
-            else this.y = height - this.size - threshold
-        }
-    }
-
-    /**
      * Handle the player's collision with the obstacles
      */
     handleObstacleCollision() {
@@ -249,39 +216,14 @@ export default class Player {
     fight() {
         for (const player of this.attack_range_players) {
             // Calculate the damage
-            const s1 = this.size
-            const s2 = player.size
+            const s1 = this.data.health
+            const s2 = player.data.health
 
             const randomDamageMultiplier = () => CONST.PLAYER_ATTACK_MULTIPLIER * Math.floor(CONST.PLAYER_ATTACK_CHANCE + Math.random())
             const damageTaken = Math.max(0, s2) * randomDamageMultiplier()
-            this.size -= damageTaken
+            this.data.health -= damageTaken
             const damage = Math.max(0, s1) * randomDamageMultiplier()
-            player.size -= damage
-        }
-    }
-
-    /**
-     * Update the player's particles
-     */
-    updateParticles() {
-        // Update the number of particles based on the player's size
-
-        // Constants
-        const centerX = this.x
-        const centerY = this.y
-        const width = window.canvasDims().width
-        const height = window.canvasDims().height
-
-        // Update each particle
-        for (let prt of this.particles) {
-            prt.update(centerX, centerY, width, height)
-        }
-
-        if (this.size > this.particles.length) {
-            const newParticles = Array.from({ length: this.size - this.particles.length }, (_, i) => new Particle(i, this.x, this.y, CONST.PARTICLE_TARGET_SIZE, this.team))
-            this.particles = this.particles.concat(newParticles)
-        } else if (this.size < this.particles.length) {
-            this.particles = this.particles.slice(0, this.size)
+            player.data.health -= damage
         }
     }
 
@@ -290,7 +232,7 @@ export default class Player {
      * @returns {boolean} True if the player is dead
      */
     isDead() {
-        return this.size <= 1
+        return this.data.health <= 0
     }
 
     /**
