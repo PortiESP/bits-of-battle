@@ -31,7 +31,7 @@ export function generateBoardData() {
     window.board.walls = walls
     window.board.floors = floors
     window.board.map = mapData.map
-    window.board.objectives = mapData.objectives.map((data, i) => new Objective(i, data.row, data.col))
+    window.board.objectives = generateObjectiveZones()
     window.board.powerUps = mapData.powerUps.map((data) => ({ ...data, x: data.col * mapData.pixelSize, y: data.row * mapData.pixelSize }))
 }
 
@@ -73,7 +73,7 @@ export function generateBoardWalls() {
  * @returns {Array} An array of objective zone objects
  */
 export function generateObjectiveZones() {
-    return window.board.objectives.map((objective) => new ObjectiveZone(objective.x, objective.y, mapData.pixelSize, mapData.pixelSize))
+    return mapData.objectives.map((data, i) => new Objective(i, data.row, data.col))
 }
 
 /**

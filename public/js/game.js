@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { drawBoard, generateBoardWalls, generateBoardData, generateObjectiveZones, generatePlayers } from "./board/board.js"
+import { drawBoard, generateBoardWalls, generateBoardData, generatePlayers } from "./board/board.js"
 import { drawEndScreen } from "./board/endScreen.js"
 import CONST from "./data/constants.js"
 import { progressToRadians } from "./utils/functions.js"

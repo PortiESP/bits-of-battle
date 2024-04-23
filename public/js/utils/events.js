@@ -14,7 +14,7 @@ export default function setupEvents(game) {
 
     // Update the keys pressed
     window.addEventListener("keydown", (e) => {
-        if (window.DEBUG) console.log("DOWN:" + e.key)
+        if (window.DEBUG) console.log("DOWN:" + e.key, e.code)
 
         const key = e.key.toLowerCase()
         window.keys[key] = true
