@@ -69,11 +69,6 @@ const CONST = {
     OBJECTIVE_SIZE: 16, // The size of the other objectives
     OBJECTIVE_PROGRESS_STEP: 1, // The progress step of the objectives
     OBJECTIVE_MAX_PROGRESS: 100, // The maximum progress of the objectives
-
-    // POWERUPS
-    POWERUPS_FUNCTIONS: {
-        spark: createSpark,
-    },
 }
 
 export default CONST

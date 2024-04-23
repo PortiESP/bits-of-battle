@@ -12,6 +12,7 @@ class Resources {
             player2: "assets/test-player2.png",
             ninja: "assets/character-ninja.png",
             dragon: "assets/character-dragon.png",
+            axe: "assets/weapon-axe.png",
         }
 
         this.images = {}

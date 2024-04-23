@@ -7,12 +7,6 @@ export default function createWall(x, y, width, height, team) {
 export class RectWall extends PowerUp {
     constructor(x, y, width, height, team) {
         super(x, y, width, height, team)
-
-        // Set the wall's properties
-        this.x1 = x
-        this.y1 = y
-        this.x2 = x + width
-        this.y2 = y + height
     }
 
     // ====================[ Overrides ]====================>

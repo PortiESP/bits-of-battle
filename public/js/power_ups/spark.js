@@ -1,30 +1,31 @@
 import PowerUp from "./powerUp.js"
 
-export default function createSpark(team) {
-    window.obstacles.push(new Spark(team))
+export default function createSpark(x, y, width, height, team) {
+    window.obstacles.push(new Spark(x, y, width, height, team))
 }
 
 class Spark extends PowerUp {
     constructor(x, y, width, height, team) {
         super(x, y, width, height, team)
-        this.width = 20
-        this.height = 20
     }
 
     // ====================[ Overrides ]====================>
     draw() {
-        ctx.fillStyle = this.team
-        ctx.fillRect(this.x, this.y, this.width, this.height)
+        // Retrieve the canvas context
+        const ctx = window.ctx
+
+        // Check if the resources are ready and retrieve the image
+        if (!resources.isReady()) return
+        const image = resources.images.axe.img
+
+        // Draw the axe
+        ctx.drawImage(image, this.x, this.y, this.width, this.height)
     }
 
     actionOnCollision(player) {
         if (!this.placed) return
+        player.data.attack += 1
 
-        let value = 0
-        if (player.team === this.team) value = 2
-        else value = -2
-
-        player.size += value
         this.destructor()
     }
 }
