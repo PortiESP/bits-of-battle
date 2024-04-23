@@ -73,10 +73,10 @@ class Game {
 
     updateUI() {
         $health1.textContent = window?.players[0]?.data?.health?.toFixed(2)
-        $captured1.textContent = window?.board?.objectives?.filter(obj => obj.team === CONST.TEAM_1_COLOR).length
+        $captured1.textContent = window?.board?.objectives?.filter(obj => obj.team === CONST.TEAM_1_COLOR && obj.progress >= 100).length
 
         $health2.textContent = window?.players[1]?.data?.health?.toFixed(2)
-        $captured2.textContent = window?.board?.objectives?.filter(obj => obj.team === CONST.TEAM_2_COLOR).length
+        $captured2.textContent = window?.board?.objectives?.filter(obj => obj.team === CONST.TEAM_2_COLOR && obj.progress >= 100).length
     }
 
     /**
