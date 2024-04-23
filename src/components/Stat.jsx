@@ -1,4 +1,6 @@
 
+import "../styles/Stat.css"
+
 export default function Stat({ label, value }) {
     return (
         <div className="stat">
