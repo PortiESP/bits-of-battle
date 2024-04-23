@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { drawBoard, generateBoardWalls, generateBoardData, generatePlayers } from "./board/board.js"
+import { drawBoard, generateBoardData, generatePlayers } from "./board/board.js"
 import { drawEndScreen } from "./board/endScreen.js"
 import CONST from "./data/constants.js"
 import { progressToRadians } from "./utils/functions.js"
@@ -17,22 +17,24 @@ class Game {
         this.finished = false
         this.winner = null
 
-        // Set map data to the window object
+        // Set map data such as walls, floors, objectives, and power-ups, etc..
         generateBoardData()
 
-        // Set the obstacles
-        window.obstacles = window.obstacles.concat(generateBoardWalls())
+        // Set the obstacles (mainly walls but can be other obstacles as well)
+        window.obstacles = window.obstacles.concat(window.board.walls)
 
-        // Retrieve players menu
+        // Retrieve players UI menu
         // window.$player1Menu = document.getElementById("1")
         // window.$player2Menu = document.getElementById("2")
         window.$health1 = document.getElementById("health-value1")
         window.$captured1 = document.getElementById("captured-flags-value1")
+        window.$attack1 = document.getElementById("attack-value1")
 
         window.$health2 = document.getElementById("health-value2")
         window.$captured2 = document.getElementById("captured-flags-value2")
+        window.$attack2 = document.getElementById("attack-value2")
 
-        // Set the objective zones
+        // Generate the players
         window.players = generatePlayers()
 
         // Main game loop
@@ -44,9 +46,15 @@ class Game {
      */
     mainloop() {
         ctx.clearRect(0, 0, $canvas.width, $canvas.height)
-        this.update()
-        this.draw()
-        this.updateGameStatus()
+
+        if (this.finished) {
+            drawEndScreen()
+            return
+        }
+
+        this.update() // Update the state  of every object in the game
+        this.draw() // Draw the game objects on the canvas
+        this.updateGameStatus() // Update the game status
         requestAnimationFrame(() => this.mainloop())
     }
 
@@ -54,16 +62,9 @@ class Game {
      * Draw the game objects on the canvas
      */
     draw() {
-        if (this.finished) {
-            drawEndScreen()
-            return
-        }
-
-        // Board
+        // Board graphics
         drawBoard()
 
-        // Obstacles
-        window.obstacles.forEach((obstacle) => obstacle.draw())
         // Players
         window.players.forEach((player) => player.draw())
 
@@ -72,11 +73,17 @@ class Game {
     }
 
     updateUI() {
-        $health1.textContent = window?.players[0]?.data?.health?.toFixed(2)
-        $captured1.textContent = window?.board?.objectives?.filter(obj => obj.team === CONST.TEAM_1_COLOR && obj.progress >= 100).length
+        // Update the player health
+        $health1.textContent = window.players[0].stats.health.toFixed(2)
+        $health2.textContent = window.players[1].stats.health.toFixed(2)
 
-        $health2.textContent = window?.players[1]?.data?.health?.toFixed(2)
-        $captured2.textContent = window?.board?.objectives?.filter(obj => obj.team === CONST.TEAM_2_COLOR && obj.progress >= 100).length
+        // Update the player attack
+        $attack1.textContent = window.players[0].stats.attack.toFixed(2)
+        $attack2.textContent = window.players[1].stats.attack.toFixed(2)
+
+        // Update the player objectives
+        $captured1.textContent = window.board.objectives.filter((obj) => obj.team === CONST.TEAM_1_COLOR).length
+        $captured2.textContent = window.board.objectives.filter((obj) => obj.team === CONST.TEAM_2_COLOR).length
     }
 
     /**
@@ -86,6 +93,8 @@ class Game {
         this.updateUI()
         // Obstacles
         window.obstacles.forEach((obstacle) => obstacle.update())
+        // Power-ups
+        window.board.powerUps.forEach((powerUp) => powerUp.update())
         // Players
         window.players.forEach((player) => {
             player.update() // Update the player state
@@ -100,23 +109,22 @@ class Game {
         let winnerObjectives = Math.max(
             ...Object.values(
                 window.board.objectives.reduce((acc, item) => {
-                    acc[item.team] =
-                        (acc[item.team] || 0) + (item.progress >= 100 ? 1 : 0);
-                    return acc;
+                    acc[item.team] = (acc[item.team] || 0) + (item.progress >= 100 ? 1 : 0)
+                    return acc
                 }, {})
             )
-        );
+        )
 
         // Check if the game is finished by objectives
         if (winnerObjectives === window.board.objectives.length) {
-            this.finished = true;
-            this.winner = window.board.objectives[0]?.team === CONST.TEAM_1_COLOR ? "Team 1" : "Team 2";
+            this.finished = true
+            this.winner = window.board.objectives[0]?.team === CONST.TEAM_1_COLOR ? "Team 1" : "Team 2"
         }
 
         // Check if the game is finished by players alive
-        if (window.players.length === 1) {
+        if (window.players.filter((player) => player.isDead()).length) {
             this.finished = true
-            this.winner = window.players[0].team === CONST.TEAM_1_COLOR ? "Team 1" : "Team 2"
+            this.winner = window.players[0].isDead() ? "Team 2" : "Team 1"
         }
     }
 
@@ -176,18 +184,6 @@ class Game {
                 }
             }
         }
-    }
-
-    /**
-     * Calls the power up function that was triggered
-     * @param {String} team The team that triggered the power up event
-     * @param {String} powerUp The power up that was triggered. It must be a key in the `POWERUPS_FUNCTIONS` object in the `constants.js` file
-     */
-    handlePowerUpEvent(team, powerUp) {
-        console.log("PowerUp event", team, powerUp)
-
-        // Call the power up function
-        CONST.POWERUPS_FUNCTIONS[powerUp](team)
     }
 
     /**

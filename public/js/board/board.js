@@ -1,12 +1,12 @@
 import { RectWall } from "../power_ups/wall.js"
-import { resources } from "../utils/resources.js"
 import { mapData } from "./map.js"
 import CONST from "../data/constants.js"
 import Player from "../player/player"
 import Objective from "./objective.js"
+import { AttackBoost } from "../power_ups/attack_boost.js"
 
 export function generateBoardData() {
-    const walls = [] // Array of {x, y, row, col}
+    const walls = [] // Array of RectWall objects
     const floors = [] // Array of {x, y, row, col}
 
     for (let row = 0; row < mapData.height; row++) {
@@ -15,11 +15,14 @@ export function generateBoardData() {
             const x = col * CONST.CELL_SIZE
             const y = row * CONST.CELL_SIZE
 
-            // Walls of floors
+            // Generate Walls or floors
+            // Walls
             if (current === CONST.WALL_ID) {
-                walls.push({ x, y, row: y, col: x })
+                walls.push(new RectWall(row, col))
                 continue
-            } else floors.push({ x, y, row: y, col: x })
+            }
+            // Floors
+            else floors.push({ x, y, row: y, col: x })
 
             // Player spawns
             if (current === CONST.PLAYER_1_ID) window.board.spawn1 = { x, y, row: y, col: x }
@@ -42,12 +45,12 @@ export function drawBoard() {
     // Get the canvas and context from the window object
     const ctx = window.ctx
 
-    if (!resources.isReady()) return
-    const images = resources.images
+    if (!window.resources.isReady()) return
+    const images = window.resources.images
 
     // Draw the background
     window.board.floors.forEach((floor) => ctx.drawImage(images.floor.img, floor.x, floor.y, CONST.CELL_SIZE, CONST.CELL_SIZE))
-    window.board.walls.forEach((wall) => ctx.drawImage(images.background.img, wall.x, wall.y, CONST.CELL_SIZE, CONST.CELL_SIZE))
+    window.board.walls.forEach((wall) => wall.draw())
 
     // Draw the spawn points
     ctx.drawImage(images.player1.img, window.board.spawn1.x, window.board.spawn1.y, CONST.CELL_SIZE, CONST.CELL_SIZE)
@@ -61,14 +64,6 @@ export function drawBoard() {
 }
 
 /**
- * Returns an array of wall objects
- * @returns {Array} An array of wall objects
- */
-export function generateBoardWalls() {
-    return window.board.walls.map((wall) => new RectWall(wall.x, wall.y, CONST.CELL_SIZE, CONST.CELL_SIZE))
-}
-
-/**
  * Returns an array of objective zone objects
  * @returns {Array} An array of objective zone objects
  */
@@ -77,7 +72,16 @@ export function generateObjectiveZones() {
 }
 
 export function generatePowerUps() {
-    return mapData.powerUps.map((data) => ({ ...data, x: data.col * CONST.CELL_SIZE, y: data.row * CONST.CELL_SIZE }))
+    return mapData.powerUps.map((data) => {
+        switch (data.type) {
+            case "wall":
+                return new RectWall(data.row, data.col)
+            case "attack-boost":
+                return new AttackBoost(data.row, data.col, 1)
+            default:
+                throw new Error(`Invalid power-up type: ${data.type}. Please check the board/map.js file an check that every power-up matches the available types in this switch statement.`)
+        }
+    })
 }
 
 /**

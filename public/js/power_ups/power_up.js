@@ -1,3 +1,4 @@
+import CONST from "../data/constants.js"
 import { clamp } from "../utils/functions.js"
 
 /**
@@ -10,19 +11,23 @@ import { clamp } from "../utils/functions.js"
  * See the `docs/project.md` file for more information.
  */
 export default class PowerUp {
-    constructor(x, y, width, height, team) {
-        this.x = x
-        this.y = y
+    constructor(row, col, width = CONST.CELL_SIZE, height = CONST.CELL_SIZE, team = undefined) {
+        this.row = row
+        this.col = col
+
+        // Set the coordinates of the power up
+        this.x = col * CONST.CELL_SIZE
+        this.y = row * CONST.CELL_SIZE
         this.width = width
         this.height = height
 
         this.team = team
 
         // Coordinates of the power up
-        this.x1 = x
-        this.y1 = y
-        this.x2 = x + width
-        this.y2 = y + height
+        this.x1 = this.x
+        this.y1 = this.y
+        this.x2 = this.x + width
+        this.y2 = this.y + height
     }
 
     /**
@@ -36,7 +41,13 @@ export default class PowerUp {
     /**
      * Update the power up's position and status
      */
-    update() {}
+    update() {
+        for (const player of window.players) {
+            if (this.checkCollision(player)) {
+                this.actionOnCollision(player)
+            }
+        }
+    }
 
     // Check if the player is colliding with the power up
     /**
@@ -76,8 +87,8 @@ export default class PowerUp {
      * Destructor to remove the power up from the obstacles array
      */
     destructor() {
-        const index = window.obstacles.indexOf(this)
-        window.obstacles.splice(index, 1)
+        const index = window.board.powerUps.indexOf(this)
+        window.board.powerUps.splice(index, 1)
     }
 
     /**

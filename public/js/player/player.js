@@ -1,6 +1,4 @@
 import CONST from "../data/constants.js"
-import { resources } from "../utils/resources.js"
-import { mapData } from "../board/map.js"
 
 export default class Player {
     constructor(xi, yi, sizei, colori, controls) {
@@ -23,7 +21,7 @@ export default class Player {
         }
 
         // Player data
-        this.data = {
+        this.stats = {
             health: CONST.MAX_PLAYER_HEALTH,
             attack: CONST.BASE_PLAYER_ATTACK,
             defense: CONST.BASE_PLAYER_DEFENSE,
@@ -47,8 +45,8 @@ export default class Player {
      * Draw the player (does not update the player's position)
      */
     draw() {
-        if (!resources.isReady()) return
-        const images = resources.images
+        if (!window.resources.isReady()) return
+        const images = window.resources.images
 
         if (this.state.frame % CONST.FRAME_RATE === 0 || this.state.step === -1) {
             this.calculateStep()
@@ -126,9 +124,6 @@ export default class Player {
         // Update the direction
         if (this.state.moving) this.state.direction = newDirection
 
-        // Check if the player is colliding with the obstacles
-        this.handleObstacleCollision()
-
         this.x += this.dx
         this.y += this.dy
     }
@@ -200,30 +195,12 @@ export default class Player {
     }
 
     /**
-     * Handle the player's collision with the obstacles
-     */
-    handleObstacleCollision() {
-        for (const obstacle of window.obstacles) {
-            if (obstacle.checkCollision(this)) {
-                obstacle.actionOnCollision(this)
-            }
-        }
-    }
-
-    /**
      * Reduce the player's size when fighting
      */
     fight() {
         for (const player of this.attack_range_players) {
             // Calculate the damage
-            const s1 = this.data.health
-            const s2 = player.data.health
-
-            const randomDamageMultiplier = () => CONST.PLAYER_ATTACK_MULTIPLIER * Math.floor(CONST.PLAYER_ATTACK_CHANCE + Math.random())
-            const damageTaken = Math.max(0, s2) * randomDamageMultiplier()
-            this.data.health -= damageTaken
-            const damage = Math.max(0, s1) * randomDamageMultiplier()
-            player.data.health -= damage
+            player.stats.health -= this.stats.attack
         }
     }
 
@@ -232,13 +209,14 @@ export default class Player {
      * @returns {boolean} True if the player is dead
      */
     isDead() {
-        return this.data.health <= 0
+        return this.stats.health <= 0
     }
 
     /**
      * Remove the player from the game
      */
     kill() {
-        window.players = window.players.filter((player) => player !== this)
+        // TODO: Implement the kill method
+        // WARN: Do not remove the player from the players array, as it will break the game loop, just set the player's health to 0
     }
 }
