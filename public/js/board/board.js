@@ -4,6 +4,7 @@ import CONST from "../data/constants.js"
 import Player from "../player/player"
 import Objective from "./objective.js"
 import { AttackBoost } from "../power_ups/attack_boost.js"
+import { Teleport } from "../power_ups/teleport.js"
 
 export function generateBoardData() {
     const walls = [] // Array of RectWall objects
@@ -78,6 +79,8 @@ export function generatePowerUps() {
                 return new RectWall(data.row, data.col)
             case "attack-boost":
                 return new AttackBoost(data.row, data.col, 1)
+            case "teleport":
+                return new Teleport(data.row, data.col, data.toRow, data.toCol)
             default:
                 throw new Error(`Invalid power-up type: ${data.type}. Please check the board/map.js file an check that every power-up matches the available types in this switch statement.`)
         }

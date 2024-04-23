@@ -29,8 +29,9 @@ export const mapData = {
     height: map.length,
     map: map,
     powerUps: [
-        { type: "attack-boost", row: 1, col: 1 },
+        { type: "attack-boost", row: 4, col: 5 },
         { type: "attack-boost", row: 5, col: 13 },
+        { type: "teleport", row: 1, col: 1, toRow: 18, toCol: 23 },
     ],
     objectives: [
         { row: 3, col: 5 },
