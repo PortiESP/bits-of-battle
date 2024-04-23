@@ -16,6 +16,11 @@ const CONST = {
     CHARACTER_SPRITE_SIZE: 64, // The size of the character sprite
     CHARACTER_CELL_RATIO: 2, // The ratio between the character sprite and the cell size
     FRAME_RATE: 10, // The frame rate of the game
+    WALL_ID: "W", // The id of the wall in the map
+    OBJECTIVE_ID: "O", // The id of the objective in the map
+    POWERUP_ID: "P", // The id of the powerup in the map
+    PLAYER_1_ID: "1", // The id of player 1 in the map
+    PLAYER_2_ID: "2", // The id of player 2 in the map
 
     // Game
     PLAYER_1_INITIAL: { x: cellSize + cellSize / 2, y: cellSize + cellSize / 2 }, // Initial position of player 1

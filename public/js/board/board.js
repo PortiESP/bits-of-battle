@@ -22,19 +22,19 @@ export function drawBoard() {
 
             // Draw the corresponding image
             switch(current) {
-                case "W":
+                case CONST.WALL_ID:
                     ctx.drawImage(images.background.img, x, y, mapData.pixelSize, mapData.pixelSize)
                     break
-                case "O":
+                case CONST.OBJECTIVE_ID:
                     ctx.drawImage(images.objective.img, x, y, mapData.pixelSize, mapData.pixelSize)
                     break
-                case "P":
+                case CONST.POWERUP_ID:
                     ctx.drawImage(images.powerUp.img, x, y, mapData.pixelSize, mapData.pixelSize)
                     break
-                case "1":
+                case CONST.PLAYER_1_ID:
                     ctx.drawImage(images.player1.img, x, y, mapData.pixelSize, mapData.pixelSize)
                     break;
-                case "2":
+                case CONST.PLAYER_2_ID:
                     ctx.drawImage(images.player2.img, x, y, mapData.pixelSize, mapData.pixelSize)
                     break
                 default:
