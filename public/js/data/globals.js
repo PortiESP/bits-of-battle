@@ -48,4 +48,12 @@ export default function globalsSetup() {
     window.objectives = []
     // Obstacules in the game, updated on resize. This is an ARRAY of objects (Wall): { x, y, size }
     window.obstacles = []
+    // Board data
+    window.board = {
+        walls: [], // Data of the walls in the game {x, y, row, col}
+        floors: [], // Data of the floors in the game {x, y, row, col}
+        map: [], // Map of the game matrix of characters
+        objectives: [], // Objectives in the game {x, y, row, col}
+        powerUps: [], // PowerUps in the game {x, y, row, col, type}
+    }
 }

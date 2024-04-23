@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { drawBoard, generateBoardBounds, generateObjectiveZones, generatePlayers } from "./board/board.js"
+import { drawBoard, generateBoardBounds, generateBoardData, generateObjectiveZones, generatePlayers } from "./board/board.js"
 import { drawEndScreen } from "./board/endScreen.js"
 import CONST from "./data/constants.js"
 import { progressToRadians } from "./utils/functions.js"
@@ -17,6 +17,9 @@ class Game {
         this.finished = false
         this.winner = null
 
+        // Set map data to the window object
+        generateBoardData()
+
         // Set the obstacles
         window.obstacles = window.obstacles.concat(generateBoardBounds())
 
@@ -24,10 +27,7 @@ class Game {
         window.objectives = generateObjectiveZones().map((coords, i) => ({ ...coords, id: i, team: null, progress: 0 }))
 
         // DEBUG (forcing an initial setup)
-        window.players = [
-            ...generatePlayers("1", CONST.PLAYER_SIZE, CONST.TEAM_1_COLOR, CONST.CONTROLS_P1),
-            ...generatePlayers("2", CONST.PLAYER_SIZE, CONST.TEAM_2_COLOR, CONST.CONTROLS_P2)
-        ];
+        window.players = [...generatePlayers("1", CONST.PLAYER_SIZE, CONST.TEAM_1_COLOR, CONST.CONTROLS_P1), ...generatePlayers("2", CONST.PLAYER_SIZE, CONST.TEAM_2_COLOR, CONST.CONTROLS_P2)]
         // Resize canvas
         // this.resizeCanvas()
 
