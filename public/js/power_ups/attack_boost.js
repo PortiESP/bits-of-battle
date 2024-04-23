@@ -1,12 +1,10 @@
-import PowerUp from "./powerUp.js"
+import PowerUp from "./power_up.js"
 
-export default function createSpark(x, y, width, height, team) {
-    window.obstacles.push(new Spark(x, y, width, height, team))
-}
+export class AttackBoost extends PowerUp {
+    constructor(row, col, boost) {
+        super(row, col)
 
-class Spark extends PowerUp {
-    constructor(x, y, width, height, team) {
-        super(x, y, width, height, team)
+        this.boost = boost
     }
 
     // ====================[ Overrides ]====================>
@@ -23,7 +21,7 @@ class Spark extends PowerUp {
     }
 
     actionOnCollision(player) {
-        player.data.attack += 1
+        player.data.attack += this.boost
         this.destructor()
     }
 }

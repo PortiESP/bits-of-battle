@@ -11,7 +11,7 @@ import { clamp } from "../utils/functions.js"
  * See the `docs/project.md` file for more information.
  */
 export default class PowerUp {
-    constructor(row, col, width, height, team = undefined) {
+    constructor(row, col, width = CONST.CELL_SIZE, height = CONST.CELL_SIZE, team = undefined) {
         this.row = row
         this.col = col
 

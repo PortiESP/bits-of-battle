@@ -1,5 +1,5 @@
 import CONST from "../data/constants.js"
-import PowerUp from "./powerUp.js"
+import PowerUp from "./power_up.js"
 
 export class RectWall extends PowerUp {
     constructor(row, col) {

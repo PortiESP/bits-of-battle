@@ -3,6 +3,7 @@ import { mapData } from "./map.js"
 import CONST from "../data/constants.js"
 import Player from "../player/player"
 import Objective from "./objective.js"
+import { AttackBoost } from "../power_ups/attack_boost.js"
 
 export function generateBoardData() {
     const walls = [] // Array of RectWall objects
@@ -71,7 +72,16 @@ export function generateObjectiveZones() {
 }
 
 export function generatePowerUps() {
-    return mapData.powerUps.map((data) => ({ ...data, x: data.col * CONST.CELL_SIZE, y: data.row * CONST.CELL_SIZE }))
+    return mapData.powerUps.map((data) => {
+        switch (data.type) {
+            case "wall":
+                return new RectWall(data.row, data.col)
+            case "attack-boost":
+                return new AttackBoost(data.row, data.col, 1)
+            default:
+                throw new Error(`Invalid power-up type: ${data.type}. Please check the board/map.js file an check that every power-up matches the available types in this switch statement.`)
+        }
+    })
 }
 
 /**
