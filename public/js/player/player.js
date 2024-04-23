@@ -23,6 +23,14 @@ export default class Player {
             frame: 0, // The player's frame
         }
 
+        // Player data
+        this.data = {
+            health: CONST.MAX_PLAYER_HEALTH,
+            attack: CONST.BASE_PLAYER_ATTACK,
+            defense: CONST.BASE_PLAYER_DEFENSE,
+            flags: 0,
+        }
+
         // Speed
         this.dx = 0 // The player's speed in the x-axis
         this.dy = 0 // The player's speed in the y-axis
@@ -101,6 +109,7 @@ export default class Player {
         //  The most recent key pressed has priority
         const keysPressed = this.pressedKeysStack.length // Number of keys pressed
         if (keysPressed) {
+            this.data.attack += 1
             // Get the most recent key pressed from the stack
             const mostRecentKeyPressed = this.pressedKeysStack[keysPressed - 1]
 

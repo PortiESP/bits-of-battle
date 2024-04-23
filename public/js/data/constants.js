@@ -42,6 +42,13 @@ const CONST = {
     BASE_RADIUS_DETECTION: 200, // The player will detect players within this range
 
     // Player
+    BASE_PLAYER_ATTACK: 10, // The player's attack at the start of the game
+    BASE_PLAYER_DEFENSE: 5, // The player's defense at the start of the game
+
+    MAX_PLAYER_HEALTH: 100, // The player's maximum health
+    MAX_PLAYER_ATTACK: 75, // The player's maximum attack
+    MAX_PLAYER_DEFENSE: 50, // The player's maximum defense
+
     BASE_PLAYER_SIZE: 30, // The player's size at the start of the game
     BASE_SPEED_PLAYER: 2, // The player's speed at the start of the game
     BASE_ACCELERATION_PLAYER: 0.05, // The player's acceleration factor
