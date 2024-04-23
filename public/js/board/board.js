@@ -12,8 +12,8 @@ export function generateBoardData() {
     for (let row = 0; row < mapData.height; row++) {
         for (let col = 0; col < mapData.width; col++) {
             const current = mapData.map[row][col]
-            const x = col * mapData.pixelSize
-            const y = row * mapData.pixelSize
+            const x = col * CONST.CELL_SIZE
+            const y = row * CONST.CELL_SIZE
 
             // Walls of floors
             if (current === CONST.WALL_ID) {
@@ -32,7 +32,7 @@ export function generateBoardData() {
     window.board.floors = floors
     window.board.map = mapData.map
     window.board.objectives = generateObjectiveZones()
-    window.board.powerUps = mapData.powerUps.map((data) => ({ ...data, x: data.col * mapData.pixelSize, y: data.row * mapData.pixelSize }))
+    window.board.powerUps = generatePowerUps()
 }
 
 /**
@@ -46,18 +46,18 @@ export function drawBoard() {
     const images = resources.images
 
     // Draw the background
-    window.board.floors.forEach((floor) => ctx.drawImage(images.floor.img, floor.x, floor.y, mapData.pixelSize, mapData.pixelSize))
-    window.board.walls.forEach((wall) => ctx.drawImage(images.background.img, wall.x, wall.y, mapData.pixelSize, mapData.pixelSize))
+    window.board.floors.forEach((floor) => ctx.drawImage(images.floor.img, floor.x, floor.y, CONST.CELL_SIZE, CONST.CELL_SIZE))
+    window.board.walls.forEach((wall) => ctx.drawImage(images.background.img, wall.x, wall.y, CONST.CELL_SIZE, CONST.CELL_SIZE))
 
     // Draw the spawn points
-    ctx.drawImage(images.player1.img, window.board.spawn1.x, window.board.spawn1.y, mapData.pixelSize, mapData.pixelSize)
-    ctx.drawImage(images.player2.img, window.board.spawn2.x, window.board.spawn2.y, mapData.pixelSize, mapData.pixelSize)
+    ctx.drawImage(images.player1.img, window.board.spawn1.x, window.board.spawn1.y, CONST.CELL_SIZE, CONST.CELL_SIZE)
+    ctx.drawImage(images.player2.img, window.board.spawn2.x, window.board.spawn2.y, CONST.CELL_SIZE, CONST.CELL_SIZE)
 
     // Draw the objective zones
-    window.board.objectives.forEach((objective) => ctx.drawImage(images.objective.img, objective.drawX, objective.drawY, mapData.pixelSize, mapData.pixelSize))
+    window.board.objectives.forEach((objective) => ctx.drawImage(images.objective.img, objective.drawX, objective.drawY, CONST.CELL_SIZE, CONST.CELL_SIZE))
 
     // Draw the power-ups
-    window.board.powerUps.forEach((powerUp) => ctx.drawImage(images.powerUp.img, powerUp.x, powerUp.y, mapData.pixelSize, mapData.pixelSize))
+    window.board.powerUps.forEach((powerUp) => ctx.drawImage(images.powerUp.img, powerUp.x, powerUp.y, CONST.CELL_SIZE, CONST.CELL_SIZE))
 }
 
 /**
@@ -65,7 +65,7 @@ export function drawBoard() {
  * @returns {Array} An array of wall objects
  */
 export function generateBoardWalls() {
-    return window.board.walls.map((wall) => new RectWall(wall.x, wall.y, mapData.pixelSize, mapData.pixelSize))
+    return window.board.walls.map((wall) => new RectWall(wall.x, wall.y, CONST.CELL_SIZE, CONST.CELL_SIZE))
 }
 
 /**
@@ -74,6 +74,10 @@ export function generateBoardWalls() {
  */
 export function generateObjectiveZones() {
     return mapData.objectives.map((data, i) => new Objective(i, data.row, data.col))
+}
+
+export function generatePowerUps() {
+    return mapData.powerUps.map((data) => ({ ...data, x: data.col * CONST.CELL_SIZE, y: data.row * CONST.CELL_SIZE }))
 }
 
 /**

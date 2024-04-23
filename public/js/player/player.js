@@ -65,8 +65,8 @@ export default class Player {
             this.state.currentSprite.y * CONST.CHARACTER_SPRITE_SIZE,
             CONST.CHARACTER_SPRITE_SIZE,
             CONST.CHARACTER_SPRITE_SIZE, // Source rectangle
-            this.x - mapData.pixelSize / CONST.CHARACTER_CELL_RATIO,
-            this.y - mapData.pixelSize / CONST.CHARACTER_CELL_RATIO,
+            this.x - CONST.CELL_SIZE / CONST.CHARACTER_CELL_RATIO,
+            this.y - CONST.CELL_SIZE / CONST.CHARACTER_CELL_RATIO,
             CONST.CHARACTER_SPRITE_SIZE / 2,
             CONST.CHARACTER_SPRITE_SIZE / 2 // Destination rectangle (scaled 2x)
         )
