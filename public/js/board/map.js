@@ -30,8 +30,11 @@ export const mapData = {
     map: map,
     powerUps: [
         { type: "attack-boost", row: 4, col: 5 },
-        { type: "attack-boost", row: 5, col: 13 },
+        { type: "attack-boost", row: 1, col: 21 },
         { type: "teleport", row: 1, col: 1, toRow: 18, toCol: 23 },
+        { type: "heal", row: 13, col: 8 },
+        { type: "heal", row: 5, col: 14 },
+        { type: "heal", row: 10, col: 19 },
     ],
     objectives: [
         { row: 3, col: 5 },

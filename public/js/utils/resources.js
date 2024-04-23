@@ -13,6 +13,7 @@ export class Resources {
             ninja: "assets/character-ninja.png",
             dragon: "assets/character-dragon.png",
             axe: "assets/weapon-axe.png",
+            lifePot: "assets/item-lifePot.png",
         }
 
         this.images = {}
