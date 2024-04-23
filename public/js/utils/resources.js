@@ -14,6 +14,9 @@ export class Resources {
             dragon: "assets/character-dragon.png",
             axe: "assets/weapon-axe.png",
             lifePot: "assets/item-lifePot.png",
+            greenFlag: "assets/item-greenFlag.png",
+            blueFlag: "assets/item-blueFlag.png",
+            whiteFlag: "assets/item-whiteFlag.png",
         }
 
         this.images = {}

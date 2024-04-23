@@ -59,7 +59,7 @@ export function drawBoard() {
     ctx.drawImage(images.player2.img, window.board.spawn2.x, window.board.spawn2.y, CONST.CELL_SIZE, CONST.CELL_SIZE)
 
     // Draw the objective zones
-    window.board.objectives.forEach((objective) => ctx.drawImage(images.objective.img, objective.drawX, objective.drawY, CONST.CELL_SIZE, CONST.CELL_SIZE))
+    window.board.objectives.forEach((objective) => objective.draw())
 
     // Draw the power-ups
     window.board.powerUps.forEach((powerUp) => powerUp.draw())
