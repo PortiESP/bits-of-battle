@@ -6,7 +6,7 @@ import Player from "../player/player"
 import Objective from "./objective.js"
 
 export function generateBoardData() {
-    const walls = [] // Array of {x, y, row, col}
+    const walls = [] // Array of RectWall objects
     const floors = [] // Array of {x, y, row, col}
 
     for (let row = 0; row < mapData.height; row++) {
@@ -15,11 +15,14 @@ export function generateBoardData() {
             const x = col * CONST.CELL_SIZE
             const y = row * CONST.CELL_SIZE
 
-            // Walls of floors
+            // Generate Walls or floors
+            // Walls
             if (current === CONST.WALL_ID) {
-                walls.push({ x, y, row: y, col: x })
+                walls.push(new RectWall(row, col))
                 continue
-            } else floors.push({ x, y, row: y, col: x })
+            }
+            // Floors
+            else floors.push({ x, y, row: y, col: x })
 
             // Player spawns
             if (current === CONST.PLAYER_1_ID) window.board.spawn1 = { x, y, row: y, col: x }
@@ -58,14 +61,6 @@ export function drawBoard() {
 
     // Draw the power-ups
     window.board.powerUps.forEach((powerUp) => ctx.drawImage(images.powerUp.img, powerUp.x, powerUp.y, CONST.CELL_SIZE, CONST.CELL_SIZE))
-}
-
-/**
- * Returns an array of wall objects
- * @returns {Array} An array of wall objects
- */
-export function generateBoardWalls() {
-    return window.board.walls.map((wall) => new RectWall(wall.x, wall.y, CONST.CELL_SIZE, CONST.CELL_SIZE))
 }
 
 /**

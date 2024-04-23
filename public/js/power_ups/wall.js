@@ -1,12 +1,9 @@
+import CONST from "../data/constants.js"
 import PowerUp from "./powerUp.js"
 
-export default function createWall(x, y, width, height, team) {
-    window.obstacles.push(new RectWall(x, y, width, height, team))
-}
-
 export class RectWall extends PowerUp {
-    constructor(x, y, width, height, team) {
-        super(x, y, width, height, team)
+    constructor(row, col) {
+        super(row, col, CONST.CELL_SIZE, CONST.CELL_SIZE)
     }
 
     // ====================[ Overrides ]====================>
