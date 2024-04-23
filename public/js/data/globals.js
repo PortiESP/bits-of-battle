@@ -7,6 +7,7 @@
  *
  */
 
+import { Resources } from "../utils/resources.js"
 import CONST from "./constants.js"
 
 export default function globalsSetup() {
@@ -21,6 +22,9 @@ export default function globalsSetup() {
     window.ctx = $canvas.getContext("2d")
     window.ctx.imageSmoothingEnabled = true
     window.ctx.imageSmoothingQuality = "high"
+
+    // Images
+    window.resources = new Resources()
 
     // ====================[ Functions ]====================>
     /**

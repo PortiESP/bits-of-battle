@@ -1,10 +1,10 @@
 import CONST from "../data/constants.js"
 
-class Resources {
+export class Resources {
     constructor() {
         // Images to be loaded in the game
         this.toLoad = {
-            background: "assets/test-background.png",
+            wall: "assets/test-wall.png",
             floor: "assets/test-floor.png",
             powerUp: "assets/test-powerUp.png",
             objective: "assets/test-objective.png",
@@ -42,5 +42,3 @@ class Resources {
         return Object.values(this.images).every((value) => value.loaded) && Object.keys(this.toLoad).length === Object.keys(this.images).length
     }
 }
-
-export const resources = new Resources()

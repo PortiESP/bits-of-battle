@@ -1,6 +1,4 @@
 import CONST from "../data/constants.js"
-import { resources } from "../utils/resources.js"
-import { mapData } from "../board/map.js"
 
 export default class Player {
     constructor(xi, yi, sizei, colori, controls) {
@@ -47,8 +45,8 @@ export default class Player {
      * Draw the player (does not update the player's position)
      */
     draw() {
-        if (!resources.isReady()) return
-        const images = resources.images
+        if (!window.resources.isReady()) return
+        const images = window.resources.images
 
         if (this.state.frame % CONST.FRAME_RATE === 0 || this.state.step === -1) {
             this.calculateStep()

@@ -1,5 +1,4 @@
 import { RectWall } from "../power_ups/wall.js"
-import { resources } from "../utils/resources.js"
 import { mapData } from "./map.js"
 import CONST from "../data/constants.js"
 import Player from "../player/player"
@@ -45,12 +44,12 @@ export function drawBoard() {
     // Get the canvas and context from the window object
     const ctx = window.ctx
 
-    if (!resources.isReady()) return
-    const images = resources.images
+    if (!window.resources.isReady()) return
+    const images = window.resources.images
 
     // Draw the background
     window.board.floors.forEach((floor) => ctx.drawImage(images.floor.img, floor.x, floor.y, CONST.CELL_SIZE, CONST.CELL_SIZE))
-    window.board.walls.forEach((wall) => ctx.drawImage(images.background.img, wall.x, wall.y, CONST.CELL_SIZE, CONST.CELL_SIZE))
+    window.board.walls.forEach((wall) => wall.draw())
 
     // Draw the spawn points
     ctx.drawImage(images.player1.img, window.board.spawn1.x, window.board.spawn1.y, CONST.CELL_SIZE, CONST.CELL_SIZE)

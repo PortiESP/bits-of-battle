@@ -8,6 +8,10 @@ export class RectWall extends PowerUp {
 
     // ====================[ Overrides ]====================>
     draw() {
+        // Draw the wall in the game
+        const img = window.resources.images.wall.img
+        ctx.drawImage(img, this.x, this.y, CONST.CELL_SIZE, CONST.CELL_SIZE)
+
         // Draw the wall in debug mode with a red color
         if (!this.team && window.DEBUG) {
             ctx.fillStyle = "#ff000080"
