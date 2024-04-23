@@ -22,7 +22,7 @@ export default function PlayerSideMenu({ name, id }) {
                     <Stat team={id} label={"Health"} value={CONST.MAX_PLAYER_HEALTH} />
                     <Stat team={id} label={"Attack"} value={CONST.BASE_PLAYER_ATTACK} />
                     <Stat team={id} label={"Defense"} value={CONST.BASE_PLAYER_DEFENSE} />
-                    <Stat team={id} label={"Captured Flags"} value={0} />
+                    <Stat team={id} label={"Flags"} value={0} />
                 </div>
             </aside>
         </div>

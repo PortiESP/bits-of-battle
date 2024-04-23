@@ -27,11 +27,11 @@ class Game {
         // window.$player1Menu = document.getElementById("1")
         // window.$player2Menu = document.getElementById("2")
         window.$health1 = document.getElementById("health-value1")
-        window.$captured1 = document.getElementById("captured-flags-value1")
+        window.$captured1 = document.getElementById("flags-value1")
         window.$attack1 = document.getElementById("attack-value1")
 
         window.$health2 = document.getElementById("health-value2")
-        window.$captured2 = document.getElementById("captured-flags-value2")
+        window.$captured2 = document.getElementById("flags-value2")
         window.$attack2 = document.getElementById("attack-value2")
 
         // Generate the players
