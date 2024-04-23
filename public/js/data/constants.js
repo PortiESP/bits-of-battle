@@ -14,6 +14,7 @@ const CONST = {
     CHARACTER_SPRITE_SIZE: 64, // The size of the character sprite
     CHARACTER_CELL_RATIO: 2, // The ratio between the character sprite and the cell size
     FRAME_RATE: 10, // The frame rate of the game
+    INACTIVE_FRAME_RATE: 95, // The frame rate of decorative elements
     WALL_ID: "W", // The id of the wall in the map
     OBJECTIVE_ID: "O", // The id of the objective in the map
     POWERUP_ID: "P", // The id of the powerup in the map
@@ -27,8 +28,8 @@ const CONST = {
     PLAYER_2_CHARACTER: "dragon", // Character of player 2
 
     // Flags
-    PLAYER_1_FLAG: "redFlag", // Flag of player 1
-    PLAYER_2_FLAG: "blueFlag", // Flag of player 2
+    PLAYER_1_FLAG: "blueFlag", // Flag of player 1
+    PLAYER_2_FLAG: "greenFlag", // Flag of player 2
     DEFAULT_FLAG: "whiteFlag", // Default flag
 
     // Board & Style
