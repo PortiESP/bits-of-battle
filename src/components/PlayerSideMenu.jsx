@@ -1,5 +1,5 @@
 import "../styles/PlayerSideMenu.css"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import Stat from "./Stat"
 import CONST from "../../public/js/data/constants"
 
@@ -19,10 +19,10 @@ export default function PlayerSideMenu({ name, id }) {
                     <div className={"sprite pixelated"} ref={sprite}></div>
                 </div>
                 <div className="stats">
-                    <Stat label={"Health"} value={CONST.MAX_PLAYER_HEALTH} />
-                    <Stat label={"Attack"} value={CONST.BASE_PLAYER_ATTACK} />
-                    <Stat label={"Defense"} value={CONST.BASE_PLAYER_DEFENSE} />
-                    <Stat label={"Captured Flags"} value={0} />
+                    <Stat team={id} label={"Health"} value={CONST.MAX_PLAYER_HEALTH} />
+                    <Stat team={id} label={"Attack"} value={CONST.BASE_PLAYER_ATTACK} />
+                    <Stat team={id} label={"Defense"} value={CONST.BASE_PLAYER_DEFENSE} />
+                    <Stat team={id} label={"Captured Flags"} value={0} />
                 </div>
             </aside>
         </div>

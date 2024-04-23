@@ -24,8 +24,13 @@ class Game {
         window.obstacles = window.obstacles.concat(generateBoardWalls())
 
         // Retrieve players menu
-        window.$player1Menu = document.getElementById("1")
-        window.$player2Menu = document.getElementById("2")
+        // window.$player1Menu = document.getElementById("1")
+        // window.$player2Menu = document.getElementById("2")
+        window.$health1 = document.getElementById("health-value1")
+        window.$captured1 = document.getElementById("captured-flags-value1")
+
+        window.$health2 = document.getElementById("health-value2")
+        window.$captured2 = document.getElementById("captured-flags-value2")
 
         // Set the objective zones
         window.players = generatePlayers()
@@ -66,10 +71,19 @@ class Game {
         if (window.DEBUG) this.printDebugInfo()
     }
 
+    updateUI() {
+        $health1.textContent = window?.players[0]?.data?.health?.toFixed(2)
+        $captured1.textContent = window?.board?.objectives?.filter(obj => obj.team === CONST.TEAM_1_COLOR).length
+
+        $health2.textContent = window?.players[1]?.data?.health?.toFixed(2)
+        $captured2.textContent = window?.board?.objectives?.filter(obj => obj.team === CONST.TEAM_2_COLOR).length
+    }
+
     /**
      * Update the game state
      */
     update() {
+        this.updateUI()
         // Obstacles
         window.obstacles.forEach((obstacle) => obstacle.update())
         // Players
