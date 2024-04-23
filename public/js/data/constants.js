@@ -40,7 +40,7 @@ const CONST = {
     BASE_RADIUS_DETECTION: 200, // The player will detect players within this range
 
     // Player
-    BASE_PLAYER_ATTACK: 10, // The player's attack at the start of the game
+    BASE_PLAYER_ATTACK: 1, // The player's attack at the start of the game
     BASE_PLAYER_DEFENSE: 5, // The player's defense at the start of the game
 
     MAX_PLAYER_HEALTH: 100, // The player's maximum health
