@@ -46,6 +46,12 @@ class Game {
      */
     mainloop() {
         ctx.clearRect(0, 0, $canvas.width, $canvas.height)
+
+        if (this.finished) {
+            drawEndScreen()
+            return
+        }
+
         this.update() // Update the state  of every object in the game
         this.draw() // Draw the game objects on the canvas
         this.updateGameStatus() // Update the game status
@@ -56,11 +62,6 @@ class Game {
      * Draw the game objects on the canvas
      */
     draw() {
-        if (this.finished) {
-            drawEndScreen()
-            return
-        }
-
         // Board graphics
         drawBoard()
 
@@ -121,9 +122,9 @@ class Game {
         }
 
         // Check if the game is finished by players alive
-        if (window.players.length === 1) {
+        if (window.players.filter((player) => player.isDead()).length) {
             this.finished = true
-            this.winner = window.players[0].team === CONST.TEAM_1_COLOR ? "Team 1" : "Team 2"
+            this.winner = window.players[0].isDead() ? "Team 2" : "Team 1"
         }
     }
 

@@ -200,7 +200,7 @@ export default class Player {
     fight() {
         for (const player of this.attack_range_players) {
             // Calculate the damage
-            player.stats.health -= this.attack
+            player.stats.health -= this.stats.attack
         }
     }
 
@@ -216,6 +216,7 @@ export default class Player {
      * Remove the player from the game
      */
     kill() {
-        window.players = window.players.filter((player) => player !== this)
+        // TODO: Implement the kill method
+        // WARN: Do not remove the player from the players array, as it will break the game loop, just set the player's health to 0
     }
 }
