@@ -248,14 +248,14 @@ export default class Player {
     fight() {
         for (const player of this.attack_range_players) {
             // Calculate the damage
-            const s1 = this.size
-            const s2 = player.size
+            const s1 = this.data.health
+            const s2 = player.data.health
 
             const randomDamageMultiplier = () => CONST.PLAYER_ATTACK_MULTIPLIER * Math.floor(CONST.PLAYER_ATTACK_CHANCE + Math.random())
             const damageTaken = Math.max(0, s2) * randomDamageMultiplier()
-            this.size -= damageTaken
+            this.data.health -= damageTaken
             const damage = Math.max(0, s1) * randomDamageMultiplier()
-            player.size -= damage
+            player.data.health -= damage
         }
     }
 

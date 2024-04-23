@@ -1,4 +1,5 @@
 import PowerUp from "./powerUp.js"
+import { resources } from "../utils/resources.js"
 
 export default function createSpark(x, y, width, height, team) {
     window.obstacles.push(new Spark(x, y, width, height, team))
@@ -20,12 +21,11 @@ class Spark extends PowerUp {
 
         // Draw the axe
         ctx.drawImage(image, this.x, this.y, this.width, this.height)
+
     }
 
     actionOnCollision(player) {
-        if (!this.placed) return
         player.data.attack += 1
-
         this.destructor()
     }
 }

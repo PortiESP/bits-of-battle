@@ -12,8 +12,8 @@ export default function PlayerSideMenu({ name, id }) {
     }, []);
 
     return (
-        <div className={"wrapper"} id={id}>
-            <aside>
+        <div className={"wrapper"} >
+            <aside id={id}>
                 <h1 className={"title"}>{name}</h1>
                 <div className={"sprite-preview"}>
                     <div className={"sprite pixelated"} ref={sprite}></div>
