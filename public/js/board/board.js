@@ -71,7 +71,7 @@ export function generateObjects(char, callback) {
  * @returns {Array} An array of wall objects
  */
 export function generateBoardBounds() {
-    return generateObjects("W", (x, y) => new RectWall(x * mapData.pixelSize, y * mapData.pixelSize, mapData.pixelSize, mapData.pixelSize));
+    return generateObjects(CONST.WALL_ID, (x, y) => new RectWall(x * mapData.pixelSize, y * mapData.pixelSize, mapData.pixelSize, mapData.pixelSize));
 }
 
 /**
@@ -79,7 +79,7 @@ export function generateBoardBounds() {
  * @returns {Array} An array of objective zone objects
  */
 export function generateObjectiveZones() {
-    return generateObjects("O", (x, y) => ({
+    return generateObjects(CONST.OBJECTIVE_ID, (x, y) => ({
         x: x * mapData.pixelSize + mapData.pixelSize / 2,
         y: y * mapData.pixelSize + mapData.pixelSize / 2,
         size: CONST.OBJECTIVE_SIZE
