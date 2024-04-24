@@ -15,6 +15,8 @@ export class Resources {
             // Characters
             blueNinja: "assets/characters/blueNinja/character-blueNinja.png",
             blueNinjaAttack: "assets/characters/blueNinja/attack-blueNinja.png",
+            greenNinja: "assets/characters/greenNinja/character-greenNinja.png",
+            greenNinjaAttack: "assets/characters/greenNinja/attack-greenNinja.png",
             dragon: "assets/characters/dragon/character-dragon.png",
 
             // Items
