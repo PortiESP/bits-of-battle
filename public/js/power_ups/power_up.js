@@ -117,4 +117,11 @@ export default class PowerUp {
 
         return { dx, dy }
     }
+
+    distanceToCenter(x, y) {
+        const centerX = this.x + this.width / 2
+        const centerY = this.y + this.height / 2
+
+        return Math.hypot(centerX - x, centerY - y)
+    }
 }
