@@ -18,6 +18,8 @@ export default class Player {
             currentSprite: { x: 0, y: 0 }, // The player's current sprite
             step: 0, // The player's step
             frame: 0, // The player's frame
+            cooldown: 0, // The player's cooldown (for attacking)
+            attacking: false, // The player is attacking
         }
 
         // Player data
@@ -80,7 +82,7 @@ export default class Player {
         // Detect other players
         this.checkRanges()
 
-        // Take damage
+        // Fight other players
         this.fight()
 
         // Move the player
@@ -131,6 +133,36 @@ export default class Player {
 
         this.x += this.dx
         this.y += this.dy
+    }
+
+    /**
+     * Attack the players if the player does not have a cooldown and the attack key is pressed
+     * If the player has a cooldown, the cooldown is decreased by 1 until it reaches 0
+     * The cooldown is set to CONST.BASE_ATTACK_COOLDOWN after the player attacks
+     * @see CONST.BASE_ATTACK_COOLDOWN
+     * @see attack
+    */
+    fight() {
+        // Check if the player has a cooldown
+        if (this.state.cooldown > 0) {
+            this.state.cooldown -= 1
+            return
+        }
+
+        // Check keys pressed
+        if (!window.keys[this.controls.attack]) {
+            this.state.attacking = false
+            return
+        }
+
+        // Set the player to attacking
+        this.state.attacking = true
+
+        // Check if the player is attacking
+        this.state.cooldown = CONST.BASE_ATTACK_COOLDOWN
+
+        // Fight the players in the attack range
+        this.attack()
     }
 
     /**
@@ -187,8 +219,13 @@ export default class Player {
 
             // Check if the player is within the attack range
             if (distance < this.attack_range + player.size) {
-                auxAttackRange.push(player)
                 auxDetectionRange.push(player)
+
+                // Check if the player is facing the other player
+                const angle = Math.atan2(player.y - this.y, player.x - this.x)
+
+                if (Math.abs(angle - Math.atan2(this.state.direction.y, this.state.direction.x)) < CONST.BASE_ANGLE_ATTACK)
+                    auxAttackRange.push(player)
             }
             // Check if the player is within the detection range
             else if (distance < this.detection_range + player.size) auxDetectionRange.push(player)
@@ -200,9 +237,11 @@ export default class Player {
     }
 
     /**
-     * Reduce the player's size when fighting
+     * Attack the players in the attack range
+     * The attack range is calculated in the checkRanges method
+     * @see checkRanges
      */
-    fight() {
+    attack() {
         for (const player of this.attack_range_players) {
             // Calculate the damage
             player.stats.health -= this.stats.attack
