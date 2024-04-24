@@ -45,7 +45,7 @@ export default class Player {
 
     /**
      * Draw the player (does not update the player's position)
-     */
+    */
     draw() {
         if (!window.resources.isReady()) return
         const images = window.resources.images
@@ -56,7 +56,13 @@ export default class Player {
         this.state.frame += 1
 
         // Select the image based on the player's team
-        const image = this.team === CONST.TEAM_1_COLOR ? images[CONST.PLAYER_1_CHARACTER].img : images[CONST.PLAYER_2_CHARACTER].img
+        let selection
+        if (this.state.attacking) {
+            selection = { p1: CONST.PLAYER_1_ATTACK, p2: CONST.PLAYER_2_ATTACK}
+            this.state.frame = 0
+        } else selection = { p1: CONST.PLAYER_1_CHARACTER, p2: CONST.PLAYER_2_CHARACTER}
+
+        const image = this.team === CONST.TEAM_1_COLOR ? images[selection.p1].img : images[selection.p2].img
 
         // Draw the sprite
         ctx.drawImage(
@@ -118,6 +124,11 @@ export default class Player {
             newDirection = { x: 1, y: 0 }
             this.dx = CONST.BASE_SPEED_PLAYER
         }
+        if (window.keys[this.controls.attack] && this.state.attacking) {
+            newDirection = this.state.direction
+            this.dx = 0
+            this.dy = 0
+        }
 
         if (!(this.dx*this.dy === 0)) {
             let v = Math.sqrt(Math.pow(this.dx, 2) + Math.pow(this.dy, 2))
@@ -126,7 +137,10 @@ export default class Player {
         }
 
         // If no keys are pressed, stop the player
-        this.state.moving = Object.values(this.controls).filter((value) => (window.keys[value] ? true : false)).length
+        this.state.moving = Object.values(this.controls).filter((value) => {
+            if (value === this.controls.attack) return false
+            return (window.keys[value] ? true : false)
+        }).length
 
         // Update the direction
         if (this.state.moving) this.state.direction = newDirection
@@ -144,55 +158,39 @@ export default class Player {
     */
     fight() {
         // Check if the player has a cooldown
-        if (this.state.cooldown > 0) {
+        if (this.state.cooldown === CONST.BASE_ATTACK_COOLDOWN - 10) {
+            this.state.attacking = false
+            this.state.cooldown -= 1
+            return
+        } else if (this.state.cooldown > 0) {
             this.state.cooldown -= 1
             return
         }
 
         // Check keys pressed
-        if (!window.keys[this.controls.attack]) {
-            this.state.attacking = false
-            return
-        }
-
-        // Set the player to attacking
-        this.state.attacking = true
-
-        // Check if the player is attacking
-        this.state.cooldown = CONST.BASE_ATTACK_COOLDOWN
-
-        // Fight the players in the attack range
-        this.attack()
-    }
-
-    /**
-     * Updates the pressed keys stack based on the keyboard input.
-     * Newly pressed keys are added to the stack, while keys that are no longer pressed are removed from the stack
-     */
-    handleKeyPress() {
-        // Update the most recent key pressed
-        for (let key in this.controls) {
-            const keyState = window.keys[this.controls[key]]
-            // Update the most recent key pressed
-            if (keyState && !this.pressedKeysStack.includes(this.controls[key])) {
-                this.pressedKeysStack.push(this.controls[key])
-            }
-            // Remove the key from the stack if it is not pressed anymore
-            else if (!keyState && this.pressedKeysStack.includes(this.controls[key])) {
-                this.pressedKeysStack = this.pressedKeysStack.filter((k) => k !== this.controls[key])
-            }
+        if (window.keys[this.controls.attack]) {
+            // Set the player to attacking
+            this.state.attacking = true
+    
+            // Check if the player is attacking
+            this.state.cooldown = CONST.BASE_ATTACK_COOLDOWN
+    
+            // Fight the players in the attack range
+            this.attack()
         }
     }
 
-    // Calculate the step
+    // Calculate the step for the player sprite
     calculateStep() {
-        if (!this.state.moving) return
+        if (!this.state.moving && !this.state.attacking) return
         this.state.step += 1
         if (this.state.step >= 4) this.state.step = 0
 
         // Calculate the sprite position
         let spriteX = 0
         let spriteY = this.state.step
+
+        if (this.state.attacking) spriteY = 0
 
         // Calculate the direction
         if (this.state.direction.y === 1) spriteX = 0

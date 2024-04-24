@@ -24,8 +24,10 @@ const CONST = {
     // Game
     PLAYER_1_INITIAL: { x: cellSize + cellSize / 2, y: cellSize + cellSize / 2 }, // Initial position of player 1
     PLAYER_2_INITIAL: { x: canvasWidth - cellSize - cellSize / 2, y: canvasHeight - cellSize - cellSize / 2 }, // Initial position of player 2
-    PLAYER_1_CHARACTER: "ninja", // Character of player 1
+    PLAYER_1_CHARACTER: "blueNinja", // Character of player 1
+    PLAYER_1_ATTACK: "blueNinjaAttack", // Attack sprite of player 1
     PLAYER_2_CHARACTER: "dragon", // Character of player 2
+    PLAYER_2_ATTACK: "ninjaAttack", // Attack sprite of player 2
 
     // Flags
     PLAYER_1_FLAG: "blueFlag", // Flag of player 1
