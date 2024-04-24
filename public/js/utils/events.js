@@ -16,15 +16,15 @@ export default function setupEvents(game) {
     window.addEventListener("keydown", (e) => {
         if (window.DEBUG) console.log("DOWN:" + e.key, e.code)
 
-        const key = e.key.toLowerCase()
+        const key = e.code.toLowerCase()
         window.keys[key] = true
     })
 
     // Update the keys released
     window.addEventListener("keyup", (e) => {
-        if (window.DEBUG) console.log("UP:" + e.key)
+        if (window.DEBUG) console.log("UP:" + e.key, e.code)
 
-        const key = e.key.toLowerCase()
+        const key = e.code.toLowerCase()
         window.keys[key] = false
     })
 

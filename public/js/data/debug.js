@@ -1,2 +1,2 @@
 // Enables debug mode
-window.DEBUG = false
+window.DEBUG = true

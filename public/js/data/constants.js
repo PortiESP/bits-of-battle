@@ -65,8 +65,8 @@ const CONST = {
     PLAYER_ORBIT_RADIUS: 200, // Player's orbit radius
     PLAYER_ORBIT_SCALE: 3, // Player's orbit scale
     DEBOUNCER_DISTANCE: 10, // A threshold of the distance apart of the player's target where the player will stop moving
-    CONTROLS_P1: { up: "w", down: "s", left: "a", right: "d" }, // Player 1 controls
-    CONTROLS_P2: { up: "arrowup", down: "arrowdown", left: "arrowleft", right: "arrowright" }, // Player 2 controls
+    CONTROLS_P1: { up: "keyw", down: "keys", left: "keya", right: "keyd", attack: "shiftleft" }, // Player 1 controls
+    CONTROLS_P2: { up: "arrowup", down: "arrowdown", left: "arrowleft", right: "arrowright", attack: "shiftright" }, // Player 2 controls
 
     // Objectives
     MAIN_OBJECTIVE_SIZE: 64, // The size of the main objective
