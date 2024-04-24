@@ -14,7 +14,7 @@ const CONST = {
     CHARACTER_SPRITE_SIZE: 64, // The size of the character sprite
     CHARACTER_CELL_RATIO: 2, // The ratio between the character sprite and the cell size
     FRAME_RATE: 10, // The frame rate of the game
-    INACTIVE_FRAME_RATE: 95, // The frame rate of decorative elements
+    INACTIVE_FRAME_RATE: 40, // The frame rate of decorative elements
     WALL_ID: "W", // The id of the wall in the map
     OBJECTIVE_ID: "O", // The id of the objective in the map
     POWERUP_ID: "P", // The id of the powerup in the map
@@ -24,8 +24,10 @@ const CONST = {
     // Game
     PLAYER_1_INITIAL: { x: cellSize + cellSize / 2, y: cellSize + cellSize / 2 }, // Initial position of player 1
     PLAYER_2_INITIAL: { x: canvasWidth - cellSize - cellSize / 2, y: canvasHeight - cellSize - cellSize / 2 }, // Initial position of player 2
-    PLAYER_1_CHARACTER: "ninja", // Character of player 1
-    PLAYER_2_CHARACTER: "dragon", // Character of player 2
+    PLAYER_1_CHARACTER: "blueNinja", // Character of player 1
+    PLAYER_1_ATTACK: "blueNinjaAttack", // Attack sprite of player 1
+    PLAYER_2_CHARACTER: "greenNinja", // Character of player 2
+    PLAYER_2_ATTACK: "greenNinjaAttack", // Attack sprite of player 2
 
     // Flags
     PLAYER_1_FLAG: "blueFlag", // Flag of player 1
@@ -44,10 +46,12 @@ const CONST = {
     // Ranges
     BASE_RADIUS_ATTACK: 32, // The player will attack players within this range
     BASE_RADIUS_DETECTION: 200, // The player will detect players within this range
+    BASE_ANGLE_ATTACK: 0.5, // The player will attack players within this angle
 
     // Player
-    BASE_PLAYER_ATTACK: 1, // The player's attack at the start of the game
+    BASE_PLAYER_ATTACK: 10, // The player's attack at the start of the game
     BASE_PLAYER_DEFENSE: 5, // The player's defense at the start of the game
+    BASE_ATTACK_COOLDOWN: 300, // The player's cooldown at the start of the game
 
     MAX_PLAYER_HEALTH: 100, // The player's maximum health
     MAX_PLAYER_ATTACK: 75, // The player's maximum attack

@@ -7,7 +7,7 @@ export default function PlayerSideMenu({ name, id }) {
     const sprite = useRef(null)
 
     useEffect(() => {
-        const image = CONST.PLAYER_1_ID === id ? "/assets/character-ninja.png" : "/assets/character-dragon.png"
+        const image = CONST.PLAYER_1_ID === id ? "/assets/characters/ninja/character-ninja.png" : "/assets/characters/dragon/character-dragon.png"
         sprite.current.style.backgroundImage = `url(${image})`
     }, []);
 
