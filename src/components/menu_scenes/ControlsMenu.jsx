@@ -18,7 +18,7 @@ export default function ControlsMenu(props) {
             <KbdControls id={2} controls={controls2} setControls={setControls2}/>
         </div>
         <div className="ctr-menu-buttons">
-            <Button onClick={() => props.setMenu("start")}>Back to main menu</Button>
+            <Button onClick={() => props.setScene(0)}>Back to main menu</Button>
         </div>
     </>
 }

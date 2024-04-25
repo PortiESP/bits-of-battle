@@ -83,6 +83,11 @@ export default function KbdControls(props) {
         props.setControls(old => ({...old, [showKeyPopup]: keyPressed}))
     }
 
+    const triggerKeyPopup = (action) => {
+        setKeyPressed(props.controls[action])
+        setShowKeyPopup(action)
+    }
+
     useEffect(() => {
         window.addEventListener("keydown", handleKeyEvent)
         return () => window.removeEventListener("keydown", handleKeyEvent)
@@ -93,7 +98,7 @@ export default function KbdControls(props) {
         <div className="ctr-grid">
             {
                 ["up", "left", "down", "right", "attack"].map(action => {
-                    return <div key={action} className={`ctr-key-group ctr-key-${action}`} onClick={()=> setShowKeyPopup(action)}>
+                    return <div key={action} className={`ctr-key-group ctr-key-${action}`} onClick={()=> triggerKeyPopup(action)}>
                         <div className={`ctr-key ${translateKey(props.controls[action]).length > 4 ? "large": "small"}`}>{translateKey(props.controls[action])}</div>
                         <div className="ctr-action">{action[0].toUpperCase() + action.slice(1)}</div>
                     </div>
@@ -107,8 +112,8 @@ export default function KbdControls(props) {
                     <h3>Press a key for the "{showKeyPopup}" action</h3>
                     <span className="ctr-key-span">{translateKey(keyPressed) || "-"}</span>
                     <div className="ctr-popup-buttons">
-                        <Button onClick={() => {setShowKeyPopup(false); acceptChange()}}>Accept</Button>
-                        <Button onClick={() => setShowKeyPopup(false)}>Cancel</Button>
+                        <Button cancel onClick={() => setShowKeyPopup(false)}>Cancel</Button>
+                        <Button accept onClick={() => {setShowKeyPopup(false); acceptChange()}}>Accept</Button>
                     </div>
                 </div>
             </div>

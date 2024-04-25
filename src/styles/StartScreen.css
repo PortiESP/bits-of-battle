@@ -8,11 +8,13 @@
     max-height: 600px;
     max-width: 900px;
     
-    background: #78582e;
+    background: #78582eef;
     
     border-radius: 10px;
     border: 5px solid #523004;
     box-shadow: 0 0 10px 5px #000;
+
+    color: #eeeeeeee;
 }
 
 .title {

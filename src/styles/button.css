@@ -1,0 +1,55 @@
+.btn{
+    --color: #86611f;
+    --shadow: #38290e66;
+
+    &.btn-accept{
+        --color: #4caf50;
+        --shadow: #1d461e;
+    }
+    &.btn-cancel{
+        --color: #f44336;
+        --shadow: #7a1515;
+    }
+    &.btn-custom{
+        --color: #fff;
+        --shadow: #fff;
+    }
+
+    background-color: var(--color); /* Default */
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    /* border-radius: 5px; */
+
+    /* Button animation border */
+    transition: 0.3s;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 5px 0px var(--shadow);
+    outline: none;
+
+
+}
+
+
+.btn:hover {
+    border: none;
+    filter: brightness(60%);
+    box-shadow: none;
+    transform: translateY(4px);
+    
+}
+
+.btn-accept{
+    background-color: #4CAF50;
+}
+
+.btn-cancel{
+    background-color: #f44336;
+}
