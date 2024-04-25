@@ -47,14 +47,14 @@ const CONST = {
     FLAG_ZONE_COLOR: "#fff2", // Flag zone color when not owned
 
     // Ranges
-    BASE_RADIUS_ATTACK: 48, // The player will attack players within this range
+    BASE_RADIUS_ATTACK: 32, // The player will attack players within this range
     BASE_RADIUS_DETECTION: 200, // The player will detect players within this range
     BASE_ANGLE_ATTACK: 0.6, // The player will attack players within this angle
 
     // Player
-    BASE_PLAYER_ATTACK: 10, // The player's attack at the start of the game
+    BASE_PLAYER_ATTACK: 5, // The player's attack at the start of the game
     BASE_PLAYER_DEFENSE: 5, // The player's defense at the start of the game
-    BASE_ATTACK_COOLDOWN: 300, // The player's cooldown at the start of the game
+    BASE_ATTACK_COOLDOWN: 50, // The player's cooldown at the start of the game
 
     MAX_PLAYER_HEALTH: 100, // The player's maximum health
     MAX_PLAYER_ATTACK: 75, // The player's maximum attack

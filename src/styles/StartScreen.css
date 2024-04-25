@@ -8,7 +8,7 @@
     width: 100vw;
     max-height: 600px;
     max-width: 900px;
-    background: rgba(71, 65, 57, 0.8);
+    background: rgba(71, 65, 57, 0.85);
     border-radius: 10px;
     border: 5px solid #523004;
     box-shadow: 0 0 10px 5px #000;
@@ -22,9 +22,14 @@
 }
 
 .arcadePanel {
-    background-color: rgba(0, 0, 0, 0.8);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     padding: 20px;
     border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     animation: fadeIn 1s ease;
 }

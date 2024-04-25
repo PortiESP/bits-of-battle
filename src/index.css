@@ -23,5 +23,6 @@
 }
 
 html {
-    background-image: url("/assets/background.png");
+    background: url("/assets/background.jpeg") no-repeat center center/cover;
+    image-rendering: pixelated;
 }
