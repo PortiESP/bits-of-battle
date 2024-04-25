@@ -12,7 +12,7 @@ export default function MainMenu(props) {
                 <button className={"playButton"} onClick={() => props.setShowStartScreen(false)}>
                     Play
                 </button>
-                <button className={"playButton"} onClick={() => props.setShowStartScreen(false)}>
+                <button className={"playButton"} onClick={() => props.setScene(1)}>
                     Controls
                 </button>
             </div>

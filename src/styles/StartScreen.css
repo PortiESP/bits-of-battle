@@ -7,8 +7,17 @@
     width: 100vw;
     max-height: 600px;
     max-width: 900px;
-    background: rgba(71, 65, 57, 0.85);
+    
+    background: #78582e;
+    
     border-radius: 10px;
     border: 5px solid #523004;
     box-shadow: 0 0 10px 5px #000;
+}
+
+.title {
+    font-size: 2.5rem;
+    color: #f2f2f2;
+    text-align: center;
+    margin-bottom: 20px;
 }
