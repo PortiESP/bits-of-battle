@@ -1,4 +1,4 @@
-import weaponSprite from "../../../public/assets/weapon-axe.png"
+import weaponSprite from "../../../public/assets/weapons/weapon-axe.png"
 import "../../styles/StartScreenMenus/MainMenu.css"
 
 export default function MainMenu(props) {

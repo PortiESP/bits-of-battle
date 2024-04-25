@@ -17,7 +17,7 @@ export default function PlayerSideMenu({ name, id }) {
             <aside id={id}>
                 <h1 className={"title"}>{name}</h1>
                 <div className={"sprite-preview"}>
-                    <div className={"sprite pixelated"} ref={sprite}></div>
+                    <i className={"sprite pixelated"} ref={sprite}></i>
                 </div>
                 <div className="stats">
                     <Stat team={id} label={"Health"} value={CONST.MAX_PLAYER_HEALTH} />

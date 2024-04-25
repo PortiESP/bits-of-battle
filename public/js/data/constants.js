@@ -46,6 +46,9 @@ const CONST = {
     CANVAS_ASPECT_RATIO: 0.4, // The height will be the x% of the width
     FLAG_ZONE_COLOR: "#fff2", // Flag zone color when not owned
 
+    // UI
+    UI_SIZE: 32, // The size of the UI elements (pixels)
+
     // Ranges
     BASE_RADIUS_ATTACK: 32, // The player will attack players within this range
     BASE_RADIUS_DETECTION: 200, // The player will detect players within this range
@@ -53,12 +56,12 @@ const CONST = {
 
     // Player
     BASE_PLAYER_ATTACK: 5, // The player's attack at the start of the game
-    BASE_PLAYER_DEFENSE: 2, // The player's defense at the start of the game
+    BASE_PLAYER_DEFENSE: 0, // The player's defense at the start of the game
     BASE_ATTACK_COOLDOWN: 50, // The player's cooldown at the start of the game
 
     MAX_PLAYER_HEALTH: 100, // The player's maximum health
-    MAX_PLAYER_ATTACK: 75, // The player's maximum attack
-    MAX_PLAYER_DEFENSE: 50, // The player's maximum defense
+    MAX_PLAYER_ATTACK: 25, // The player's maximum attack
+    MAX_PLAYER_DEFENSE: 25, // The player's maximum defense
 
     BASE_PLAYER_SIZE: 30, // The player's size at the start of the game
     BASE_SPEED_PLAYER: 1, // The player's speed at the start of the game

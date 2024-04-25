@@ -8,7 +8,6 @@ export class Resources {
             wall: "assets/test-wall.png",
             floor: "assets/test-floor.png",
             powerUp: "assets/test-powerUp.png",
-            objective: "assets/test-objective.png",
             player1: "assets/test-player1.png",
             player2: "assets/test-player2.png",
 
@@ -19,13 +18,15 @@ export class Resources {
             greenNinjaAttack: "assets/characters/greenNinja/attack-greenNinja.png",
             dragon: "assets/characters/dragon/character-dragon.png",
 
+            // Weapons
+            axe: "assets/weapons/weapon-axe.png",
             // Items
-            axe: "assets/weapon-axe.png",
-            lifePot: "assets/item-lifePot.png",
-            greenFlag: "assets/item-greenFlag.png",
-            blueFlag: "assets/item-blueFlag.png",
-            whiteFlag: "assets/item-whiteFlag.png",
-            teleporter: "assets/board-teleporter.png",
+
+            lifePot: "assets/items/item-lifePot.png",
+            greenFlag: "assets/items/item-greenFlag.png",
+            blueFlag: "assets/items/item-blueFlag.png",
+            whiteFlag: "assets/items/item-whiteFlag.png",
+            teleporter: "assets/items/item-teleporter.png",
         }
 
         this.images = {}

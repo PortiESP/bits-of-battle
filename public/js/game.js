@@ -3,6 +3,8 @@ import { drawBoard, generateBoardData, generatePlayers } from "./board/board.js"
 import { drawEndScreen } from "./board/endScreen.js"
 import CONST from "./data/constants.js"
 import { progressToRadians } from "./utils/functions.js"
+import { retrievePlayersUIElements, updateUI } from "./utils/ui.js"
+
 
 /**
  * The main game class
@@ -23,16 +25,8 @@ class Game {
         // Set the obstacles (mainly walls but can be other obstacles as well)
         window.obstacles = window.obstacles.concat(window.board.walls)
 
-        // Retrieve players UI menu
-        // window.$player1Menu = document.getElementById("1")
-        // window.$player2Menu = document.getElementById("2")
-        window.$health1 = document.getElementById("health-value1")
-        window.$captured1 = document.getElementById("flags-value1")
-        window.$attack1 = document.getElementById("attack-value1")
-
-        window.$health2 = document.getElementById("health-value2")
-        window.$captured2 = document.getElementById("flags-value2")
-        window.$attack2 = document.getElementById("attack-value2")
+        // Retrive players UI menu elements
+        retrievePlayersUIElements()
 
         // Generate the players
         window.players = generatePlayers()
@@ -72,29 +66,21 @@ class Game {
         if (window.DEBUG) this.printDebugInfo()
     }
 
-    updateUI() {
-        // Update the player health
-        $health1.textContent = window.players[0].stats.health.toFixed(2)
-        $health2.textContent = window.players[1].stats.health.toFixed(2)
 
-        // Update the player attack
-        $attack1.textContent = window.players[0].stats.attack.toFixed(2)
-        $attack2.textContent = window.players[1].stats.attack.toFixed(2)
-
-        // Update the player objectives
-        $captured1.textContent = window.board.objectives.filter((obj) => obj.team === CONST.TEAM_1_COLOR).length
-        $captured2.textContent = window.board.objectives.filter((obj) => obj.team === CONST.TEAM_2_COLOR).length
-    }
 
     /**
      * Update the game state
      */
     update() {
-        this.updateUI()
+        // Update the UI
+        updateUI()
+
         // Obstacles
         window.obstacles.forEach((obstacle) => obstacle.update())
+
         // Power-ups
         window.board.powerUps.forEach((powerUp) => powerUp.update())
+
         // Players
         window.players.forEach((player) => {
             player.update() // Update the player state
