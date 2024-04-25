@@ -1,46 +1,115 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import Button from "../../Button"
+
+const KEYS_DICT = {
+    "arrowup": "↑",
+    "arrowleft": "←",
+    "arrowdown": "↓",
+    "arrowright": "→",
+    " ": "Space",
+    "control": "Ctrl",
+    "shiftleft": "ShiftL",
+    "shiftright": "ShiftR",
+    "alt": "Alt",
+    "escape": "Esc",
+    "enter": "Enter",
+    "backspace": "Backspace",
+    "tab": "Tab",
+    "delete": "Del",
+    "insert": "Ins",
+    "home": "Home",
+    "end": "End",
+    "pageup": "PgUp",
+    "pagedown": "PgDn",
+    "capslock": "Caps",
+    "numlock": "Num",
+    "scrolllock": "Scroll",
+    "pause": "Pause",
+    "printscreen": "PrtSc",
+    "meta": "Win",
+    "f1": "F1",
+    "f2": "F2",
+    "f3": "F3",
+    "f4": "F4",
+    "f5": "F5",
+    "f6": "F6",
+    "f7": "F7",
+    "f8": "F8",
+    "f9": "F9",
+    "f10": "F10",
+    "f11": "F11",
+    "f12": "F12",
+    "f13": "F13",
+    "f14": "F14",
+    "f15": "F15",
+    "f16": "F16",
+    "f17": "F17",
+    "f18": "F18",
+    "f19": "F19",
+    "f20": "F20",
+    "f21": "F21",
+    "f22": "F22",
+    "f23": "F23",
+    "f24": "F24",
+    "audiovolumedown": "Vol-",
+    "audiovolumeup": "Vol+",
+    "audiomute": "Mute",
+    "audiovolumemute": "Mute",
+    "mediastop": "Stop",
+    "mediaplaypause": "Play/Pause",
+    "medianexttrack": "Next",
+    "mediaprevioustrack": "Prev",
+    "audiovolumedown": "Vol-",
+}
+
+const translateKey = (key) => {
+    if (key.length === 1) return key.toUpperCase()
+    if (key.startsWith("key")) return key.slice(3).toUpperCase()
+    return KEYS_DICT[key] || key
+}
 
 export default function KbdControls(props) {
 
     const [showKeyPopup, setShowKeyPopup] = useState(false)
-    const [keyPressed, setKeyPressed] = useState(undefined)
+    const [keyPressed, setKeyPressed] = useState("")
 
     const handleKeyEvent = (e) => {
-        e.preventDefault()
-        setKeyPressed(e.key)
+        console.log(e.code.toLowerCase())
+        setKeyPressed(e.code.toLowerCase())
     }
+
+    const acceptChange = () => {
+        setShowKeyPopup(false)
+        props.setControls(old => ({...old, [showKeyPopup]: keyPressed}))
+    }
+
+    useEffect(() => {
+        window.addEventListener("keydown", handleKeyEvent)
+        return () => window.removeEventListener("keydown", handleKeyEvent)
+    }, [])
 
     return <div className={"ctr-player"}>
         <h2>Player {props.id}</h2>
         <div className="ctr-grid">
-            <div className="ctr-key-group ctr-key-up" onClick={()=> setShowKeyPopup("up")}>
-                <div className="ctr-key">W</div>
-                <div className="ctr-action">Up</div>
-            </div>
-            <div className="ctr-key-group ctr-key-left" onClick={()=> setShowKeyPopup("left")}>
-                <div className="ctr-key">A</div>
-                <div className="ctr-action">Left</div>
-            </div>
-            <div className="ctr-key-group ctr-key-down" onClick={()=> setShowKeyPopup("down")}>
-                <div className="ctr-key">S</div>
-                <div className="ctr-action">Down</div>
-            </div>
-            <div className="ctr-key-group ctr-key-right" onClick={()=> setShowKeyPopup("right")}>
-                <div className="ctr-key">D</div>
-                <div className="ctr-action">Right</div>
-            </div>
-            <div className="ctr-key-group ctr-key-attack" onClick={()=> setShowKeyPopup("attack")}>
-                <div className="ctr-key">Space</div>
-                <div className="ctr-action">Shoot</div>
-            </div>
+            {
+                ["up", "left", "down", "right", "attack"].map(action => {
+                    return <div key={action} className={`ctr-key-group ctr-key-${action}`} onClick={()=> setShowKeyPopup(action)}>
+                        <div className={`ctr-key ${translateKey(props.controls[action]).length > 4 ? "large": "small"}`}>{translateKey(props.controls[action])}</div>
+                        <div className="ctr-action">{action[0].toUpperCase() + action.slice(1)}</div>
+                    </div>
+                
+                })
+            }
         </div>
         {
-            showKeyPopup && <div className="ctr-popup">
-                <div className="ctr-popup-content" onKeyDown={handleKeyEvent}>
-                    <h3>Press a key to for the "{showKeyPopup}" action</h3>
-                    <div>{keyPressed || "-"}</div>
-                    <button onClick={() => {setShowKeyPopup(false); props.setControls(old => ({...old, showKeyPopup: keyPressed}))}}>Accept</button>
-                    <button onClick={() => setShowKeyPopup(false)}>Cancel</button>
+            showKeyPopup && <div className="ctr-popup" >
+                <div className="ctr-popup-content" >
+                    <h3>Press a key for the "{showKeyPopup}" action</h3>
+                    <span className="ctr-key-span">{translateKey(keyPressed) || "-"}</span>
+                    <div className="ctr-popup-buttons">
+                        <Button onClick={() => {setShowKeyPopup(false); acceptChange()}}>Accept</Button>
+                        <Button onClick={() => setShowKeyPopup(false)}>Cancel</Button>
+                    </div>
                 </div>
             </div>
         }

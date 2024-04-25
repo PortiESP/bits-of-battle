@@ -20,20 +20,27 @@
 
 }
 
+
+.ctr-menu-buttons{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
 .ctr-grid{
     display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 90px);
+        grid-template-rows: repeat(3, 90px);
         grid-column-gap: 0px;
         grid-row-gap: 0px;
         
         gap: 10px;
         
-        width: 200px;
         
     .ctr-key-up { grid-area: 1 / 2 / 2 / 3; }
-    .ctr-key-down { grid-area: 2 / 1 / 3 / 2; }
-    .ctr-key-left { grid-area: 2 / 2 / 3 / 3; }
+    .ctr-key-left { grid-area: 2 / 1 / 3 / 2; }
+    .ctr-key-down { grid-area: 2 / 2 / 3 / 3; }
     .ctr-key-right { grid-area: 2 / 3 / 3 / 4; }
     .ctr-key-attack { grid-area: 3 / 1 / 4 / 4; }
 }
@@ -43,6 +50,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
     background-color: rgba(0, 0, 0, 0.1);
     padding: 10px;
     border-radius: 10px;
@@ -54,19 +62,65 @@
     }
 
     .ctr-key{
-        font-size: 1.4rem;
         color: #eee;
     }
+    .large{
+        font-size: 1.4rem;
+    }
+    .small{
+        font-size: 1.6rem;
+    }
+
     .ctr-action{
-        font-size: .8rem;
+        font-size: .9rem;
         color: #fff3;
+        position: absolute;
+        bottom: 5px;
     }
 }
 
-.ctr-popup-content{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #eee;
+
+.ctr-popup{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .ctr-popup-content{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #d8af7a;
+        padding: 20px;
+        border: 5px solid #724100;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0px 0px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+
+        display: flex;
+        flex-direction: column;
+
+        .ctr-key-span{
+            font-size: 1.4rem;
+            color: #fffa;
+            background: #0002;
+            border-radius: 10px;
+            margin: 10px 0;
+            text-align: center;
+            padding: 5px;
+        }
+
+        .ctr-popup-buttons{
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+    }
 }
