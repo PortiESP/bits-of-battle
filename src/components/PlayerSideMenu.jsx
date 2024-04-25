@@ -8,7 +8,6 @@ export default function PlayerSideMenu({ name, id }) {
 
     useEffect(() => {
         const character = CONST.PLAYER_1_ID === id ? CONST.PLAYER_1_CHARACTER : CONST.PLAYER_2_CHARACTER
-        console.log(character)
         const image = `/assets/characters/${character}/character-${character}.png`
         sprite.current.style.backgroundImage = `url(${image})`
     }, []);

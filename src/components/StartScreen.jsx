@@ -1,15 +1,15 @@
-import scss from "../styles/StartScreen.module.scss";
-import weaponSprite from "../../public/assets/weapon-axe.png";
+import "../styles/StartScreen.css"
+import weaponSprite from "../../public/assets/weapon-axe.png"
 
 const StartScreen = ({ action }) => {
     return (
-        <div className={scss.container}>
-            <h1 className={scss.title}>Bits-Of-Battle</h1>
-            <div className={scss.arcadePanel}>
-                <div className={scss.gameSprites}>
-                    <img className={scss.weapon} src={weaponSprite} alt="Weapon Sprite" />
+        <div className={"container"}>
+            <h1 className={"title"}>Bits-Of-Battle</h1>
+            <div className={"arcadePanel"}>
+                <div className={"gameSprites"}>
+                    <img className={"weapon"} src={weaponSprite} alt="Weapon Sprite" />
                 </div>
-                <button className={scss.playButton} onClick={action}>Insert Coin to Play</button>
+                <button className={"playButton"} onClick={action}>Insert Coin to Play</button>
             </div>
         </div>
     );
