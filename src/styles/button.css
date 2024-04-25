@@ -1,5 +1,17 @@
 .btn{
-    background-color: #86611f; /* Default */
+    --color: rgb(134, 97, 31);
+    --shadow: rgba(56, 41, 14, 0.4);
+
+    &.btn-accept{
+        --color: rgb(76, 175, 80);
+        --shadow: rgb(29, 70, 30);
+    }
+    &.btn-cancel{
+        --color: #f44336;
+        --shadow: #7a1515;
+    }
+
+    background-color: var(--color); /* Default */
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -15,7 +27,7 @@
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
-    box-shadow: 0 5px 0px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 5px 0px var(--shadow);
     outline: none;
 
 
