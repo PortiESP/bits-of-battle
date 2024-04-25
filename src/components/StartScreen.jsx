@@ -1,18 +1,12 @@
+import { useState } from "react"
 import "../styles/StartScreen.css"
-import weaponSprite from "../../public/assets/weapon-axe.png"
+import MainMenu from "./menu_scenes/MainMenu"
 
-const StartScreen = ({ action }) => {
-    return (
-        <div className={"container"}>
-            <h1 className={"title"}>Bits Of Battle</h1>
-            <div className={"arcadePanel"}>
-                <div className={"gameSprites"}>
-                    <img className={"weapon sprite"} src={weaponSprite} alt="Weapon Sprite" />
-                </div>
-                <button className={"playButton"} onClick={action}>Play</button>
-            </div>
-        </div>
-    );
-};
+const StartScreen = ({ setShowStartScreen }) => {
+    const [scene, setScene] = useState(0)
+    const funcs = { setScene, setShowStartScreen }
 
-export default StartScreen;
+    return <div className={"container"}>{scene === 0 && <MainMenu {...funcs} />}</div>
+}
+
+export default StartScreen

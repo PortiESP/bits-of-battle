@@ -10,10 +10,10 @@ export default function PlayerSideMenu({ name, id }) {
         const character = CONST.PLAYER_1_ID === id ? CONST.PLAYER_1_CHARACTER : CONST.PLAYER_2_CHARACTER
         const image = `/assets/characters/${character}/character-${character}.png`
         sprite.current.style.backgroundImage = `url(${image})`
-    }, []);
+    }, [])
 
     return (
-        <div className={"wrapper"} >
+        <div className={"wrapper"}>
             <aside id={id}>
                 <h1 className={"title"}>{name}</h1>
                 <div className={"sprite-preview"}>
