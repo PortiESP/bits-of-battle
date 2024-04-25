@@ -29,6 +29,9 @@ const CONST = {
     PLAYER_2_CHARACTER: "greenNinja", // Character of player 2
     PLAYER_2_ATTACK: "greenNinjaAttack", // Attack sprite of player 2
 
+    // Power-ups
+    ATTACK_BOOST: 5, // The attack boost of the power-up
+
     // Flags
     PLAYER_1_FLAG: "blueFlag", // Flag of player 1
     PLAYER_2_FLAG: "greenFlag", // Flag of player 2
@@ -44,9 +47,9 @@ const CONST = {
     FLAG_ZONE_COLOR: "#fff2", // Flag zone color when not owned
 
     // Ranges
-    BASE_RADIUS_ATTACK: 32, // The player will attack players within this range
+    BASE_RADIUS_ATTACK: 48, // The player will attack players within this range
     BASE_RADIUS_DETECTION: 200, // The player will detect players within this range
-    BASE_ANGLE_ATTACK: 0.5, // The player will attack players within this angle
+    BASE_ANGLE_ATTACK: 0.6, // The player will attack players within this angle
 
     // Player
     BASE_PLAYER_ATTACK: 10, // The player's attack at the start of the game

@@ -79,7 +79,7 @@ export function generatePowerUps() {
             case "wall":
                 return new RectWall(data.row, data.col)
             case "attack-boost":
-                return new AttackBoost(data.row, data.col, 1)
+                return new AttackBoost(data.row, data.col, CONST.ATTACK_BOOST)
             case "teleport":
                 return new Teleport(data.row, data.col, data.toRow, data.toCol)
             case "heal":
