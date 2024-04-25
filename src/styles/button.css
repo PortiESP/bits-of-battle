@@ -1,0 +1,31 @@
+
+.btn{
+    background-color: #86611f; /* Default */
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    /* border-radius: 5px; */
+
+    /* Button animation border */
+    border-bottom: 5px solid #5f3e0c;
+    transition: all 0.3s ease ;
+
+}
+
+
+.btn:hover {
+    border: none;
+    background-color: #5f3e0c;
+    transform: translateY(5px);
+}
+
+.btn-accept{
+    background-color: #4CAF50;
+}
+
+.btn-cancel{
+    background-color: #f44336;
+}

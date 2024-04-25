@@ -107,8 +107,8 @@ export default function KbdControls(props) {
                     <h3>Press a key for the "{showKeyPopup}" action</h3>
                     <span className="ctr-key-span">{translateKey(keyPressed) || "-"}</span>
                     <div className="ctr-popup-buttons">
-                        <Button onClick={() => {setShowKeyPopup(false); acceptChange()}}>Accept</Button>
-                        <Button onClick={() => setShowKeyPopup(false)}>Cancel</Button>
+                        <Button cancel onClick={() => setShowKeyPopup(false)}>Cancel</Button>
+                        <Button accept onClick={() => {setShowKeyPopup(false); acceptChange()}}>Accept</Button>
                     </div>
                 </div>
             </div>
