@@ -242,7 +242,11 @@ export default class Player {
     attack() {
         for (const player of this.attack_range_players) {
             // Calculate the damage
-            player.stats.health -= this.stats.attack
+            const damage = this.stats.attack - player.stats.defense
+
+            // Deal the damage to the player
+            if (player.stats.health - damage < 0) player.stats.health = 0
+            else player.stats.health -= damage
         }
     }
 

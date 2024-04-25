@@ -53,7 +53,7 @@ const CONST = {
 
     // Player
     BASE_PLAYER_ATTACK: 5, // The player's attack at the start of the game
-    BASE_PLAYER_DEFENSE: 5, // The player's defense at the start of the game
+    BASE_PLAYER_DEFENSE: 2, // The player's defense at the start of the game
     BASE_ATTACK_COOLDOWN: 50, // The player's cooldown at the start of the game
 
     MAX_PLAYER_HEALTH: 100, // The player's maximum health
