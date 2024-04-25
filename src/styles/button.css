@@ -1,14 +1,18 @@
 .btn{
-    --color: rgb(134, 97, 31);
-    --shadow: rgba(56, 41, 14, 0.4);
+    --color: #86611f;
+    --shadow: #38290e66;
 
     &.btn-accept{
-        --color: rgb(76, 175, 80);
-        --shadow: rgb(29, 70, 30);
+        --color: #4caf50;
+        --shadow: #1d461e;
     }
     &.btn-cancel{
         --color: #f44336;
         --shadow: #7a1515;
+    }
+    &.btn-custom{
+        --color: #fff;
+        --shadow: #fff;
     }
 
     background-color: var(--color); /* Default */

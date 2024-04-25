@@ -1,6 +1,6 @@
 .ctr-container{
     display: flex;
-    gap: 20px;
+    gap: 40px;
     margin-top: 20px;
     
     .ctr-player{

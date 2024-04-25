@@ -1,0 +1,43 @@
+.main-player{
+    width: 25%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+
+    .main-sprite-frame{
+        width: 120px;
+        height: 120px;
+        /* background: blue; */
+        background-image: url("../../../public/assets/characters/blueNinja/character-blueNinja.png") ;
+        background-size: 400% 400%;
+        image-rendering: pixelated;
+        background-position: 0px 0px;
+        animation: characterAnimation 2s steps(2) infinite;
+    }
+
+    .main-sprite-title{
+        font-size: 1.3rem;
+        color: white;
+        margin-top: 10px;
+    
+    }
+}
+
+@keyframes characterAnimation {
+    0% {
+        background-position: 0px 0px;
+    }
+    25% {
+        background-position: 0px -240px;
+    }
+    50% {
+        background-position: 0px -480px;
+    }
+    75% {
+        background-position: 0px -720px;
+    }
+}
