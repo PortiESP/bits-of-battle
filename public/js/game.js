@@ -170,19 +170,10 @@ class Game {
 
         // Check if the player is inside the objective
         if (distance < 0) {
-            // Check if the objective is already taken
-            if (objective.team === player.team && objective.progress >= 100) return
-
-            // If the objective is not taken, take it, if it is taken, attack it
-            if (objective.team === player.team) {
-                objective.progress += CONST.OBJECTIVE_PROGRESS_STEP
-            } else {
-                objective.progress -= CONST.OBJECTIVE_PROGRESS_STEP
-                if (objective.progress <= 0 || objective.team === null) {
-                    objective.team = player.team
-                    objective.progress = -objective.progress
-                }
-            }
+            // Take the objective
+            objective.team = player.team
+            objective.progress = 100
+            return
         }
     }
 
