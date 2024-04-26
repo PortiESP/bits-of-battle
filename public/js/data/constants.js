@@ -96,7 +96,11 @@ const CONST = {
         menu_click: "../../assets/sound/Menu3.wav",
         menu_cancel: "../../assets/sound/Menu6.wav",
         menu_error: "../../assets/sound/Menu12.wav",
+        music_menu: "../../assets/sound/Adventure Begin.ogg",
+        music_game: "../../assets/sound/Dungeon.ogg",
     },
+    DEFAULT_SOUND_VOLUME: .5,
+    DEFAULT_MUSIC_VOLUME: 0.05,
 }
 
 export default CONST
