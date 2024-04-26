@@ -39,6 +39,19 @@ class Game {
      * The main game loop. It updates the game state and draws the game objects on the canvas.
      */
     mainloop() {
+        if (window.DEBUG) {
+            window.frameCount++
+            const now = Date.now()
+            const elapsed = now - window.lastTime
+
+            if (elapsed > 1000) {
+                window.fps = (window.frameCount - window.frameCountPrev)
+                window.lastTime = now
+                window.frameCountPrev = window.frameCount
+            }
+        }
+
+        // Clear the canvas
         ctx.clearRect(0, 0, $canvas.width, $canvas.height)
 
         if (this.finished) {
@@ -183,6 +196,12 @@ class Game {
 
         // Add a tooltip of of the cursor possition
         ctx.fillText(`X: ${window.mouse?.x} Y: ${window.mouse?.y}`, 10, 28)
+
+        // Add FPS counter
+        ctx.fillText(`FPS: ${window.fps}`, 10, 44)
+
+        // Time counter
+        ctx.fillText(`Time: ${Math.floor(window.time()/1000)}s`, 10, 60)
 
         // Add players size at the player position
         window.players.forEach((player) => {

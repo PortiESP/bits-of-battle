@@ -28,6 +28,15 @@ export default function globalsSetup() {
     window.resources = new Resources()
     window.sound = new Sound()
 
+    // Stats
+    window.fps = 0
+    window.frameCount = 0
+    window.frameCountPrev = 0
+    window.lastTime = Date.now()
+
+    // Timing
+    window.startTime = Date.now()
+
     // ====================[ Functions ]====================>
     /**
      * Calculates the dimensions of the canvas
@@ -41,6 +50,8 @@ export default function globalsSetup() {
             y: $canvas.height / 2,
         },
     })
+
+    window.time = () => (Date.now() - window.startTime)
 
     // ====================[ Global variables ]====================>
     window.mouse = { x: 0, y: 0 } // Mouse position, updated on mousemove
