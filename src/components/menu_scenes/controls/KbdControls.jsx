@@ -59,7 +59,6 @@ const KEYS_DICT = {
     "mediaplaypause": "Play/Pause",
     "medianexttrack": "Next",
     "mediaprevioustrack": "Prev",
-    "audiovolumedown": "Vol-",
     "intlbackslash": "<",
     "controlleft": "CtrlL",
     "controlright": "CtrlR",
