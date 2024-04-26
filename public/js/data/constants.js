@@ -83,6 +83,14 @@ const CONST = {
     OBJECTIVE_SIZE: 16, // The size of the other objectives
     OBJECTIVE_PROGRESS_STEP: 1, // The progress step of the objectives
     OBJECTIVE_MAX_PROGRESS: 100, // The maximum progress of the objectives
+
+    // Sound
+    SOUNDS: {
+        game_over: "../../assets/sound/GameOver2.wav",
+        hit: "../../assets/sound/Sword2.wav",
+        teleport: "../../assets/sound/Bonus.wav",
+        power_up: "../../assets/sound/PowerUp1.wav",
+    },
 }
 
 export default CONST

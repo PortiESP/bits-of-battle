@@ -43,6 +43,7 @@ class Game {
 
         if (this.finished) {
             drawEndScreen()
+            window.sound.play("game_over")
             return
         }
 
@@ -110,7 +111,7 @@ class Game {
         // Check if the game is finished by players alive
         if (window.players.filter((player) => player.isDead()).length) {
             this.finished = true
-            this.winner = window.players[0].isDead() ? "Team 2" : "Team 1"
+            this.winner = window.players[0].isDead() ? "Player 2" : "Player 1"
         }
     }
 
