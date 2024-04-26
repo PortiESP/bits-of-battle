@@ -42,7 +42,14 @@ export default function Button(props) {
     }
 
     const handleClick = () => {
-        if (!disabled) props.onClick()
+        // Play the menu click sound
+        // Execute the onClick function if the button is not disabled
+        if (!disabled) {
+            window.sound.play(props.cancel ? "menu_cancel" : "menu_click")
+            props.onClick()
+        } else {
+            window.sound.play("menu_error")
+        }
     }
     
     useEffect(() => {

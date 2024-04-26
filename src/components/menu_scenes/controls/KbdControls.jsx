@@ -100,7 +100,14 @@ export default function KbdControls(props) {
 
 
         // Other player
-        if (props.checkKeys(key, props.id, action)) return false
+        if (props.checkKeys(key, props.id, action)) {
+
+            // Play sound
+            window.sound.play("menu_error")
+
+            // If the key is already in use
+            return false
+        }
 
         return true
     }

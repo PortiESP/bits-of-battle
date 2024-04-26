@@ -16,7 +16,7 @@ export default class Sound {
 
   play(name) {
     if (this.sounds[name]) {
-      this.sounds[name].play();
+        this.sounds[name]?.play();
     }
   }
 }

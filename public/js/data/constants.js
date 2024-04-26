@@ -93,6 +93,9 @@ const CONST = {
         hit: "../../assets/sound/Sword2.wav",
         teleport: "../../assets/sound/Bonus.wav",
         power_up: "../../assets/sound/PowerUp1.wav",
+        menu_click: "../../assets/sound/Menu3.wav",
+        menu_cancel: "../../assets/sound/Menu6.wav",
+        menu_error: "../../assets/sound/Menu12.wav",
     },
 }
 
