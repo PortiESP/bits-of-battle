@@ -6,6 +6,10 @@ export default function MainMenuPlayer(props) {
     const skinsData = [
         "blueNinja",
         "greenNinja",
+        "flame",
+        "ninjaYellow",
+        "noble",
+        "spirit"
     ]
     
     const [skin, setSkin] = useState(props.id - 1 || 0)

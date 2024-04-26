@@ -15,6 +15,14 @@ export class Resources {
             blueNinjaAttack: "assets/characters/blueNinja/attack-blueNinja.png",
             greenNinja: "assets/characters/greenNinja/character-greenNinja.png",
             greenNinjaAttack: "assets/characters/greenNinja/attack-greenNinja.png",
+            flame: "assets/characters/flame/character-flame.png",
+            flameAttack: "assets/characters/flame/attack-flame.png",
+            ninjaYellow: "assets/characters/ninjaYellow/character-ninjaYellow.png",
+            ninjaYellowAttack: "assets/characters/ninjaYellow/attack-ninjaYellow.png",
+            noble: "assets/characters/noble/character-noble.png",
+            nobleAttack: "assets/characters/noble/attack-noble.png",
+            spirit: "assets/characters/spirit/character-spirit.png",
+            spiritAttack: "assets/characters/spirit/attack-spirit.png",
             dragon: "assets/characters/dragon/character-dragon.png",
 
             // Weapons
