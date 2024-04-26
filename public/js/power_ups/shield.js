@@ -1,7 +1,7 @@
 import PowerUp from "./power_up.js"
 import CONST from "../data/constants.js"
 
-export class Heal extends PowerUp {
+export class Shield extends PowerUp {
     constructor(row, col, width = CONST.CELL_SIZE, height = CONST.CELL_SIZE, team = undefined) {
         super(row, col, width, height, team)
     }
@@ -13,23 +13,25 @@ export class Heal extends PowerUp {
 
         // Check if the resources are ready and retrieve the image
         if (!window.resources.isReady()) return
-        const image = window.resources.images.lifePot.img
+        const image = window.resources.images.milkPot.img
 
         // Draw the life pot
         ctx.drawImage(image, this.x, this.y, this.width, this.height)
     }
 
     actionOnCollision(player) {
-        // Cant be healed if the player is at max health
-        if (player.stats.health === CONST.MAX_PLAYER_HEALTH) return
+        // Can't be increased if the player is at max defense
+        if (player.stats.defense === CONST.MAX_PLAYER_DEFENSE) return
 
-        // Play the heal sound
+        // Play the power up sound
         window.sound.play("power_up")
 
-        // Heal the player
-        player.stats.health += 10
-        // Cap the health to the max health
-        if (player.stats.health > CONST.MAX_PLAYER_HEALTH) player.stats.health = CONST.MAX_PLAYER_HEALTH
+        // Increase the player's defense
+        player.stats.defense += 2
+
+        // Cap the defense to the max defense
+        if (player.stats.defense > CONST.MAX_PLAYER_DEFENSE) player.stats.defense = CONST.MAX_PLAYER_DEFENSE
+
         // Remove the power up
         this.destructor()
     }

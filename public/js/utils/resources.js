@@ -7,7 +7,6 @@ export class Resources {
             // The game's background
             wall: "assets/test-wall.png",
             floor: "assets/test-floor.png",
-            powerUp: "assets/test-powerUp.png",
             player1: "assets/test-player1.png",
             player2: "assets/test-player2.png",
 
@@ -20,9 +19,10 @@ export class Resources {
 
             // Weapons
             axe: "assets/weapons/weapon-axe.png",
-            // Items
 
+            // Items
             lifePot: "assets/items/item-lifePot.png",
+            milkPot: "assets/items/item-milkPot.png",
             greenFlag: "assets/items/item-greenFlag.png",
             blueFlag: "assets/items/item-blueFlag.png",
             whiteFlag: "assets/items/item-whiteFlag.png",

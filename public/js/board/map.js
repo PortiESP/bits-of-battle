@@ -35,6 +35,9 @@ export const mapData = {
         { type: "heal", row: 13, col: 8 },
         { type: "heal", row: 5, col: 14 },
         { type: "heal", row: 10, col: 19 },
+        { type: "shield", row: 15, col: 15 },
+        { type: "shield", row: 18, col: 2 },
+        { type: "shield", row: 5, col: 23 },
     ],
     objectives: [
         { row: 3, col: 5 },

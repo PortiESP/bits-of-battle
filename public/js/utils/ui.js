@@ -11,6 +11,9 @@ function retrievePlayersUIElements() {
     window.$attack1 = document.getElementById("attack-value1")
     window.$attack1Img = document.getElementById("attack-img1")
 
+    window.$defense1 = document.getElementById("defense-value1")
+    window.$defense1Img = document.getElementById("defense-img1")
+
     // Retrieve players UI menu elements from player 2
     window.$health2 = document.getElementById("health-value2")
     window.$health2Img = document.getElementById("health-img2")
@@ -20,6 +23,9 @@ function retrievePlayersUIElements() {
 
     window.$attack2 = document.getElementById("attack-value2")
     window.$attack2Img = document.getElementById("attack-img2")
+
+    window.$defense2 = document.getElementById("defense-value2")
+    window.$defense2Img = document.getElementById("defense-img2")
 }
 
 /**
@@ -33,7 +39,7 @@ function updateUI() {
     updateAttackUI()
 
     // Update the defense
-    // updateDefenseUI()
+    updateDefenseUI()
 
     // Update the objectives
     updateObjectivesUI()   
@@ -55,6 +61,15 @@ function updateAttackUI() {
     // Update the attack of the players
     updatePlayerDefaultUI(window.players[0].stats.attack, CONST.MAX_PLAYER_ATTACK, $attack1, $attack1Img)
     updatePlayerDefaultUI(window.players[1].stats.attack, CONST.MAX_PLAYER_ATTACK, $attack2, $attack2Img)
+}
+
+/**
+ * Update the player defense
+*/
+function updateDefenseUI() {
+    // Update the defense of the players
+    updatePlayerDefaultUI(window.players[0].stats.defense, CONST.MAX_PLAYER_DEFENSE, $defense1, $defense1Img)
+    updatePlayerDefaultUI(window.players[1].stats.defense, CONST.MAX_PLAYER_DEFENSE, $defense2, $defense2Img)
 }
 
 /**
