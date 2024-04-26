@@ -19,7 +19,15 @@
     }
 
     p{
+        text-align: center;
         font-size: 1rem;
+        span{
+            display: block;
+            color: #fff6;
+            font-size: .8rem;
+            margin-top: 4px;
+            font-style: italic;
+        }
     }
 
     a{
@@ -43,4 +51,5 @@
     .credits-back{
         margin-top: 20px;
     }
+
 }

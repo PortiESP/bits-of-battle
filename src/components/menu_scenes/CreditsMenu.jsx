@@ -13,8 +13,11 @@ export default function Credits(props) {
             <h3>Art & Sound</h3>
             <p>Jaime Portillo - <a href="https://github.com/PortiESP">@PortiESP</a></p>
             <p>Diego Sanchez - <a href="https://github.com/CuB1z">@CuB1z</a></p>
-            <p>Pixel Boy (itch.io) - <a href="https://pixel-boy.itch.io/">@pixel-boy</a></p>
-            <p>Challenger.aaa (itch.io) - <a href="https://www.instagram.com/challenger.aaa/?hl=fr">@Challenger.aaa</a></p>
+
+            <h3>Special Thanks</h3>
+            <p>Alexis de Chazelles - <a href="https://pixel-boy.itch.io/">@pixel-boy</a>
+            <span>For the amazing pixel art and sound effects</span>
+            </p>
 
             <div className="credits-back">
                 <Button color="#ff3333" onClick={() => props.setScene(0)}>Back to main menu</Button>
