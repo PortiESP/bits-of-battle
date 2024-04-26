@@ -1,7 +1,7 @@
 import "../../styles/StartScreenMenus/ControlsMenu.css"
 import KbdControls from "./controls/KbdControls"
 import CONST from "../../../public/js/data/constants.js"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Button from "../Button.jsx"
 
 export default function ControlsMenu(props) {
@@ -9,7 +9,16 @@ export default function ControlsMenu(props) {
     const [controls1, setControls1] = useState(CONST.CONTROLS_P1)
     const [controls2, setControls2] = useState(CONST.CONTROLS_P2)
 
-    console.log(controls1, controls2)
+    useEffect(() => {
+        console.log(controls1)
+        window.customControls1 = controls1
+    }, [controls1])
+    
+    useEffect(() => {
+        console.log(controls2)
+        window.customControls2 = controls2
+    }, [controls2])
+
 
     return <>
         <h1>Controls</h1>

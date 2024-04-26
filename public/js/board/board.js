@@ -100,5 +100,10 @@ export function generatePowerUps() {
  * @returns {Array} An array of Player objects
  */
 export function generatePlayers() {
-    return [new Player(window.board.spawn1.x, window.board.spawn1.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_1_COLOR, CONST.CONTROLS_P1), new Player(window.board.spawn2.x, window.board.spawn2.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_2_COLOR, CONST.CONTROLS_P2)]
+    const controls1 = window.customControls1 || CONST.CONTROLS_P1
+    const controls2 = window.customControls2 || CONST.CONTROLS_P22
+    const p1 = new Player(window.board.spawn1.x, window.board.spawn1.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_1_COLOR, controls1)
+    const p2 = new Player(window.board.spawn2.x, window.board.spawn2.y, CONST.BASE_PLAYER_SIZE, CONST.TEAM_2_COLOR, controls2)
+
+    return [p1, p2]
 }
