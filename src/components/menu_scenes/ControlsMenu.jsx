@@ -24,13 +24,26 @@ export default function ControlsMenu(props) {
         setControls2(CONST.CONTROLS_P2)
     }
 
+    const checkKeys = (key, player, action) => {
+        const c1 = Object.values(controls1)
+        const c2 = Object.values(controls2)
+
+        if (player === 1) {
+            if (c1.includes(key) && controls1[action] !== key) return true
+            if (c2.includes(key)) return true
+        } else {
+            if (c2.includes(key) && controls2[action] !== key) return true
+            if (c1.includes(key)) return true
+        }
+    }
+
 
 
     return <>
         <h1>Controls</h1>
         <div className="ctr-container">
-            <KbdControls id={1} controls={controls1} setControls={setControls1}/>
-            <KbdControls id={2} controls={controls2} setControls={setControls2}/>
+            <KbdControls id={1} controls={controls1} setControls={setControls1} checkKeys={checkKeys}/>
+            <KbdControls id={2} controls={controls2} setControls={setControls2} checkKeys={checkKeys}/>
         </div>
         <span className="sub-btn" onClick={resetControls}>Set default configuration</span>
         <div className="ctr-menu-buttons">

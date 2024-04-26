@@ -38,7 +38,7 @@
 }
 
 
-.btn:hover {
+.btn:hover, .btn.flag-disabled {
     border: none;
     filter: brightness(60%);
     box-shadow: none;

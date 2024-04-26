@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 import "../styles/button.css"
 
 const colorToDarker = color => {
@@ -13,6 +14,8 @@ const colorToDarker = color => {
 
 export default function Button(props) {
 
+    const [disabled, setDisabled] = useState(props.disabled || false)
+
     let type = undefined
     if (props.accept) type = "accept"
     else if (props.cancel) type = "cancel"
@@ -22,9 +25,16 @@ export default function Button(props) {
 
     const customStyle = {
         "--color": props.color,
-        "--shadow": colorToDarker(props.color) 
+        "--shadow": colorToDarker(props.color)     
+    }
+
+    const handleClick = () => {
+        if (!disabled) props.onClick()
     }
     
+    useEffect(() => {
+        setDisabled(props.disabled)
+    }, [props.disabled])
 
-    return <button className={`btn btn-${type}`} style={customStyle} onClick={props.onClick}>{props.children}</button>
+    return <button className={`btn btn-${type} flag-${ disabled ? "disabled" : "enabled"}`} style={customStyle} onClick={handleClick}>{props.children}</button>
 }

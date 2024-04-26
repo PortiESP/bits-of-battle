@@ -78,6 +78,7 @@ export default function KbdControls(props) {
 
     const [showKeyPopup, setShowKeyPopup] = useState(false)
     const [keyPressed, setKeyPressed] = useState("")
+    const [isValidKey, setIsValidKey] = useState(true)
 
     const handleKeyEvent = (e) => {
         console.log(e.code.toLowerCase())
@@ -98,12 +99,9 @@ export default function KbdControls(props) {
         const key = keyPressed 
         const action = showKeyPopup  // "up", "left", "down", "right", "attack"
 
-        // Own player
-        for (let a in props.controls) {
-            if (a === action) continue
-            if (props.controls[a] === key) return false
-        }
 
+        // Other player
+        if (props.checkKeys(key, props.id, action)) return false
 
         return true
     }
@@ -112,6 +110,10 @@ export default function KbdControls(props) {
         window.addEventListener("keydown", handleKeyEvent)
         return () => window.removeEventListener("keydown", handleKeyEvent)
     }, [])
+
+    useEffect(() => {
+        setIsValidKey(checkValidKey())
+    }, [keyPressed])
 
     return <div className={"ctr-player"}>
         <h2>Player {props.id}</h2>
@@ -132,11 +134,11 @@ export default function KbdControls(props) {
                     <h3>Press a key for the "{showKeyPopup}" action</h3>
                     <span className="ctr-key-span">{translateKey(keyPressed) || "-"}</span>
                     {
-                        checkValidKey() || <span className="ctr-key-span-invalid">Warning: This key is already in use</span>
+                        isValidKey || <span className="ctr-key-span-invalid">Warning: This key is already in use</span>
                     }
                     <div className="ctr-popup-buttons">
                         <Button cancel onClick={() => setShowKeyPopup(false)}>Cancel</Button>
-                        <Button accept onClick={() => {setShowKeyPopup(false); acceptChange()}}>Accept</Button>
+                        <Button accept onClick={() => {setShowKeyPopup(false); acceptChange()}} disabled={!isValidKey}>Accept</Button>
                     </div>
                 </div>
             </div>
