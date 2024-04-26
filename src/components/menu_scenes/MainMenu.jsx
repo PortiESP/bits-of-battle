@@ -22,6 +22,9 @@ export default function MainMenu(props) {
                     <Button color="#3ea325" onClick={() => props.setScene(2)}>
                         Controls
                     </Button>
+                    <Button color="#f5d403" onClick={() => props.setScene(3)}>
+                        Credits
+                    </Button>
                 </div>
                 <MainMenuPlayer setScene={props.setScene} id={2} />
             </div>

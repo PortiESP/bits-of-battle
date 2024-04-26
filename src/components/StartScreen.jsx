@@ -4,6 +4,7 @@ import MainMenu from "./menu_scenes/MainMenu"
 import ControlsMenu from "./menu_scenes/ControlsMenu"
 import HowToPlayMenu from "./menu_scenes/HowToPlayMenu"
 import SmallScreen from "./menu_scenes/SmallScreen"
+import CreditsMenu from "./menu_scenes/CreditsMenu"
 
 const StartScreen = ({ setShowStartScreen }) => {
     const [scene, setScene] = useState(0)
@@ -12,10 +13,8 @@ const StartScreen = ({ setShowStartScreen }) => {
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth < 1360) {
-                setScene(3)
-            } else {
-                setScene(0)
-            }
+                setScene(99)
+            } 
         }
         window.addEventListener("resize", handleResize)
         return () => window.removeEventListener("resize", handleResize)
@@ -27,7 +26,8 @@ const StartScreen = ({ setShowStartScreen }) => {
                 (scene === 0 && <MainMenu {...funcs} />) ||
                 (scene === 1 && <HowToPlayMenu {...funcs} />) || 
                 (scene === 2 && <ControlsMenu {...funcs} />) ||
-                (scene === 3 && <SmallScreen />)
+                (scene === 3 && <CreditsMenu {...funcs} />) ||
+                (scene === 99 && <SmallScreen {...funcs}/>)
             }
         </div>
     )

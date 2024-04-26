@@ -1,0 +1,46 @@
+.credits{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100vw;
+    height: 80vh;
+    background-color: #000000;
+    color: #ffffff;
+
+    h1{
+        font-size: 2.5rem;
+    }
+
+    h3{
+        font-size: 1.5rem;
+    }
+
+    p{
+        font-size: 1rem;
+    }
+
+    a{
+        --color: #9740fa;
+        color: var(--color);
+        text-decoration: none;
+
+        &:hover{
+            text-decoration: underline;
+        }
+
+        &:active{
+            color: var(--color);
+        }
+
+        &:visited{
+            color: var(--color);
+        }
+    }
+
+    .credits-back{
+        margin-top: 20px;
+    }
+}
