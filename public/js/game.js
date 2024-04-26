@@ -18,6 +18,7 @@ class Game {
         // Initial setup
         this.finished = false
         this.winner = null
+        this.paused = false
 
         // Set map data such as walls, floors, objectives, and power-ups, etc..
         generateBoardData()
@@ -39,6 +40,8 @@ class Game {
      * The main game loop. It updates the game state and draws the game objects on the canvas.
      */
     mainloop() {
+        if (this.paused) return console.log("Game paused ----")
+
         // Calculate the FPS
         if (window.DEBUG) {
             window.fps_frameCount++
@@ -185,6 +188,16 @@ class Game {
             objective.progress = 100
             return
         }
+    }
+
+    pause() {
+        console.log("Game paused")
+        this.paused = true
+    }
+
+    resume() {
+        this.paused = false
+        this.mainloop()
     }
 
     /**

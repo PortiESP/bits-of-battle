@@ -8,8 +8,6 @@ const Canvas = () => {
         // ==========[ Globals ]==========================>
         globalsSetup()
 
-        // ==========[ Music ]==========================>
-
         // ==========[ Create the game ]==================>
         window.game = new Game(window.$canvas)
 
