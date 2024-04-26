@@ -30,12 +30,13 @@ export default function globalsSetup() {
 
     // Stats
     window.fps = 0
-    window.frameCount = 0
-    window.frameCountPrev = 0
-    window.lastTime = Date.now()
+    window.fps_frameCount = 0
+    window.fps_frameCountPrev = 0
+    window.fps_lastTime = 0
 
     // Timing
     window.startTime = Date.now()
+    window.lastTime = Date.now() - window.startTime
 
     // ====================[ Functions ]====================>
     /**

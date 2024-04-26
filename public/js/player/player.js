@@ -130,11 +130,12 @@ export default class Player {
             this.dy = 0
         }
 
-        if (!(this.dx*this.dy === 0)) {
-            let v = Math.sqrt(Math.pow(this.dx, 2) + Math.pow(this.dy, 2))
-            this.dx /= v
-            this.dy /= v
+        // Check if the player is moving diagonally
+        if (this.dx !== 0 && this.dy !== 0) {
+            this.dx /= Math.sqrt(2)
+            this.dy /= Math.sqrt(2)
         }
+
 
         // If no keys are pressed, stop the player
         this.state.moving = Object.values(this.controls).filter((value) => {

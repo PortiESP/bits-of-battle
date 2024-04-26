@@ -39,17 +39,27 @@ class Game {
      * The main game loop. It updates the game state and draws the game objects on the canvas.
      */
     mainloop() {
+        // Calculate the FPS
         if (window.DEBUG) {
-            window.frameCount++
-            const now = Date.now()
-            const elapsed = now - window.lastTime
+            window.fps_frameCount++
+            const now = window.time()
+            const elapsed = now - window.fps_lastTime
 
             if (elapsed > 1000) {
-                window.fps = (window.frameCount - window.frameCountPrev)
-                window.lastTime = now
-                window.frameCountPrev = window.frameCount
+                window.fps = (window.fps_frameCount - window.fps_frameCountPrev)
+                window.fps_lastTime = now
+                window.fps_frameCountPrev = window.fps_frameCount
             }
         }
+
+        // Limit the game speed
+        const now = window.time()
+        const elapsed = now - window.lastTime
+        if (elapsed < CONST.SPF) {
+            requestAnimationFrame(() => this.mainloop())
+            return
+        }
+        window.lastTime = now
 
         // Clear the canvas
         ctx.clearRect(0, 0, $canvas.width, $canvas.height)

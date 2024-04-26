@@ -7,6 +7,9 @@ const canvasHeight = canvasMatrixSize[1] * cellSize
  * Constants used in the game
  */
 const CONST = {
+    FPS: 60, // The frame rate of the game
+    SPF: 1000 / 60, // The time in milliseconds of each frame
+
     // Canvas
     CANVAS_WIDTH: canvasWidth, // The width of the canvas
     CANVAS_HEIGHT: canvasHeight, // The height of the canvas,
@@ -64,7 +67,7 @@ const CONST = {
     MAX_PLAYER_DEFENSE: 25, // The player's maximum defense
 
     BASE_PLAYER_SIZE: 30, // The player's size at the start of the game
-    BASE_SPEED_PLAYER: 1, // The player's speed at the start of the game
+    BASE_SPEED_PLAYER: 5, // The player's speed at the start of the game
     BASE_ACCELERATION_PLAYER: 0.05, // The player's acceleration factor
     BASE_BRAKE_PLAYER: 1.5, // The player's break factor (the higher the value, the faster the player will stop)
     PLAYER_SIZE: 16, // Player's hitbox radius
