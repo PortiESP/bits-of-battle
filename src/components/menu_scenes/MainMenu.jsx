@@ -8,7 +8,7 @@ export default function MainMenu(props) {
         <>
             <h1 className={"title"}>Bits Of Battle</h1>
             <div className="main-wrapper">
-                <MainMenuPlayer setScene={props.setScene} id={1} src={"../../../public/assets/characters/blueNinja/character-blueNinja.png"}/>
+                <MainMenuPlayer setScene={props.setScene} id={1} />
                 <div className={"arcadePanel"}>
                     <div className={"gameSprites"}>
                         <img className={"weapon sprite"} src={weaponSprite} alt="Weapon Sprite" />
@@ -23,7 +23,7 @@ export default function MainMenu(props) {
                         Controls
                     </Button>
                 </div>
-                <MainMenuPlayer setScene={props.setScene} id={2} src={"../../../public/assets/characters/greenNinja/character-greenNinja.png"}/>
+                <MainMenuPlayer setScene={props.setScene} id={2} />
             </div>
         </>
     )
