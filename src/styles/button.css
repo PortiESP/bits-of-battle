@@ -43,7 +43,10 @@
     filter: brightness(60%);
     box-shadow: none;
     transform: translateY(4px);
-    
+}
+
+.btn.flag-disabled{
+    cursor: not-allowed;
 }
 
 .btn-accept{

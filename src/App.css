@@ -28,6 +28,7 @@ canvas {
     color: #fff8;
 
     &:hover {
+        cursor: pointer;
         color: #fff;
     }
 }
