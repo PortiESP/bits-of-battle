@@ -21,3 +21,13 @@ canvas {
     border-radius: 5px;
     box-shadow: 0 0 100px 10px rgba(0, 0, 0, 0.9);
 }
+
+.sub-btn{
+    margin-top: 20px;
+    text-decoration: underline;
+    color: #fff8;
+
+    &:hover {
+        color: #fff;
+    }
+}
