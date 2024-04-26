@@ -23,6 +23,10 @@ export class Heal extends PowerUp {
     actionOnCollision(player) {
         // Cant be healed if the player is at max health
         if (player.stats.health === CONST.MAX_PLAYER_HEALTH) return
+
+        // Play the heal sound
+        window.sound.play("power_up")
+
         // Heal the player
         player.stats.health += 10
         // Cap the health to the max health

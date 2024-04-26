@@ -8,6 +8,7 @@
  */
 
 import { Resources } from "../utils/resources.js"
+import Sound from "../utils/sound.js"
 import CONST from "./constants.js"
 
 export default function globalsSetup() {
@@ -23,8 +24,9 @@ export default function globalsSetup() {
     window.ctx.imageSmoothingEnabled = true
     window.ctx.imageSmoothingQuality = "high"
 
-    // Images
+    // Multimedia resources
     window.resources = new Resources()
+    window.sound = new Sound()
 
     // ====================[ Functions ]====================>
     /**

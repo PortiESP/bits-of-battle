@@ -21,6 +21,10 @@ export class AttackBoost extends PowerUp {
     }
 
     actionOnCollision(player) {
+        // Play the boost sound
+        window.sound.play("power_up")
+        
+        // Boost the player's attack
         player.stats.attack += this.boost
         this.destructor()
     }

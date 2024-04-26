@@ -42,6 +42,10 @@ export class Teleport extends PowerUp {
         // Check if the player is close enough to the power up center in order to teleport
         if (this.distanceToCenter(player.x, player.y) > CONST.CELL_SIZE / 5) return
 
+        // Play the teleport sound
+        window.sound.play("teleport")
+
+        // Teleport the player to the target position
         player.x = this.target.col * CONST.CELL_SIZE + CONST.CELL_SIZE / 2
         player.y = this.target.row * CONST.CELL_SIZE + CONST.CELL_SIZE / 2
     }

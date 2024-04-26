@@ -244,6 +244,9 @@ export default class Player {
             // Calculate the damage
             const damage = this.stats.attack - player.stats.defense
 
+            // Play the sound
+            window.sound.play("hit")
+
             // Deal the damage to the player
             if (player.stats.health - damage < 0) player.stats.health = 0
             else player.stats.health -= damage
