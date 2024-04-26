@@ -17,6 +17,7 @@ const CONST = {
     CHARACTER_SPRITE_SIZE: 64, // The size of the character sprite
     CHARACTER_CELL_RATIO: 2, // The ratio between the character sprite and the cell size
     FRAME_RATE: 10, // The frame rate of the game
+    PLAYER_FRAME_RATE: 25, // The frame rate of the player
     INACTIVE_FRAME_RATE: 40, // The frame rate of decorative elements
     WALL_ID: "W", // The id of the wall in the map
     OBJECTIVE_ID: "O", // The id of the objective in the map
@@ -60,7 +61,7 @@ const CONST = {
     // Player
     BASE_PLAYER_ATTACK: 5, // The player's attack at the start of the game
     BASE_PLAYER_DEFENSE: 0, // The player's defense at the start of the game
-    BASE_ATTACK_COOLDOWN: 50, // The player's cooldown at the start of the game
+    BASE_ATTACK_COOLDOWN: 30, // The player's cooldown at the start of the game
 
     MAX_PLAYER_HEALTH: 100, // The player's maximum health
     MAX_PLAYER_ATTACK: 25, // The player's maximum attack

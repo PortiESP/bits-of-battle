@@ -50,10 +50,7 @@ export default class Player {
         if (!window.resources.isReady()) return
         const images = window.resources.images
 
-        if (this.state.frame % CONST.FRAME_RATE === 0) {
-            this.calculateStep()
-        }
-        this.state.frame += 1
+        if (window.time() % CONST.FRAME_RATE > CONST.FRAME_RATE / 2) this.calculateStep()
 
         // Select the image based on the player's team
         let selection
