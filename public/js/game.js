@@ -208,7 +208,7 @@ class Game {
         ctx.fillText(`X: ${window.mouse?.x} Y: ${window.mouse?.y}`, 10, 28)
 
         // Add FPS counter
-        ctx.fillText(`FPS: ${window.fps}`, 10, 44)
+        ctx.fillText(`FPS (unthrottled): ${window.fps}`, 10, 44)
 
         // Time counter
         ctx.fillText(`Time: ${Math.floor(window.time()/1000)}s`, 10, 60)
