@@ -33,6 +33,17 @@ const App = () => {
         }
     }, [showStartScreen])
 
+    useEffect(() => {
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                console.log(e.key)
+                if (window.saved) setShowStartScreen(false)
+            }
+        })
+
+        return () => removeEventListener("keydown", () => {})
+    }, [])
+
     return <div className="app">{showStartScreen ? <StartScreen setShowStartScreen={setShowStartScreen} /> : <GameScreen setShowStartScreen={setShowStartScreen}/>}</div>
 }
 
