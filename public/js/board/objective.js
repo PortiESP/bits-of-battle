@@ -31,10 +31,7 @@ export default class Objective {
         // Check if the resources are ready and retrieve the image
         if (!window.resources.isReady()) return
 
-        if (this.state.frame % CONST.INACTIVE_FRAME_RATE === 0) {
-            this.calculateStep()
-        }
-        this.state.frame += 1
+        if (window.time() % CONST.INACTIVE_FRAME_RATE > CONST.INACTIVE_FRAME_RATE * 0.8) this.calculateStep()
 
         // Select the image to be drawn based on the team
         let image

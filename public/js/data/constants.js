@@ -18,7 +18,7 @@ const CONST = {
     CHARACTER_CELL_RATIO: 2, // The ratio between the character sprite and the cell size
     FRAME_RATE: 10, // The frame rate of the game
     PLAYER_FRAME_RATE: 25, // The frame rate of the player
-    INACTIVE_FRAME_RATE: 40, // The frame rate of decorative elements
+    INACTIVE_FRAME_RATE: 100, // The frame rate of decorative elements
     WALL_ID: "W", // The id of the wall in the map
     OBJECTIVE_ID: "O", // The id of the objective in the map
     POWERUP_ID: "P", // The id of the powerup in the map
