@@ -60,11 +60,17 @@ const KEYS_DICT = {
     "medianexttrack": "Next",
     "mediaprevioustrack": "Prev",
     "audiovolumedown": "Vol-",
+    "intlbackslash": "<",
+    "controlleft": "CtrlL",
+    "controlright": "CtrlR",
+    "backquote": "º",
 }
 
 const translateKey = (key) => {
     if (key.length === 1) return key.toUpperCase()
     if (key.startsWith("key")) return key.slice(3).toUpperCase()
+    if (key.startsWith("digit")) return key.slice(5)
+    if (key.startsWith("numpad")) return "NP" + key.slice(6)
     return KEYS_DICT[key] || key
 }
 
@@ -86,6 +92,20 @@ export default function KbdControls(props) {
     const triggerKeyPopup = (action) => {
         setKeyPressed(props.controls[action])
         setShowKeyPopup(action)
+    }
+
+    const checkValidKey = () => {
+        const key = keyPressed 
+        const action = showKeyPopup  // "up", "left", "down", "right", "attack"
+
+        // Own player
+        for (let a in props.controls) {
+            if (a === action) continue
+            if (props.controls[a] === key) return false
+        }
+
+
+        return true
     }
 
     useEffect(() => {
@@ -111,6 +131,9 @@ export default function KbdControls(props) {
                 <div className="ctr-popup-content" >
                     <h3>Press a key for the "{showKeyPopup}" action</h3>
                     <span className="ctr-key-span">{translateKey(keyPressed) || "-"}</span>
+                    {
+                        checkValidKey() || <span className="ctr-key-span-invalid">Warning: This key is already in use</span>
+                    }
                     <div className="ctr-popup-buttons">
                         <Button cancel onClick={() => setShowKeyPopup(false)}>Cancel</Button>
                         <Button accept onClick={() => {setShowKeyPopup(false); acceptChange()}}>Accept</Button>
