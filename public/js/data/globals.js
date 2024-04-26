@@ -58,16 +58,32 @@ export default function globalsSetup() {
     window.teams = [CONST.TEAM_1_COLOR, CONST.TEAM_2_COLOR] // Teams in the game
 
     // ====================[ Game variables ]====================>
-    // Players in the game
-    window.players = []
-    // Obstacules in the game, updated on resize. This is an ARRAY of objects (Wall): { x, y, size }
-    window.obstacles = []
-    // Board data
-    window.board = {
-        walls: [], // Data of the walls in the game {x, y, row, col}
-        floors: [], // Data of the floors in the game {x, y, row, col}
-        map: [], // Map of the game matrix of characters
-        objectives: [], // Objectives in the game {x, y, row, col}
-        powerUps: [], // PowerUps in the game {x, y, row, col, type}
+    if (window.saved) {
+        window.players = window.saved.players
+        window.obstacles = window.saved.obstacles
+        window.board = window.saved.board
+    } else {
+        // Players in the game
+        window.players = []
+        // Obstacules in the game, updated on resize. This is an ARRAY of objects (Wall): { x, y, size }
+        window.obstacles = []
+        // Board data
+        window.board = {
+            walls: [], // Data of the walls in the game {x, y, row, col}
+            floors: [], // Data of the floors in the game {x, y, row, col}
+            map: [], // Map of the game matrix of characters
+            objectives: [], // Objectives in the game {x, y, row, col}
+            powerUps: [], // PowerUps in the game {x, y, row, col, type}
+        }
+    }
+}
+
+
+export function saveGlobals() {
+    // Save the globals in the local storage
+    window.saved = {
+        players: window.players,
+        obstacles: window.obstacles,
+        board: window.board,
     }
 }

@@ -22,7 +22,6 @@ export default function MainMenuPlayer(props) {
     // Update the window object
     useEffect(() => {
         window.skins[props.id - 1] = skinsData[skin]
-        console.log(window.skins)
     }, [skin])
 
     // Style for the sprite

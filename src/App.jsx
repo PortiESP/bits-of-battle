@@ -13,9 +13,7 @@ const App = () => {
         sound.loop = true
 
         const handleClick = () => {
-            console.log("Click")
             if (firstLoad) {
-                console.log("First load")
                 sound.play()
                 setFirstLoad(false)
             }

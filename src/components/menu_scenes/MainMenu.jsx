@@ -14,7 +14,7 @@ export default function MainMenu(props) {
                         <img className={"weapon sprite"} src={weaponSprite} alt="Weapon Sprite" />
                     </div>
                     <Button color="#ff3333"  onClick={() => props.setShowStartScreen(false)}>
-                        Play
+                        {window.paused ? "Resume": "Play"}
                     </Button>
                     <Button color="#6e03F5" onClick={() => props.setScene(1)}>
                         How to Play!

@@ -18,19 +18,25 @@ class Game {
         // Initial setup
         this.finished = false
         this.winner = null
-        this.paused = false
-
-        // Set map data such as walls, floors, objectives, and power-ups, etc..
-        generateBoardData()
-
-        // Set the obstacles (mainly walls but can be other obstacles as well)
-        window.obstacles = window.obstacles.concat(window.board.walls)
-
+        
         // Retrive players UI menu elements
         retrievePlayersUIElements()
-
-        // Generate the players
-        window.players = generatePlayers()
+        
+        if (window.saved) {
+            // Set map data such as walls, floors, objectives, and power-ups, etc..
+            window.board = window.saved.board
+            // Set the obstacles (mainly walls but can be other obstacles as well)
+            window.obstacles = window.saved.obstacles
+            // Set the players
+            window.players = window.saved.players
+        } else{
+            // Set map data such as walls, floors, objectives, and power-ups, etc..
+            generateBoardData()
+            // Set the obstacles (mainly walls but can be other obstacles as well)
+            window.obstacles = window.obstacles.concat(window.board.walls)
+            // Generate the players
+            window.players = generatePlayers()
+        }
 
         // Main game loop
         this.mainloop()
@@ -40,8 +46,6 @@ class Game {
      * The main game loop. It updates the game state and draws the game objects on the canvas.
      */
     mainloop() {
-        if (this.paused) return console.log("Game paused ----")
-
         // Calculate the FPS
         if (window.DEBUG) {
             window.fps_frameCount++
@@ -188,11 +192,6 @@ class Game {
             objective.progress = 100
             return
         }
-    }
-
-    pause() {
-        console.log("Game paused")
-        this.paused = true
     }
 
     resume() {
