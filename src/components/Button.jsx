@@ -12,6 +12,19 @@ const colorToDarker = color => {
     return `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`
 }
 
+/**
+ *  Button component
+ * 
+ * @param {Object} props
+ * 
+ * @param {Boolean} props.disabled - If the button is disabled (optional)
+ * 
+ * COLOR PROPS
+ * @param {Boolean} props.accept - If the button is an accept button (optional)
+ * @param {Boolean} props.cancel - If the button is a cancel button (optional)
+ * @param {String} props.color - The color of the button (optional)
+ * 
+ */
 export default function Button(props) {
 
     const [disabled, setDisabled] = useState(props.disabled || false)
