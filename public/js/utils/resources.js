@@ -5,10 +5,10 @@ export class Resources {
         // Images to be loaded in the game
         this.toLoad = {
             // The game's background
-            wall: "assets/test-wall.png",
-            floor: "assets/test-floor.png",
-            player1: "assets/test-player1.png",
-            player2: "assets/test-player2.png",
+            wall: "assets/board/board-wall.png",
+            floor: "assets/board/board-floor.png",
+            player1: "assets/board/board-player1.png",
+            player2: "assets/board/board-player2.png",
 
             // Characters
             blueNinja: "assets/characters/blueNinja/character-blueNinja.png",
