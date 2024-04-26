@@ -32,6 +32,7 @@ function retrievePlayersUIElements() {
  * Update the UI elements
 */
 function updateUI() {
+    console.log("Updating UI elements...")
     // Update the health
     updateHealthUI()
 

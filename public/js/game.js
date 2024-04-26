@@ -18,18 +18,25 @@ class Game {
         // Initial setup
         this.finished = false
         this.winner = null
-
-        // Set map data such as walls, floors, objectives, and power-ups, etc..
-        generateBoardData()
-
-        // Set the obstacles (mainly walls but can be other obstacles as well)
-        window.obstacles = window.obstacles.concat(window.board.walls)
-
+        
         // Retrive players UI menu elements
         retrievePlayersUIElements()
-
-        // Generate the players
-        window.players = generatePlayers()
+        
+        if (window.saved) {
+            // Set map data such as walls, floors, objectives, and power-ups, etc..
+            window.board = window.saved.board
+            // Set the obstacles (mainly walls but can be other obstacles as well)
+            window.obstacles = window.saved.obstacles
+            // Set the players
+            window.players = window.saved.players
+        } else{
+            // Set map data such as walls, floors, objectives, and power-ups, etc..
+            generateBoardData()
+            // Set the obstacles (mainly walls but can be other obstacles as well)
+            window.obstacles = window.obstacles.concat(window.board.walls)
+            // Generate the players
+            window.players = generatePlayers()
+        }
 
         // Main game loop
         this.mainloop()
@@ -185,6 +192,11 @@ class Game {
             objective.progress = 100
             return
         }
+    }
+
+    resume() {
+        this.paused = false
+        this.mainloop()
     }
 
     /**

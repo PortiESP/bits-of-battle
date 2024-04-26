@@ -7,14 +7,12 @@ const Canvas = () => {
     useEffect(() => {
         // ==========[ Globals ]==========================>
         globalsSetup()
-
-        // ==========[ Music ]==========================>
-
+        
         // ==========[ Create the game ]==================>
         window.game = new Game(window.$canvas)
-
-        // ==========[ Event Listeners ]==================>
+        
         setupEvents(window.game)
+        // ==========[ Event Listeners ]==================>
     }, [])
 
     return (

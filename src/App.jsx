@@ -13,9 +13,7 @@ const App = () => {
         sound.loop = true
 
         const handleClick = () => {
-            console.log("Click")
             if (firstLoad) {
-                console.log("First load")
                 sound.play()
                 setFirstLoad(false)
             }
@@ -35,7 +33,7 @@ const App = () => {
         }
     }, [showStartScreen])
 
-    return <div className="app">{showStartScreen ? <StartScreen setShowStartScreen={setShowStartScreen} /> : <GameScreen />}</div>
+    return <div className="app">{showStartScreen ? <StartScreen setShowStartScreen={setShowStartScreen} /> : <GameScreen setShowStartScreen={setShowStartScreen}/>}</div>
 }
 
 export default App
