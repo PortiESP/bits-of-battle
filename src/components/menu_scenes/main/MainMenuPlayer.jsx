@@ -12,7 +12,7 @@ export default function MainMenuPlayer(props) {
         "spirit"
     ]
     
-    const [skin, setSkin] = useState(props.id - 1 || 0)
+    const [skin, setSkin] = useState(skinsData.indexOf(window.skins && window.skins[props.id - 1] || skinsData[props.id - 1]))
 
     // Initialize window object
     useEffect(() => {
