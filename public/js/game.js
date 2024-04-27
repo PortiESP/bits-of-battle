@@ -144,7 +144,7 @@ class Game {
         }
 
         // Check if the game is finished by players alive
-        if (window.players.filter((player) => player.isDead()).length) {
+        if (window.players.filter((player) => player.isDead()).length >= 1) {
             this.winner = window.players[0].isDead() ? 2 : 1
             this.finished = true
             window.sceneFallback = 4
