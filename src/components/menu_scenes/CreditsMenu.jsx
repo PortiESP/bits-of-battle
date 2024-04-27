@@ -10,7 +10,7 @@ export default function Credits(props) {
             <p>Diego Sánchez - <a href="https://github.com/CuB1z">@CuB1z</a></p>
             <p>Marcelo Domínguez - <a href="https://github.com/Sa4dUs">@Sa4dUs</a></p>
 
-            <h3>Art & Sound</h3>
+            <h3>Art</h3>
             <p>Jaime Portillo - <a href="https://github.com/PortiESP">@PortiESP</a></p>
             <p>Diego Sánchez - <a href="https://github.com/CuB1z">@CuB1z</a></p>
 

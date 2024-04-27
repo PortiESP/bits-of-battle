@@ -51,20 +51,27 @@ export function drawBoard() {
 
     if (!window.resources.isReady()) return
     const images = window.resources.images
-
+    
     // Draw the background
     window.board.floors.forEach((floor) => ctx.drawImage(images.floor.img, floor.x, floor.y, CONST.CELL_SIZE, CONST.CELL_SIZE))
-    window.board.walls.forEach((wall) => wall.draw())
 
     // Draw the spawn points
     ctx.drawImage(images.player1.img, window.board.spawn1.x, window.board.spawn1.y, CONST.CELL_SIZE, CONST.CELL_SIZE)
     ctx.drawImage(images.player2.img, window.board.spawn2.x, window.board.spawn2.y, CONST.CELL_SIZE, CONST.CELL_SIZE)
-
+    
     // Draw the objective zones
     window.board.objectives.forEach((objective) => objective.draw())
 
     // Draw the power-ups
     window.board.powerUps.forEach((powerUp) => powerUp.draw())
+    
+    // Players
+    window.players.forEach((player) => player.draw())
+
+    // Draw the walls
+    window.board.walls.forEach((wall) => wall.draw())
+
+
 }
 
 /**

@@ -41,10 +41,10 @@ Remember, power-ups are scattered across the battlefield. Use them wisely to tur
 | Marcelo Domínguez | [@Sa4dUs](https://github.com/Sa4dUs)     |                         ---                          |  Spain |
 
 
-### 🎨 Art & Sound
+### 🎨 Art
 |      Name      |      Job        |                  GitHub                  |  
 | -------------- | --------------- | ---------------------------------------- |
-| Jaime Portillo |   Art & Sound   | [@PortiESP](https://github.com/PortiESP) |
+| Jaime Portillo |      Art        | [@PortiESP](https://github.com/PortiESP) |
 | Diego Sánchez  |      Art        | [@CuB1z](https://github.com/CuB1z)       |
 
 

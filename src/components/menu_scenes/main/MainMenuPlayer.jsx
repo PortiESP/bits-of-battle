@@ -1,22 +1,16 @@
+import CONST from "../../../../public/js/data/constants"
 import "../../../styles/StartScreenMenus/MainMenuPlayer.css"
 import Button from "../../Button"
 import { useState, useEffect } from "react"
 
 export default function MainMenuPlayer(props) {
-    const skinsData = [
-        "blueNinja",
-        "greenNinja",
-        "flame",
-        "ninjaYellow",
-        "noble",
-        "spirit"
-    ]
+    const skinsData = CONST.CHARACTERS_NAMES
     
     const [skin, setSkin] = useState(skinsData.indexOf(window.skins && window.skins[props.id - 1] || skinsData[props.id - 1]))
 
     // Initialize window object
     useEffect(() => {
-        window.skins = window.skins || ["blueNinja", "greenNinja"]
+        window.skins = window.skins || ["BlueNinja", "GreenNinja"]
     }, [])
 
     // Update the window object
@@ -26,7 +20,7 @@ export default function MainMenuPlayer(props) {
 
     // Style for the sprite
     const style = {
-        backgroundImage: `url(assets/characters/${skinsData[skin]}/character-${skinsData[skin]}.png)`,
+        backgroundImage: `url(assets/characters/${skinsData[skin]}/Walk.png)`,
     }
 
     // Update the skin based on the value

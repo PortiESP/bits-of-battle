@@ -2,6 +2,14 @@ import CONST from "../data/constants.js"
 
 export class Resources {
     constructor() {
+        // Get the name of the files in the assets folder
+        const characters = {}
+        for (let i = 0; i < CONST.CHARACTERS_NAMES.length; i++) {
+            const character = CONST.CHARACTERS_NAMES[i] 
+            characters[character + "_attack"] = `assets/characters/${character}/Attack.png`
+            characters[character + "_sprite"] = `assets/characters/${character}/SpriteSheet.png`
+        }
+
         // Images to be loaded in the game
         this.toLoad = {
             // The game's background
@@ -11,19 +19,8 @@ export class Resources {
             player2: "assets/board/board-player2.png",
 
             // Characters
-            blueNinja: "assets/characters/blueNinja/character-blueNinja.png",
-            blueNinjaAttack: "assets/characters/blueNinja/attack-blueNinja.png",
-            greenNinja: "assets/characters/greenNinja/character-greenNinja.png",
-            greenNinjaAttack: "assets/characters/greenNinja/attack-greenNinja.png",
-            flame: "assets/characters/flame/character-flame.png",
-            flameAttack: "assets/characters/flame/attack-flame.png",
-            ninjaYellow: "assets/characters/ninjaYellow/character-ninjaYellow.png",
-            ninjaYellowAttack: "assets/characters/ninjaYellow/attack-ninjaYellow.png",
-            noble: "assets/characters/noble/character-noble.png",
-            nobleAttack: "assets/characters/noble/attack-noble.png",
-            spirit: "assets/characters/spirit/character-spirit.png",
-            spiritAttack: "assets/characters/spirit/attack-spirit.png",
-            dragon: "assets/characters/dragon/character-dragon.png",
+            ...characters,
+            shadow: "assets/characters/Shadow.png",
 
             // Weapons
             axe: "assets/weapons/weapon-axe.png",
@@ -62,6 +59,11 @@ export class Resources {
      * Check if all images are loaded
      */
     isReady() {
-        return Object.values(this.images).every((value) => value.loaded) && Object.keys(this.toLoad).length === Object.keys(this.images).length
+        let ready = true
+        Object.keys(this.toLoad).forEach((key) => {
+            if (!this.images[key]) ready = false
+        })
+
+        return ready
     }
 }

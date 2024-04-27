@@ -56,13 +56,19 @@ export default class Player {
         // Select the image based on the player's team
         let selection
         if (this.state.attacking) {
-            selection = { p1: `${window.skins[0]}Attack`, p2: `${window.skins[1]}Attack` }
-        } else selection = { p1: window.skins[0], p2: window.skins[1] }
+            selection = { p1: `${window.skins[0]}_attack`, p2: `${window.skins[1]}_attack` }
+        } else selection = { p1: `${window.skins[0]}_sprite`, p2: `${window.skins[1]}_sprite` }
 
         const image = this.team === CONST.TEAM_1_COLOR ? images[selection.p1].img : images[selection.p2].img
 
+        // Draw the player's shadow
+        ctx.beginPath()
+        ctx.arc(this.x, this.y + 15, 10, 0, Math.PI * 2)
+        ctx.fillStyle = "#0008"
+        ctx.fill()
+
         // Draw the sprite
-        ctx.drawImage(
+        if (!this.state.ghost) ctx.drawImage(
             image,
             this.state.currentSprite.x * CONST.CHARACTER_SPRITE_SIZE,
             this.state.currentSprite.y * CONST.CHARACTER_SPRITE_SIZE,
