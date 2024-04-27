@@ -20,6 +20,9 @@ export class Heal extends PowerUp {
     }
 
     actionOnCollision(player) {
+        if (player.state.ghost) return
+
+
         // Cant be healed if the player is at max health
         if (player.stats.health === CONST.MAX_PLAYER_HEALTH) return
 

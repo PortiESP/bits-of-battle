@@ -21,6 +21,9 @@ export class AttackBoost extends PowerUp {
     }
 
     actionOnCollision(player) {
+        if (player.state.ghost) return
+
+
         // Play the boost sound
         window.sound.play("power_up")
         

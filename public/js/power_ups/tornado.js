@@ -25,6 +25,8 @@ export class Tornado extends PowerUp {
     }
 
     actionOnCollision(player) {
+        if (player.state.ghost) return
+
         // Other player
         const otherPlayer = window.players.find((p) => p !== player)
 

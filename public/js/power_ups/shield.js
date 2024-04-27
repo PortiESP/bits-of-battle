@@ -20,6 +20,9 @@ export class Shield extends PowerUp {
     }
 
     actionOnCollision(player) {
+        if (player.state.ghost) return
+
+
         // Can't be increased if the player is at max defense
         if (player.stats.defense === CONST.MAX_PLAYER_DEFENSE) return
 

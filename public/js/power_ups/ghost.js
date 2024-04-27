@@ -20,6 +20,9 @@ export class Ghost extends PowerUp {
     }
 
     actionOnCollision(player) {
+        if (player.state.ghost) return
+
+
         // Play the heal sound
         window.sound.play("power_up")
 

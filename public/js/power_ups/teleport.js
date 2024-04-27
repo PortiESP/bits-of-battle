@@ -39,6 +39,9 @@ export class Teleport extends PowerUp {
     }
 
     actionOnCollision(player) {
+        if (player.state.ghost) return
+
+
         // Check if the player is close enough to the power up center in order to teleport
         if (this.distanceToCenter(player.x, player.y) > CONST.CELL_SIZE / 5) return
 

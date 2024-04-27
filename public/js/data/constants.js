@@ -66,7 +66,7 @@ const CONST = {
 
     MAX_PLAYER_HEALTH: 100, // The player's maximum health
     MAX_PLAYER_ATTACK: 25, // The player's maximum attack
-    MAX_PLAYER_DEFENSE: 25, // The player's maximum defense
+    MAX_PLAYER_DEFENSE: 5, // The player's maximum defense
 
     BASE_PLAYER_SIZE: 30, // The player's size at the start of the game
     BASE_SPEED_PLAYER: 5, // The player's speed at the start of the game

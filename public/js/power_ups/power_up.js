@@ -79,8 +79,8 @@ export default class PowerUp {
      * @param {Player} player The player that collided with the power up
      */
     actionOnCollision(player) {
-        console.error("actionOnCollision not implemented")
-        throw new Error("actionOnCollision not implemented")
+        console.error("Action on collision method not implemented")
+        throw new Error("Action on collision method not implemented")
     }
 
     /**
