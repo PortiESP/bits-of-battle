@@ -1,8 +1,10 @@
+import "../styles/Canvas.css"
 import { useEffect, useState } from "react"
 import globalsSetup from "../../public/js/data/globals"
 import setupEvents from "../../public/js/utils/events.js"
 import Game from "../../public/js/game.js"
 import CONST from "../../public/js/data/constants.js"
+import Timer from "./Timer.jsx"
 
 const Canvas = () => {
     const [remRes, setRemRes] = useState(window.resources?.remainingResources()|| 100)
@@ -32,8 +34,9 @@ const Canvas = () => {
     const fallbackSize = {width: CONST.CANVAS_WIDTH, height: CONST.CANVAS_HEIGHT}
 
     return (
-        <>
+        <div className="canvas-screen">
             <canvas id="screen" className={`${remRes !== 0 ? "hidden": ""}`}></canvas>
+            <Timer />
             {
                 remRes !== 0 && <div className="canvas-fallback" style={fallbackSize}>
                     <h1>Loading...</h1>
@@ -43,7 +46,7 @@ const Canvas = () => {
                     </div>
                 </div>
             }
-        </>
+        </div>
     )
 }
 

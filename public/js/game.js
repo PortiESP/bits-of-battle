@@ -15,6 +15,9 @@ class Game {
         this.ctx = window.ctx
         this.$canvas = window.$canvas
 
+        // Initialize the game timer
+        this.initialTimer = 0
+
         // Initial setup
         this.finished = false
         this.winner = null
@@ -29,6 +32,8 @@ class Game {
             window.obstacles = window.saved.obstacles
             // Set the players
             window.players = window.saved.players
+            // Set the timer
+            this.initialTimer = window.saved.timer
         } else{
             // Set map data such as walls, floors, objectives, and power-ups, etc..
             generateBoardData()

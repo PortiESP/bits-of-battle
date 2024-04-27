@@ -15,7 +15,7 @@ export default function EndScreen(props) {
             setSkin(window.skins[window.game.winner - 1])
             setLoading(false)
         }, 1000)
-        
+
         return () => clearInterval(interval) // Clean up on unmount
     }, [])
 

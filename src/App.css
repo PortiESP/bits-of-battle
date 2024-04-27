@@ -17,16 +17,6 @@
     align-items: center;
 }
 
-canvas {
-    border: 5px solid #523004;
-    border-radius: 5px;
-    box-shadow: 0 0 100px 10px rgba(0, 0, 0, 0.9);
-
-    &.hidden {
-        display: none;
-    }
-}
-
 .canvas-fallback {
     border: 5px solid #2e1d07;
     border-radius: 5px;

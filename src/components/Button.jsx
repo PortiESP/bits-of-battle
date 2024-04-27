@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import "../styles/button.css"
+import "../styles/Button.css"
 
 const colorToDarker = color => {
     if (color === undefined) return undefined
