@@ -33,7 +33,11 @@ export default function globalsSetup() {
     window.fps_lastTime = 0
 
     // Timing
-    window.startTime = Date.now()
+    if (window.saved) {
+        window.startTime = window.saved.startTime
+    } else {
+        window.startTime = Date.now()
+    }
     window.lastTime = Date.now() - window.startTime
 
     // ====================[ Functions ]====================>
@@ -86,5 +90,6 @@ export function saveGlobals() {
         obstacles: window.obstacles,
         board: window.board,
         timer: window.game.initialTimer + window.time() / 1000,
+        startTime: window.startTime,
     }
 }

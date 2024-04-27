@@ -21,6 +21,7 @@ export default class Player {
             cooldown: 0, // The player's cooldown (for attacking)
             attacking: false, // The player is attacking
             ghost: false, // The player is in ghost mode
+            blink: 0, // Time until the player stops blinking
         }
 
         // Player data
@@ -68,7 +69,14 @@ export default class Player {
         ctx.fill()
 
         // Draw the sprite
-        if (!this.state.ghost) ctx.drawImage(
+        let willBeDrawn = true
+        if (this.state.ghost) willBeDrawn = false  // Ghost mode
+        if (this.state.blink > window.time()) {  // Hit animation
+            if ((this.state.blink-window.time()) % 300 < 150){
+                willBeDrawn = false
+            }
+        }
+        if (willBeDrawn) ctx.drawImage(
             image,
             this.state.currentSprite.x * CONST.CHARACTER_SPRITE_SIZE,
             this.state.currentSprite.y * CONST.CHARACTER_SPRITE_SIZE,
@@ -256,8 +264,9 @@ export default class Player {
 
             // Play the sound
             window.sound.play("hit")
+            player.state.blink = window.time() + 750
 
-            // Deal the damage to the player
+            // Deal the damage to the player if it is positive
             if (player.stats.health - damage < 0) player.stats.health = 0
             else player.stats.health -= damage
         }
