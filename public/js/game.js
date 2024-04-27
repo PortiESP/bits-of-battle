@@ -124,6 +124,7 @@ class Game {
      * Update the game status
      */
     updateGameStatus() {
+
         let winnerObjectives = Math.max(
             ...Object.values(
                 window.board.objectives.reduce((acc, item) => {

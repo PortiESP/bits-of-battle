@@ -6,6 +6,8 @@ export default function EndScreen(props) {
     const backToMenu = () => {
         window.saved = undefined
         window.paused = false
+        window.sceneFallback = undefined
+        window.game = null
         window.setScene(0)
     }
 

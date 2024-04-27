@@ -12,6 +12,7 @@ const GameScreen = (props) => {
         const handleKeyDown = (e) => {
             if (e.key === "Escape") {
                 window.paused = true
+                window.setScene(0)
                 saveGlobals()
 
                 // Change the screen to the start screen
