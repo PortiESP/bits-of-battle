@@ -20,7 +20,7 @@ export default function MainMenu(props) {
                         How to Play!
                     </Button>
                     <Button color="#3ea325" onClick={() => props.setScene(2)}>
-                        Controls
+                        Settings
                     </Button>
                     <Button color="#f5d403" onClick={() => props.setScene(3)}>
                         Credits
