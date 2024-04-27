@@ -1,23 +1,17 @@
 import "../styles/PlayerSideMenu.css"
-import { useEffect, useRef } from "react"
 import Stat from "./Stat"
 import CONST from "../../public/js/data/constants"
 
 export default function PlayerSideMenu({ name, id }) {
-    const sprite = useRef(null)
-
-    useEffect(() => {
-        const character = CONST.PLAYER_1_ID === id ? window.skins[0] : window.skins[1]
-        const image = `/assets/characters/${character}/character-${character}.png`
-        sprite.current.style.backgroundImage = `url(${image})`
-    }, [])
+    const character = CONST.PLAYER_1_ID === id ? window.skins[0] : window.skins[1]
+    const image = `/assets/characters/${character}/Faceset.png`
 
     return (
         <div className={"wrapper"}>
             <aside id={id}>
                 <h1 className={"title"}>{name}</h1>
                 <div className={"sprite-preview"}>
-                    <i className={"sprite pixelated"} ref={sprite}></i>
+                    <img src={image} className="sprite"/>
                 </div>
                 <div className="stats">
                     <Stat team={id} label={"Health"} value={CONST.MAX_PLAYER_HEALTH} />

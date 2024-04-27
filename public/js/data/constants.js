@@ -103,6 +103,9 @@ const CONST = {
     },
     DEFAULT_SOUND_VOLUME: .5,
     DEFAULT_MUSIC_VOLUME: 0.05,
+
+    // Characters
+    CHARACTERS_NAMES: ['Boy', 'CamouflageGreen', 'CamouflageRed', 'Cavegirl', 'Cavegirl2', 'Caveman', 'Caveman2', 'Child', 'DemonGreen', 'DemonRed', 'EggBoy', 'EggGirl', 'Eskimo', 'FighterRed', 'FighterWhite', 'Flam', 'GladiatorBlue', 'Hunter', 'Inspector', 'Knight', 'KnightGold', 'Lion', 'LionBoy', 'LionOrange', 'LionYellow', 'ManGreen', 'MaskFrog', 'Master', 'Monk', 'Monk2', 'MonkeyBoxerBlue', 'MonkeyBoxerRed', 'NinjaBlue', 'NinjaBlue2', 'NinjaBomb', 'NinjaDark', 'NinjaEskimo', 'NinjaGray', 'NinjaGreen', 'NinjaMageBlack', 'NinjaMageOrange', 'NinjaMasked', 'NinjaRed', 'NinjaRed2', 'NinjaYellow', 'Noble', 'OldMan', 'OldMan2', 'OldMan3', 'OldWoman', 'Princess', 'RobotCamouflage', 'RobotGreen', 'RobotGrey', 'Samurai', 'SamuraiBlue', 'SamuraiRed', 'Shadow.png', 'Skeleton', 'SkeletonDemon', 'SorcererBlack', 'SorcererOrange', 'Spirit', 'Statue', 'Tengu', 'Tengu2', 'Vampire', 'Villager', 'Villager2', 'Villager3', 'Villager4', 'Woman']
 }
 
 export default CONST
