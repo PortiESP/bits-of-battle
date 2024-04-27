@@ -1,9 +1,10 @@
 import PlayerSideMenu from "./PlayerSideMenu"
 import { saveGlobals } from "../../public/js/data/globals.js";
 import Canvas from "./Canvas"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const GameScreen = (props) => {
+
 
     useEffect(() => {
         // ESC key event listener
@@ -20,9 +21,15 @@ const GameScreen = (props) => {
                 props.setShowStartScreen(true)
             }
         }
+
         window.addEventListener("keydown", handleKeyDown)
-        return () => window.removeEventListener("keydown", handleKeyDown)
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown)
+        }
     }, [])
+
+
 
     return (
         <>
