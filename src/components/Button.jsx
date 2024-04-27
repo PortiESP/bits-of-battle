@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import "../styles/Button.css"
+import "../styles/button.css"
 
 
 const colorToDarker = color => {
