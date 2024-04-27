@@ -16,13 +16,13 @@ export default function MainMenu(props) {
                     <Button color="#ff3333"  onClick={() => props.setShowStartScreen(false)}>
                         {window.paused ? "Resume": "Play"}
                     </Button>
-                    <Button color="#6e03F5" onClick={() => props.setScene(1)}>
+                    <Button color="#4793AF" onClick={() => props.setScene(1)}>
                         How to Play!
                     </Button>
                     <Button color="#3ea325" onClick={() => props.setScene(2)}>
                         Settings
                     </Button>
-                    <Button color="#f5d403" onClick={() => props.setScene(3)}>
+                    <Button color="#FFB41C" onClick={() => props.setScene(3)}>
                         Credits
                     </Button>
                 </div>
