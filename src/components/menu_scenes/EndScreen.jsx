@@ -4,7 +4,6 @@ import "../../styles/StartScreenMenus/EndScreen.css"
 
 export default function EndScreen(props) {
     const [winner, setWinner] = useState(null)
-    const [skin, setSkin] = useState(null)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -12,7 +11,6 @@ export default function EndScreen(props) {
             if (!window.game.winner) return
 
             setWinner(window.game.winner)
-            setSkin(window.skins[window.game.winner - 1])
             setLoading(false)
         }, 1000)
 

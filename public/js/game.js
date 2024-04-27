@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 import { drawBoard, generateBoardData, generatePlayers } from "./board/board.js"
-import { drawEndScreen } from "./board/endScreen.js"
 import CONST from "./data/constants.js"
 import { progressToRadians } from "./utils/functions.js"
 import { retrievePlayersUIElements, updateUI } from "./utils/ui.js"
@@ -78,7 +77,6 @@ class Game {
         ctx.clearRect(0, 0, $canvas.width, $canvas.height)
 
         if (this.finished) {
-            drawEndScreen()
             window.sound.play("game_over")
             return
         }
