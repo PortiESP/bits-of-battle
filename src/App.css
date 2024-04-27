@@ -4,14 +4,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* gap: 5px; Add some gap between grid items */
 
     width: 100vw;
     height: 100vh;
 }
 
 .game {
-    width: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
