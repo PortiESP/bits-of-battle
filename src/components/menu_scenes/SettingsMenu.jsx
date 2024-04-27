@@ -51,7 +51,7 @@ export default function SettingsMenu(props) {
 export function Slider({label, state, setState}){
     return <div className="sett-volume-grp slider">
                 <label htmlFor={label}>{label}</label>
-                <input type="range" min="0" max="1" step="0.01" value={state} onChange={e => setState(e.target.value)} className={"slider"} id={label} />
+                <input type="range" min="0" max="1" step="0.01" value={state} onChange={e => setState(e.target.value)} id={label} />
                 <span className="sett-slider-num">{Math.floor(state*100)}</span> 
             </div>
 }

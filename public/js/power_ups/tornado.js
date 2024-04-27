@@ -29,7 +29,7 @@ export class Tornado extends PowerUp {
         const otherPlayer = window.players.find((p) => p !== player)
 
         otherPlayer.state.tornado = true
-        otherPlayer.state.tornadoUntil = Date.now() + 3000
+        otherPlayer.state.tornadoUntil = window.time() + 3000
         
         // Play the sound
         window.sound.play("power_up")
