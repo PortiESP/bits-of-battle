@@ -8,7 +8,7 @@ export default function HowToPlayMenu(props) {
             <h1>How To Play</h1>
             <section>
                 <h3>Objective</h3>
-                <p>Defeat your opponent by hitting them with your weapon.</p>
+                <p>Defeat your opponent by hitting them with your weapon or by collecting all the flags in the map.</p>
             </section>
             <section>
                 <h3>Controls</h3>
@@ -20,16 +20,19 @@ export default function HowToPlayMenu(props) {
             <section>
                 <h3>Gameplay</h3>
                 <p>Move your character with the controls and hit your opponent with your weapon.</p>
-                <p>Each player has 3 lives, the first player to lose all their lives loses the match.</p>
+                <p>Each player has 100 health points, when a player reaches 0 health points, it is eliminated.</p>
             </section>
             <section>
                 <h3>Powerups</h3>
                 <p>Powerups will spawn randomly in the map, pick them up to gain an advantage.</p>
+                <br />
                 <p>Powerups include:</p>
                 <ul>
-                    <li>Speed boost: bla bla bla</li>
-                    <li>Extra life: bla bla bla</li>
-                    <li>Weapon upgrade: bla bla bla</li>
+                    <li>Shield powerup: Increases your defense power.</li>
+                    <li>Health potion: Restores 10 health points.</li>
+                    <li>Weapon upgrade: Increases your attack power.</li>
+                    <li>Teleport: Teleports you to a different location in the map.</li>
+                    <li>Ghost mode: Allows you to pass through walls and hide from your opponent.</li>
                 </ul>
             </section>
         </div>
