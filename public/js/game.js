@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 import { drawBoard, generateBoardData, generatePlayers } from "./board/board.js"
-import { drawEndScreen } from "./board/endScreen.js"
 import CONST from "./data/constants.js"
 import { progressToRadians } from "./utils/functions.js"
 import { retrievePlayersUIElements, updateUI } from "./utils/ui.js"
@@ -78,7 +77,6 @@ class Game {
         ctx.clearRect(0, 0, $canvas.width, $canvas.height)
 
         if (this.finished) {
-            drawEndScreen()
             window.sound.play("game_over")
             return
         }
@@ -137,7 +135,7 @@ class Game {
 
         // Check if the game is finished by objectives
         if (winnerObjectives === window.board.objectives.length) {
-            this.winner = window.board.objectives[0]?.team === CONST.TEAM_1_COLOR ? 1 : 2
+            window.winner = window.board.objectives[0]?.team === CONST.TEAM_1_COLOR ? 1 : 2
             this.finished = true
             window.sceneFallback = 4
             window.setShowStartScreen(true)
@@ -145,7 +143,7 @@ class Game {
 
         // Check if the game is finished by players alive
         if (window.players.filter((player) => player.isDead()).length >= 1) {
-            this.winner = window.players[0].isDead() ? 2 : 1
+            window.winner = window.players[0].isDead() ? 2 : 1
             this.finished = true
             window.sceneFallback = 4
             window.setShowStartScreen(true)

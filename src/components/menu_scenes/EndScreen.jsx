@@ -14,7 +14,7 @@ export default function EndScreen(props) {
             {
                     <>
                         <h1>Game Over</h1>
-                        <h2>Player {window.game.winner} Wins!</h2>
+                        <h2>Player {window.winner} Wins!</h2>
                         <div className="endscreen-buttons">
                             <Button color="#ff3333" onClick={backToMenu}>Back to Menu</Button>
                         </div>
