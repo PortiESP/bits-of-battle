@@ -1,0 +1,24 @@
+
+.endscreen {
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+    h1 {
+        font-size: 4.5rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .endscreen-buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
+    }
+}

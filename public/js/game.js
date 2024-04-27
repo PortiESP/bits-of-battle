@@ -131,14 +131,18 @@ class Game {
 
         // Check if the game is finished by objectives
         if (winnerObjectives === window.board.objectives.length) {
+            this.winner = window.board.objectives[0]?.team === CONST.TEAM_1_COLOR ? 1 : 2
             this.finished = true
-            this.winner = window.board.objectives[0]?.team === CONST.TEAM_1_COLOR ? "Team 1" : "Team 2"
+            window.sceneFallback = 4
+            window.setShowStartScreen(true)
         }
 
         // Check if the game is finished by players alive
         if (window.players.filter((player) => player.isDead()).length) {
+            this.winner = window.players[0].isDead() ? 2 : 1
             this.finished = true
-            this.winner = window.players[0].isDead() ? "Player 2" : "Player 1"
+            window.sceneFallback = 4
+            window.setShowStartScreen(true)
         }
     }
 
