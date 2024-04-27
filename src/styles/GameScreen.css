@@ -4,17 +4,34 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
+    
     div.wrapper{
+        
         &:nth-child(1){
             transform: translateX(10%);
             aside {
                 padding-right:10px ;
             }
+            --iniX: 100%;
+            --dx: 10%;
         }
         
         transform: translateX(-10%);
         padding-left:10px ;
         z-index: -1;
+
+        --iniX: -100%;
+        --dx: -10%;
+        animation: slide 0.5s forwards;
     }
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(var(--iniX));
+    }
+    100% {
+        transform: translateX(var(--dx));
+    }
+    
 }
