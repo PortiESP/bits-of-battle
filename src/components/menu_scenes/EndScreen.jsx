@@ -30,6 +30,9 @@ export default function EndScreen(props) {
                             <Button color="#3ea325" onClick={() => window.setScene(0)}>Back to Menu</Button>
                             <Button color="#ff3333" onClick={() => window.setShowStartScreen(false)}>Play Again</Button>
                         </div>
+                        {
+                            window.game === null
+                        }
                     </>
             }
         </div>
