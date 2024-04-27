@@ -17,6 +17,7 @@ class Game {
 
         // Initialize the game timer
         this.initialTimer = 0
+        this.resumeTimer = Date.now()
 
         // Initial setup
         this.finished = false

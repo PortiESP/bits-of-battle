@@ -89,7 +89,7 @@ export function saveGlobals() {
         players: window.players,
         obstacles: window.obstacles,
         board: window.board,
-        timer: window.game.initialTimer + window.time() / 1000,
+        timer: window.game.initialTimer + ((Date.now() - window.game.resumeTimer) / 1000),
         startTime: window.startTime,
     }
 }
