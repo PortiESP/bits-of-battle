@@ -1,4 +1,6 @@
 .game-screen-wrap{
+    padding: 0;
+    margin: 0;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -8,15 +10,13 @@
     div.wrapper{
         
         &:nth-child(1){
-            transform: translateX(10%);
             aside {
                 padding-right:10px ;
             }
             --iniX: 100%;
-            --dx: 10%;
+            --dx: 5%;
         }
         
-        transform: translateX(-10%);
         padding-left:10px ;
         z-index: -1;
 
