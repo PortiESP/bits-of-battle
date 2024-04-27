@@ -28,10 +28,6 @@ export function generateBoardData() {
             }
             // Floors
             else floors.push({ x, y, row: y, col: x })
-
-            // Player spawns
-            if (current === CONST.PLAYER_1_ID) window.board.spawn1 = { x, y, row: y, col: x }
-            else if (current === CONST.PLAYER_2_ID) window.board.spawn2 = { x, y, row: y, col: x }
         }
     }
 
@@ -41,6 +37,8 @@ export function generateBoardData() {
     window.board.map = mapData.map
     window.board.objectives = generateObjectiveZones()
     window.board.powerUps = generatePowerUps()
+    window.board.spawn1 = {...mapData.spawn1, x: mapData.spawn1.col * CONST.CELL_SIZE, y: mapData.spawn1.row * CONST.CELL_SIZE}
+    window.board.spawn2 = {...mapData.spawn2 , x: mapData.spawn2.col * CONST.CELL_SIZE, y: mapData.spawn2.row * CONST.CELL_SIZE}
 }
 
 /**
@@ -84,7 +82,19 @@ export function generateObjectiveZones() {
 }
 
 export function generatePowerUps() {
-    return mapData.powerUps.map((data) => {
+    const types = ["attack-boost", "heal", "shield", "ghost", "tornado"]
+    const puList = mapData.powerUpSpanws.map((data) => {
+        // Pick a random power-up type
+        const type = types[Math.floor(Math.random() * types.length)]
+        return { type, row: data.row, col: data.col }
+    })
+
+    mapData.teleportSpawns.forEach((data) => {
+        puList.push({ type: "teleport", row: data.row, col: data.col, toRow: data.toRow, toCol: data.toCol })
+    })
+        
+
+    return puList.map((data) => {
         switch (data.type) {
             case "wall":
                 return new RectWall(data.row, data.col)
