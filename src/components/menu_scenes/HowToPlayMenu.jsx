@@ -33,6 +33,7 @@ export default function HowToPlayMenu(props) {
                     <li>Weapon upgrade: Increases your attack power.</li>
                     <li>Teleport: Teleports you to a different location in the map.</li>
                     <li>Ghost mode: Allows you to pass through walls and hide from your opponent.</li>
+                    <li>Tornado: Randomizes your opponent's controls.</li>
                 </ul>
             </section>
         </div>
