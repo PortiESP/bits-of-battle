@@ -19,6 +19,11 @@ export default function EndScreen(props) {
         return () => clearInterval(interval) // Clean up on unmount
     }, [])
 
+    const backToMenu = () => {
+        window.saved = undefined
+        window.setScene(0)
+    }
+
     return (
         <div className={"endscreen"}>
             {
@@ -27,12 +32,8 @@ export default function EndScreen(props) {
                         <h1>Game Over</h1>
                         <h2>Player {winner} Wins!</h2>
                         <div className="endscreen-buttons">
-                            <Button color="#3ea325" onClick={() => window.setScene(0)}>Back to Menu</Button>
-                            <Button color="#ff3333" onClick={() => window.setShowStartScreen(false)}>Play Again</Button>
+                            <Button color="#ff3333" onClick={backToMenu}>Back to Menu</Button>
                         </div>
-                        {
-                            window.game === null
-                        }
                     </>
             }
         </div>
