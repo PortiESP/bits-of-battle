@@ -34,7 +34,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 6px solid #5b4d40e6;
+            border: 6px solid #5d4c3de6;
+            border-radius: 5px;
             
             .sprite {
                 width: 100%;
