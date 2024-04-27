@@ -20,6 +20,7 @@ export class Resources {
 
             // Characters
             ...characters,
+            shadow: "assets/characters/Shadow.png",
 
             // Weapons
             axe: "assets/weapons/weapon-axe.png",

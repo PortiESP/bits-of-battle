@@ -90,9 +90,6 @@ class Game {
         // Board graphics
         drawBoard()
 
-        // Players
-        window.players.forEach((player) => player.draw())
-
         // DEBUG
         if (window.DEBUG) this.printDebugInfo()
     }
