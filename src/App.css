@@ -27,6 +27,37 @@ canvas {
     }
 }
 
+.canvas-fallback {
+    border: 5px solid #2e1d07;
+    border-radius: 5px;
+    box-shadow: 0 0 100px 10px rgba(0, 0, 0, 0.9);
+    width: 100%;
+    height: 100%;
+    background-color: #523004;
+    color: #eee8;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    div.loading-progress{
+        margin-top: 20px;
+        width: 400px;
+        height: 30px;
+        background-color: black;
+        border: #aaa 3px solid;
+        border-radius: 5px;
+        overflow: hidden;
+
+        div.progress-bar{
+            height: 100%;
+            background-color: #cc8316c5;
+            width: 0;
+        }
+    }
+}
+
 .sub-btn{
     margin-top: 20px;
     text-decoration: underline;

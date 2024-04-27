@@ -66,4 +66,13 @@ export class Resources {
 
         return ready
     }
+
+    remainingResources() {
+        let count = 0
+        Object.keys(this.toLoad).forEach((key) => {
+            if (!this.images[key]) count++
+        })
+
+        return count
+    }
 }
