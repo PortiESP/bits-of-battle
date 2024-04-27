@@ -15,7 +15,7 @@ export default function HowToPlayMenu(props) {
                 <p>Player 1: W, A, S, D</p>
                 <p>Player 2: Arrow keys</p>
                 <p>This ones are the default controls, you can change them in the controls menu.</p>
-                <Button color="#3ea325" onClick={() => props.setScene(2)}>Go to controls menu</Button>
+                <Button color="#3ea325" onClick={() => props.setScene(2_1)}>Go to controls menu</Button>
             </section>
             <section>
                 <h3>Gameplay</h3>
