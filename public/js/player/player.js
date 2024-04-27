@@ -177,10 +177,10 @@ export default class Player {
         this.y += this.dy
 
         // Check if the player is within the canvas
-        if (this.x < 0) this.x = 0 + CONST.CELL_SIZE + this.size
-        if (this.y < 0) this.y = 0 + CONST.CELL_SIZE + this.size
-        if (this.x > window.$canvas.width) this.x = window.$canvas.width - CONST.CELL_SIZE - this.size
-        if (this.y > window.$canvas.height) this.y = window.$canvas.height - CONST.CELL_SIZE - this.size
+        if (this.x < CONST.CELL_SIZE) this.x += CONST.BASE_SPEED_PLAYER
+        if (this.y < CONST.CELL_SIZE) this.y += CONST.BASE_SPEED_PLAYER
+        if (this.x > window.$canvas.width - CONST.CELL_SIZE) this.x -= CONST.BASE_SPEED_PLAYER
+        if (this.y > window.$canvas.height - CONST.CELL_SIZE) this.y -= CONST.BASE_SPEED_PLAYER
     }
 
     /**
