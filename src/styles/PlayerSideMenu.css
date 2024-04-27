@@ -1,12 +1,6 @@
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    width: 100%;
-    height: 80%;
-
-    padding: 10px;
+    position: relative;
+    width: 300px;
     z-index: 100;
 
     & aside {
@@ -18,11 +12,10 @@
         gap: 25px;
         height: 100%;
         width: 100%;
-        max-width: 250px;
         padding: 10px;
 
         color: #eee;
-        background: #251202e6;
+        background: #2c1a0bf1;
         border-radius: 10px;
         border: 5px solid #523004;
         box-shadow: 0 0 10px 5px #000;
@@ -30,10 +23,13 @@
         h1 {
             margin: 0;
             font-size: 32px;
+            /* prevent new line */
+            white-space: nowrap;
         }
 
         .sprite-preview {
-            width: 60%;
+            width: 80%;
+            max-width: 150px;
             aspect-ratio: 1/1;
             display: flex;
             justify-content: center;
@@ -59,3 +55,19 @@
         }
     }
 }
+
+
+@media (max-width: 1400px) {
+    .wrapper {
+        aside{
+            h1{
+                font-size: 1.5em;
+            }
+
+            .sprite-preview {
+                width: 60%;
+            }
+        }
+    }
+}
+

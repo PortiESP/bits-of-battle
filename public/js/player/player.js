@@ -21,6 +21,9 @@ export default class Player {
             cooldown: 0, // The player's cooldown (for attacking)
             attacking: false, // The player is attacking
             ghost: false, // The player is in ghost mode
+            blink: 0, // Time until the player stops blinking
+            tornado: false, // The player is in tornado mode
+            tornadoUntil: 0, // Time until the player stops the tornado mode
         }
 
         // Player data
@@ -68,7 +71,14 @@ export default class Player {
         ctx.fill()
 
         // Draw the sprite
-        if (!this.state.ghost) ctx.drawImage(
+        let willBeDrawn = true
+        if (this.state.ghost) willBeDrawn = false  // Ghost mode
+        if (this.state.blink > window.time()) {  // Hit animation
+            if ((this.state.blink-window.time()) % 300 < 150){
+                willBeDrawn = false
+            }
+        }
+        if (willBeDrawn) ctx.drawImage(
             image,
             this.state.currentSprite.x * CONST.CHARACTER_SPRITE_SIZE,
             this.state.currentSprite.y * CONST.CHARACTER_SPRITE_SIZE,
@@ -110,24 +120,38 @@ export default class Player {
         this.state.moving = true
         let newDirection = { x: 0, y: 0 }
 
+        // Keys
+        let ctrls = this.controls
+        if (this.state.tornado) {
+            ctrls = {
+                up: this.controls.left,
+                left: this.controls.down,
+                down: this.controls.right,
+                right: this.controls.up,
+            }
+            
+            // Check if the player is still in tornado mode
+            if (window.time() > this.state.tornadoUntil) this.state.tornado = false
+        }
+
         // Update the direction based on the most recent key pressed
-        if (window.keys[this.controls.up]) {
+        if (window.keys[ctrls.up]) {
             newDirection = { x: 0, y: -1 }
             this.dy = -CONST.BASE_SPEED_PLAYER
         }
-        if (window.keys[this.controls.down]) {
+        if (window.keys[ctrls.down]) {
             newDirection = { x: 0, y: 1 }
             this.dy = CONST.BASE_SPEED_PLAYER
         }
-        if (window.keys[this.controls.left]) {
+        if (window.keys[ctrls.left]) {
             newDirection = { x: -1, y: 0 }
             this.dx = -CONST.BASE_SPEED_PLAYER
         }
-        if (window.keys[this.controls.right]) {
+        if (window.keys[ctrls.right]) {
             newDirection = { x: 1, y: 0 }
             this.dx = CONST.BASE_SPEED_PLAYER
         }
-        if (window.keys[this.controls.attack] && this.state.attacking) {
+        if (window.keys[ctrls.attack] && this.state.attacking) {
             newDirection = this.state.direction
             this.dx = 0
             this.dy = 0
@@ -153,10 +177,10 @@ export default class Player {
         this.y += this.dy
 
         // Check if the player is within the canvas
-        if (this.x < 0) this.x = 0 + CONST.CELL_SIZE + this.size
-        if (this.y < 0) this.y = 0 + CONST.CELL_SIZE + this.size
-        if (this.x > window.$canvas.width) this.x = window.$canvas.width - CONST.CELL_SIZE - this.size
-        if (this.y > window.$canvas.height) this.y = window.$canvas.height - CONST.CELL_SIZE - this.size
+        if (this.x < CONST.CELL_SIZE) this.x += CONST.BASE_SPEED_PLAYER
+        if (this.y < CONST.CELL_SIZE) this.y += CONST.BASE_SPEED_PLAYER
+        if (this.x > window.$canvas.width - CONST.CELL_SIZE) this.x -= CONST.BASE_SPEED_PLAYER
+        if (this.y > window.$canvas.height - CONST.CELL_SIZE) this.y -= CONST.BASE_SPEED_PLAYER
     }
 
     /**
@@ -256,8 +280,9 @@ export default class Player {
 
             // Play the sound
             window.sound.play("hit")
+            player.state.blink = window.time() + 750
 
-            // Deal the damage to the player
+            // Deal the damage to the player if it is positive
             if (player.stats.health - damage < 0) player.stats.health = 0
             else player.stats.health -= damage
         }

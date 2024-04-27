@@ -40,8 +40,10 @@ export const mapData = {
         { type: "shield", row: 18, col: 2 },
         { type: "shield", row: 5, col: 23 },
         { type: "ghost", row: 17, col: 28 },
-        { type: "ghost", row: 1, col: 2 },
+        { type: "ghost", row: 5, col: 3 },
         { type: "ghost", row: 17, col: 2 },
+        { type: "tornado", row: 6, col: 3 },
+
     ],
     objectives: [
         { row: 3, col: 5 },
