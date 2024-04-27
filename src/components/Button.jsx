@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import "../styles/Button.css"
 
+
 const colorToDarker = color => {
     if (color === undefined) return undefined
     let r = parseInt(color.slice(1, 3), 16)
