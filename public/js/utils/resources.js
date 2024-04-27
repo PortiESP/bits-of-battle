@@ -58,6 +58,11 @@ export class Resources {
      * Check if all images are loaded
      */
     isReady() {
-        return Object.values(this.images).every((value) => value.loaded) && Object.keys(this.toLoad).length === Object.keys(this.images).length
+        let ready = true
+        Object.keys(this.toLoad).forEach((key) => {
+            if (!this.images[key]) ready = false
+        })
+
+        return ready
     }
 }

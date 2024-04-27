@@ -56,8 +56,8 @@ export default class Player {
         // Select the image based on the player's team
         let selection
         if (this.state.attacking) {
-            selection = { p1: `${window.skins[0]}Attack`, p2: `${window.skins[1]}Attack` }
-        } else selection = { p1: window.skins[0], p2: window.skins[1] }
+            selection = { p1: `${window.skins[0]}_attack`, p2: `${window.skins[1]}_attack` }
+        } else selection = { p1: `${window.skins[0]}_sprite`, p2: `${window.skins[1]}_sprite` }
 
         const image = this.team === CONST.TEAM_1_COLOR ? images[selection.p1].img : images[selection.p2].img
 
