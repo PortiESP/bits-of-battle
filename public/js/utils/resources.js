@@ -35,6 +35,7 @@ export class Resources {
             blueFlag: "assets/items/item-blueFlag.png",
             whiteFlag: "assets/items/item-whiteFlag.png",
             teleporter: "assets/items/item-teleporter.png",
+            ghost: "assets/items/item-ghost.png",
         }
 
         this.images = {}

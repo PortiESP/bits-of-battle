@@ -35,6 +35,7 @@ const CONST = {
 
     // Power-ups
     ATTACK_BOOST: 5, // The attack boost of the power-up
+    GHOST_DURATION: 3000, // The duration of the ghost power-up
 
     // Flags
     PLAYER_1_FLAG: "blueFlag", // Flag of player 1

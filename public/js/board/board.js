@@ -7,6 +7,7 @@ import { AttackBoost } from "../power_ups/attack_boost.js"
 import { Teleport } from "../power_ups/teleport.js"
 import { Heal } from "../power_ups/heal.js"
 import { Shield } from "../power_ups/shield.js"
+import { Ghost } from "../power_ups/ghost.js"
 
 export function generateBoardData() {
     const walls = [] // Array of RectWall objects
@@ -87,6 +88,8 @@ export function generatePowerUps() {
                 return new Heal(data.row, data.col)
             case "shield":
                 return new Shield(data.row, data.col)
+            case "ghost":
+                return new Ghost(data.row, data.col)
             default:
                 throw new Error(`Invalid power-up type: ${data.type}. Please check the board/map.js file an check that every power-up matches the available types in this switch statement.`)
         }

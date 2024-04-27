@@ -20,6 +20,7 @@ export default class Player {
             frame: 0, // The player's frame
             cooldown: 0, // The player's cooldown (for attacking)
             attacking: false, // The player is attacking
+            ghost: false, // The player is in ghost mode
         }
 
         // Player data
@@ -144,6 +145,12 @@ export default class Player {
 
         this.x += this.dx
         this.y += this.dy
+
+        // Check if the player is within the canvas
+        if (this.x < 0) this.x = 0 + CONST.CELL_SIZE + this.size
+        if (this.y < 0) this.y = 0 + CONST.CELL_SIZE + this.size
+        if (this.x > window.$canvas.width) this.x = window.$canvas.width - CONST.CELL_SIZE - this.size
+        if (this.y > window.$canvas.height) this.y = window.$canvas.height - CONST.CELL_SIZE - this.size
     }
 
     /**

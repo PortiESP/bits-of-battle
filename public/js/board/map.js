@@ -39,6 +39,9 @@ export const mapData = {
         { type: "shield", row: 15, col: 15 },
         { type: "shield", row: 18, col: 2 },
         { type: "shield", row: 5, col: 23 },
+        { type: "ghost", row: 17, col: 28 },
+        { type: "ghost", row: 1, col: 2 },
+        { type: "ghost", row: 17, col: 2 },
     ],
     objectives: [
         { row: 3, col: 5 },
