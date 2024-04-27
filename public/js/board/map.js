@@ -42,6 +42,8 @@ export const mapData = {
         { type: "ghost", row: 17, col: 28 },
         { type: "ghost", row: 5, col: 3 },
         { type: "ghost", row: 17, col: 2 },
+        { type: "tornado", row: 6, col: 3 },
+
     ],
     objectives: [
         { row: 3, col: 5 },

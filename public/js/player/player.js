@@ -22,6 +22,8 @@ export default class Player {
             attacking: false, // The player is attacking
             ghost: false, // The player is in ghost mode
             blink: 0, // Time until the player stops blinking
+            tornado: false, // The player is in tornado mode
+            tornadoUntil: 0, // Time until the player stops the tornado mode
         }
 
         // Player data
@@ -118,24 +120,38 @@ export default class Player {
         this.state.moving = true
         let newDirection = { x: 0, y: 0 }
 
+        // Keys
+        let ctrls = this.controls
+        if (this.state.tornado) {
+            ctrls = {
+                up: this.controls.left,
+                left: this.controls.down,
+                down: this.controls.right,
+                right: this.controls.up,
+            }
+            
+            // Check if the player is still in tornado mode
+            if (window.time() > this.state.tornadoUntil) this.state.tornado = false
+        }
+
         // Update the direction based on the most recent key pressed
-        if (window.keys[this.controls.up]) {
+        if (window.keys[ctrls.up]) {
             newDirection = { x: 0, y: -1 }
             this.dy = -CONST.BASE_SPEED_PLAYER
         }
-        if (window.keys[this.controls.down]) {
+        if (window.keys[ctrls.down]) {
             newDirection = { x: 0, y: 1 }
             this.dy = CONST.BASE_SPEED_PLAYER
         }
-        if (window.keys[this.controls.left]) {
+        if (window.keys[ctrls.left]) {
             newDirection = { x: -1, y: 0 }
             this.dx = -CONST.BASE_SPEED_PLAYER
         }
-        if (window.keys[this.controls.right]) {
+        if (window.keys[ctrls.right]) {
             newDirection = { x: 1, y: 0 }
             this.dx = CONST.BASE_SPEED_PLAYER
         }
-        if (window.keys[this.controls.attack] && this.state.attacking) {
+        if (window.keys[ctrls.attack] && this.state.attacking) {
             newDirection = this.state.direction
             this.dx = 0
             this.dy = 0
