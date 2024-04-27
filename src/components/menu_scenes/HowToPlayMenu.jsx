@@ -34,7 +34,7 @@ export default function HowToPlayMenu(props) {
             </section>
         </div>
         <div className="how-back">
-            <Button onClick={() => props.setScene(0)}>Back to main menu</Button>
+            <Button color="#ff3333" onClick={() => props.setScene(0)}>Back to main menu</Button>
         </div>
     </div>
 }

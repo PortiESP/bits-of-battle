@@ -38,6 +38,12 @@ export default function SettingsMenu(props) {
                 Change Controls
             </Button>        
         </div>
+
+        <div className="sett-controls">
+            <Button color="#ff3333" onClick={() => props.setScene(0)}>Back to Main Menu</Button>
+        </div>
+
+
     </div>
 }
 

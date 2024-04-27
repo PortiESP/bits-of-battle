@@ -28,7 +28,7 @@ const StartScreen = ({ setShowStartScreen }) => {
                 (scene === 1 && <HowToPlayMenu {...funcs} />) || 
                 (scene === 2 && <SettingsMenu {...funcs} />) ||
                 (scene === 2_1 && <ControlsMenu {...funcs} />) ||
-                (scene === 4 && <CreditsMenu {...funcs} />) ||
+                (scene === 3 && <CreditsMenu {...funcs} />) ||
                 (scene === 99 && <SmallScreen {...funcs}/>)
             }
         </div>
