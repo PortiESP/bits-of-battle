@@ -10,9 +10,9 @@ Ready for an epic battle? [Play Bits Of Battle here](https://bits-of-battle.verc
 
 Our team is composed of talented individuals from **Spain**. Here's more about us:
 
-- 🧑‍💻🎵 **Jaime Portillo** 
+- 🧑‍💻🧰 **Jaime Portillo** 
 - 🧑‍💻🎨 **Diego Sánchez**
-- 🧑‍💻🔧 **Marcelo Domínguez**
+- 🧑‍💻🎵 **Marcelo Domínguez**
 
 We hope you enjoy playing **Bits Of Battle** as much as we enjoyed creating it! 🎉🎊
 
@@ -24,7 +24,7 @@ Choose from different characters and step onto the battlefield to face your enem
 
 Your mission? You have two paths to victory:
 - Capture all the flags 🚩 
-- Defeat all the enemies 👑🏆
+- Defeat your oponent 👑🏆
 
 Remember, power-ups are scattered across the battlefield. Use them wisely to turn the tide of battle in your favor 💪⚡.
 
