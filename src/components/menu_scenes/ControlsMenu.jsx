@@ -4,19 +4,34 @@ import CONST from "../../../public/js/data/constants.js"
 import { useEffect, useState } from "react"
 import Button from "../Button.jsx"
 
+function loadControls(player){
+    if (window.saved){
+        return window.saved.players[player-1].controls
+    } else {
+        return player === 1 ? CONST.CONTROLS_P1 : CONST.CONTROLS_P2
+    }
+
+}
+
 export default function ControlsMenu(props) {
 
-    const [controls1, setControls1] = useState(CONST.CONTROLS_P1)
-    const [controls2, setControls2] = useState(CONST.CONTROLS_P2)
+    const [controls1, setControls1] = useState(loadControls(1))
+    const [controls2, setControls2] = useState(loadControls(2))
 
     useEffect(() => {
         console.log(controls1)
         window.customControls1 = controls1
+        if (window.saved){
+            window.saved.players[0].controls = controls1
+        }
     }, [controls1])
     
     useEffect(() => {
         console.log(controls2)
         window.customControls2 = controls2
+        if (window.saved){
+            window.saved.players[1].controls = controls2
+        }
     }, [controls2])
 
     const resetControls = () => {
